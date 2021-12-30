@@ -11,26 +11,28 @@ export default function Initialize() {
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
       )
   );
-  
+
   // Assuming you have two redirect URIs, and the first is for localhost and second is for production
-  const [
-    localRedirectSignIn,
-    productionRedirectSignIn,
-  ] = config.oauth.redirectSignIn.split(",");
-  
-  const [
-    localRedirectSignOut,
-    productionRedirectSignOut,
-  ] = config.oauth.redirectSignOut.split(",");
-  
+  // const [localRedirectSignIn, productionRedirectSignIn] =
+  //   config.oauth.redirectSignIn.split(",");
+
+  // const [
+  //   localRedirectSignOut,
+  //   productionRedirectSignOut,
+  // ] = config.oauth.redirectSignOut.split(",");
+
   const updatedAwsConfig = {
     ...config,
-    oauth: {
-      ...config.oauth,
-      redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
-      redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
-    }
-  }
-  
+    // oauth: {
+    //   ...config.oauth,
+    //   redirectSignIn: isLocalhost
+    //     ? localRedirectSignIn
+    //     : productionRedirectSignIn,
+    //   redirectSignOut: isLocalhost
+    //     ? localRedirectSignOut
+    //     : productionRedirectSignOut,
+    // },
+  };
+
   Amplify.configure(updatedAwsConfig);
 }

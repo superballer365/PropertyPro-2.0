@@ -5,23 +5,24 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Initialize from "./Initialize";
+// import Initialize from "./Initialize";
 import AuthorizationContextProvider from "./Contexts/AuthorizationContext";
 
-Initialize();
+// TODO: add back after auth is created
+// Initialize();
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthorizationContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <div className="mainContainer">
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </div>
-      </QueryClientProvider>
-    </AuthorizationContextProvider>
+    {/* <AuthorizationContextProvider> */}
+    <QueryClientProvider client={queryClient}>
+      <div className="mainContainer">
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </div>
+    </QueryClientProvider>
+    {/* </AuthorizationContextProvider> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

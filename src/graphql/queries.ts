@@ -46,10 +46,24 @@ export const listSessions = /* GraphQL */ `
         id
         name
         searchCity
+        searchBounds {
+          bottomLeft {
+            lat
+            lng
+          }
+          topRight {
+            lat
+            lng
+          }
+        }
         listings {
           id
           name
           address
+          location {
+            lat
+            lng
+          }
           price
           numberOfBedrooms
           numberOfBathrooms

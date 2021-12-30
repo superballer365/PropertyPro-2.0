@@ -10,15 +10,14 @@ interface IAuthorizationContextState {
 }
 
 const defaultState: IAuthorizationContextState = {
-  user: undefined,
+  user: { name: "dummy user" },
   loadingUser: false,
   signIn: () => {},
   signOut: () => {},
 };
 
-export const AuthorizationContext = React.createContext<IAuthorizationContextState>(
-  defaultState
-);
+export const AuthorizationContext =
+  React.createContext<IAuthorizationContextState>(defaultState);
 
 export default function AuthorizationContextProvider({
   children,
