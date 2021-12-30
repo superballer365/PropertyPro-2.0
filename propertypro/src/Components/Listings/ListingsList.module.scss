@@ -1,0 +1,19 @@
+.card {
+  height: 100%;
+
+  .header {
+    display: flex;
+    align-items: center;
+
+    .title {
+      flex-grow: 1;
+    }
+  }
+}
+
+.listItem {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+}
