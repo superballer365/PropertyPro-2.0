@@ -10,6 +10,11 @@
       "StackName": "amplify-propertypro2-dev-203606",
       "StackId": "arn:aws:cloudformation:us-east-1:016402928054:stack/amplify-propertypro2-dev-203606/e091fda0-6910-11ec-ad1f-0a5194e47253",
       "AmplifyAppId": "d24fj1jxstwr6o"
+    },
+    "categories": {
+      "auth": {
+        "propertypro268610430": {}
+      }
     }
   }
 }
