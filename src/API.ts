@@ -21,7 +21,7 @@ export type CoordinateInput = {
 };
 
 export type ListingInput = {
-  id: string,
+  id?: string | null,
   name: string,
   address: string,
   location: CoordinateInput,
@@ -80,36 +80,36 @@ export type ModelSizeInput = {
 
 export type Session = {
   __typename: "Session",
-  id?: string,
-  name?: string,
-  searchCity?: string,
-  searchBounds?: BoundingBox,
+  id: string,
+  name: string,
+  searchCity: string,
+  searchBounds: BoundingBox,
   listings?:  Array<Listing > | null,
-  createdAt?: string,
-  updatedAt?: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type BoundingBox = {
   __typename: "BoundingBox",
-  bottomLeft?: Coordinate,
-  topRight?: Coordinate,
+  bottomLeft: Coordinate,
+  topRight: Coordinate,
 };
 
 export type Coordinate = {
   __typename: "Coordinate",
-  lat?: number,
-  lng?: number,
+  lat: number,
+  lng: number,
 };
 
 export type Listing = {
   __typename: "Listing",
-  id?: string,
-  name?: string,
-  address?: string,
-  location?: Coordinate,
-  price?: number,
-  numberOfBedrooms?: number,
-  numberOfBathrooms?: number,
+  id: string,
+  name: string,
+  address: string,
+  location: Coordinate,
+  price: number,
+  numberOfBedrooms: number,
+  numberOfBathrooms: number,
 };
 
 export type UpdateSessionInput = {
@@ -121,7 +121,7 @@ export type UpdateSessionInput = {
 };
 
 export type DeleteSessionInput = {
-  id?: string | null,
+  id: string,
 };
 
 export type ModelSessionFilterInput = {
@@ -151,12 +151,12 @@ export type ModelIDInput = {
 
 export type ModelSessionConnection = {
   __typename: "ModelSessionConnection",
-  items?:  Array<Session | null > | null,
+  items:  Array<Session | null >,
   nextToken?: string | null,
 };
 
 export type CreateSessionMutationVariables = {
-  input?: CreateSessionInput,
+  input: CreateSessionInput,
   condition?: ModelSessionConditionInput | null,
 };
 
@@ -199,7 +199,7 @@ export type CreateSessionMutation = {
 };
 
 export type UpdateSessionMutationVariables = {
-  input?: UpdateSessionInput,
+  input: UpdateSessionInput,
   condition?: ModelSessionConditionInput | null,
 };
 
@@ -242,7 +242,7 @@ export type UpdateSessionMutation = {
 };
 
 export type DeleteSessionMutationVariables = {
-  input?: DeleteSessionInput,
+  input: DeleteSessionInput,
   condition?: ModelSessionConditionInput | null,
 };
 
@@ -285,7 +285,7 @@ export type DeleteSessionMutation = {
 };
 
 export type GetSessionQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetSessionQuery = {
@@ -335,7 +335,7 @@ export type ListSessionsQueryVariables = {
 export type ListSessionsQuery = {
   listSessions?:  {
     __typename: "ModelSessionConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Session",
       id: string,
       name: string,
@@ -369,7 +369,7 @@ export type ListSessionsQuery = {
       } > | null,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
