@@ -12,7 +12,7 @@
     "@types/react": "^16.14.2",
     "@types/react-bootstrap-typeahead": "^5.1.4",
     "@types/react-dom": "^16.9.10",
-    "aws-amplify": "^3.3.20",
+    "aws-amplify": "^4.3.11",
     "bootstrap": "^4.6.0",
     "classnames": "^2.3.1",
     "google-map-react": "^2.1.9",

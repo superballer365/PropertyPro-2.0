@@ -5,11 +5,19 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import awsmobile from "./aws-exports";
+
+import Amplify from "aws-amplify";
 // import Initialize from "./Initialize";
 import AuthorizationContextProvider from "./Contexts/AuthorizationContext";
 
 // TODO: add back after auth is created
 // Initialize();
+
+awsmobile.aws_appsync_authenticationType = "API_KEY";
+console.log("configuration:");
+console.log(awsmobile);
+Amplify.configure(awsmobile);
 
 const queryClient = new QueryClient();
 
