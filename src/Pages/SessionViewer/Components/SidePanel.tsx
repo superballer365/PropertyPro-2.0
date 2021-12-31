@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import ListingsPanel from "./Listings/ListingsPanel";
 import SessionData from "../../../Models/Session";
 import styles from "./SidePanel.module.scss";
+import classNames from "classnames";
 
 export default function SidePanel({ session }: IProps) {
   const [activeTab, setActiveTab] = React.useState<TabOption>("Listings");
@@ -16,6 +17,9 @@ export default function SidePanel({ session }: IProps) {
               <Nav.Link
                 active={activeTab === option}
                 onClick={() => setActiveTab(option)}
+                className={classNames(
+                  activeTab === option && styles.activeNavLink
+                )}
               >
                 {option}
               </Nav.Link>
