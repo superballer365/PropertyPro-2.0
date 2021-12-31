@@ -1,6 +1,6 @@
 import React from "react";
-import { withHeader } from "../Components/Header/Header";
-import LoadingSpinner from "../Components/LoadingSpinner/LoadingSpinner";
+import { withHeader } from "../../Components/Header";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 
 export interface ILoadingPageProps extends IBaseLoadingPageProps {
   showHeader?: boolean;

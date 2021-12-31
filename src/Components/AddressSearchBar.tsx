@@ -4,7 +4,7 @@ import {
   AutoCompleteSuggestion,
   googlePlacesAutoComplete,
   SearchType,
-} from "../../API/Google Places";
+} from "../API/Google Places";
 
 interface IProps {
   onSelect: (selection: AutoCompleteSuggestion) => void;

@@ -2,8 +2,8 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import SessionData from "../../Models/Session";
-import { useUpdateSession } from "../../Utils/Hooks";
+import SessionData from "../../../Models/Session";
+import { useUpdateSession } from "../../../Utils/Hooks";
 
 export default function EditSessionDialog({ session, onClose }: IProps) {
   const mutation = useUpdateSession();

@@ -2,13 +2,13 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { AutoCompleteSuggestion, SearchType } from "../../API/Google Places";
-import AddressSearchBar from "../AddressSearchBar/AddressSearchBar";
+import { AutoCompleteSuggestion, SearchType } from "../../../API/Google Places";
+import AddressSearchBar from "../../../Components/AddressSearchBar";
 import {
   BoundingBox,
   geocodeByPlaceId,
-} from "../../API/Google Places/Geocoding";
-import { useCreateSession } from "../../Utils/Hooks";
+} from "../../../API/Google Places/Geocoding";
+import { useCreateSession } from "../../../Utils/Hooks";
 
 export default function NewSessionDialog({ onClose }: IProps) {
   const createSessionMutation = useCreateSession();

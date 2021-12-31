@@ -2,10 +2,10 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import styles from "./ListingsPanel.module.scss";
-import SessionData from "../../Models/Session";
+import SessionData from "../../../../Models/Session";
 import NewListingDialog from "./NewListingDialog";
 import ListingsList from "./ListingsList";
-import { ListingContext } from "../../Contexts/ListingContext";
+import { ListingContext } from "../../../../Contexts/ListingContext";
 import ListingViewer from "./ListingViewer";
 
 export default function ListingsPanel({ session }: IProps) {

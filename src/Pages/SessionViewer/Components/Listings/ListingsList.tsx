@@ -3,9 +3,9 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
-import SessionData, { Listing } from "../../Models/Session";
+import SessionData, { Listing } from "../../../../Models/Session";
 import styles from "./ListingsList.module.scss";
-import { ListingContext } from "../../Contexts/ListingContext";
+import { ListingContext } from "../../../../Contexts/ListingContext";
 
 export default function ListingsList({
   session,

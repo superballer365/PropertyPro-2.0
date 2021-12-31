@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { AuthorizationContext } from "../Contexts/AuthorizationContext";
+import { AuthorizationContext } from "../../Contexts/AuthorizationContext";
 
 export default function LandingPage() {
   const { signIn } = React.useContext(AuthorizationContext);

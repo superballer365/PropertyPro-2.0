@@ -1,7 +1,6 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import HomeDashboard from "../Components/HomeDashboard/HomeDashboard";
-import { AuthorizationContext } from "../Contexts/AuthorizationContext";
+import HomeDashboard from "./Components/HomeDashboard";
 
 export default function HomePage() {
   return (

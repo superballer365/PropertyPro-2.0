@@ -1,8 +1,8 @@
 import React from "react";
-import { ListingContextProvider } from "../../Contexts/ListingContext";
-import SessionData from "../../Models/Session";
-import ListingsPanel from "../Listings/ListingsPanel";
-import Map from "../Map/Map";
+import { ListingContextProvider } from "../../../Contexts/ListingContext";
+import SessionData from "../../../Models/Session";
+import ListingsPanel from "./Listings/ListingsPanel";
+import Map from "./Map";
 import styles from "./SessionViewerDashboard.module.scss";
 
 interface IProps {

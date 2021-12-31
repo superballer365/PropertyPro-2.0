@@ -1,9 +1,9 @@
 import React from "react";
 import GoogleMapReact, { fitBounds } from "google-map-react";
-import { Coordinate } from "../../API/Google Places/Geocoding";
-import SessionData from "../../Models/Session";
-import ListingMarker, { ListingMarkerProps } from "../Listings/ListingMarker";
-import { ListingContext } from "../../Contexts/ListingContext";
+import { Coordinate } from "../../../API/Google Places/Geocoding";
+import SessionData from "../../../Models/Session";
+import ListingMarker, { ListingMarkerProps } from "./Listings/ListingMarker";
+import { ListingContext } from "../../../Contexts/ListingContext";
 
 interface IProps {
   session: SessionData;

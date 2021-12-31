@@ -2,13 +2,13 @@ import React from "react";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { AuthorizationContext } from "./Contexts/AuthorizationContext";
 import "./App.css";
-import LoadingPage from "./Pages/LoadingPage";
-import LandingPage from "./Pages/LandingPage";
-import HomePage from "./Pages/HomePage";
-import { withHeader } from "./Components/Header/Header";
-import SettingsPage from "./Pages/SettingsPage";
-import AboutPage from "./Pages/AboutPage";
-import SessionViewerPage from "./Pages/SessionViewerPage";
+import LoadingPage from "./Pages/Loading/LoadingPage";
+import LandingPage from "./Pages/Landing/LandingPage";
+import HomePage from "./Pages/Home/HomePage";
+import { withHeader } from "./Components/Header";
+import SettingsPage from "./Pages/Settings/SettingsPage";
+import AboutPage from "./Pages/About/AboutPage";
+import SessionViewerPage from "./Pages/SessionViewer/SessionViewerPage";
 
 function App() {
   const { user, loadingUser } = React.useContext(AuthorizationContext);

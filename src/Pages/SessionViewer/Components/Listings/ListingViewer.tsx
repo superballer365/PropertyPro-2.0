@@ -3,11 +3,11 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { ListingContext } from "../../Contexts/ListingContext";
-import SessionData, { Listing } from "../../Models/Session";
-import { useUpdateSession } from "../../Utils/Hooks";
+import { ListingContext } from "../../../../Contexts/ListingContext";
+import SessionData, { Listing } from "../../../../Models/Session";
+import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "./EditListingDialog";
-import { getAddressComponents } from "../../Utils/address";
+import { getAddressComponents } from "../../../../Utils/address";
 
 export default function ListingViewer({ listing, session }: IProps) {
   const { setSelectedListing } = React.useContext(ListingContext);

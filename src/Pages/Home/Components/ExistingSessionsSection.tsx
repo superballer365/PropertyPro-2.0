@@ -1,12 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../../Components/LoadingSpinner";
 import Card from "react-bootstrap/Card";
-import SessionData from "../../Models/Session";
+import SessionData from "../../../Models/Session";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import EditSessionDialog from "./EditSessionDialog";
-import { useDeleteSession, useSessions } from "../../Utils/Hooks";
+import { useDeleteSession, useSessions } from "../../../Utils/Hooks";
 
 export default function ExistingSessionsSection() {
   const {

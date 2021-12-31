@@ -1,14 +1,10 @@
 import React from "react";
-import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { GetSessionQuery } from "../API";
-import LoadingSpinner from "../Components/LoadingSpinner/LoadingSpinner";
-import SessionViewerDashboard from "../Components/SessionViewerDashboard/SessionViewerDashboard";
-import callGraphQL from "../graphql/callGraphQL";
-import { getSession } from "../graphql/queries";
-import SessionData, { mapGetSession } from "../Models/Session";
-import { useSession } from "../Utils/Hooks";
-import ErrorPage from "./ErrorPage";
+import LoadingSpinner from "../../Components/LoadingSpinner";
+import SessionViewerDashboard from "./Components/SessionViewerDashboard";
+import SessionData from "../../Models/Session";
+import { useSession } from "../../Utils/Hooks";
+import ErrorPage from "../Error/ErrorPage";
 
 interface RouteParams {
   sessionId: string;

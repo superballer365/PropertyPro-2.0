@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
-import houseImg from "../../Images/house.png";
-import { Listing } from "../../Models/Session";
+import houseImg from "../../../../Images/house.png";
+import { Listing } from "../../../../Models/Session";
 import styles from "./ListingMarker.module.scss";
 
 export default function ListingMarker({
