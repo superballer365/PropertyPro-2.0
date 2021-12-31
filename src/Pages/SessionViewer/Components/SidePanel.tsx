@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import ListingsPanel from "./Listings/ListingsPanel";
+import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
 import SessionData from "../../../Models/Session";
 import styles from "./SidePanel.module.scss";
 import classNames from "classnames";
@@ -28,7 +29,11 @@ export default function SidePanel({ session }: IProps) {
         )}
       </Nav>
       <div>
-        {activeTab === "Listings" ? <ListingsPanel session={session} /> : null}
+        {activeTab === "Listings" ? (
+          <ListingsPanel session={session} />
+        ) : activeTab === "POI" ? (
+          <PointsOfInterestPanel session={session} />
+        ) : null}
       </div>
     </div>
   );

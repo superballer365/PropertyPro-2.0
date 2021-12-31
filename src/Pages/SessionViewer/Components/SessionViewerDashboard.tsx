@@ -1,5 +1,6 @@
 import React from "react";
 import { ListingContextProvider } from "../../../Contexts/ListingContext";
+import { PointOfInterestContextProvider } from "../../../Contexts/PointOfInterestContext";
 import SessionData from "../../../Models/Session";
 import SidePanel from "./SidePanel";
 import Map from "./Map";
@@ -12,12 +13,14 @@ interface IProps {
 export default function SessionViewerDashboard({ session }: IProps) {
   return (
     <ListingContextProvider>
-      <div className={styles.container}>
-        <SidePanel session={session} />
-        <div className={styles.mapContainer}>
-          <Map session={session} />
+      <PointOfInterestContextProvider>
+        <div className={styles.container}>
+          <SidePanel session={session} />
+          <div className={styles.mapContainer}>
+            <Map session={session} />
+          </div>
         </div>
-      </div>
+      </PointOfInterestContextProvider>
     </ListingContextProvider>
   );
 }

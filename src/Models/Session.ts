@@ -3,6 +3,7 @@ import {
   GetSessionQuery,
   ListSessionsQuery,
   UpdateSessionMutation,
+  PointOfInterestType,
 } from "../API";
 import { GraphQLResult } from "@aws-amplify/api";
 import { BoundingBox, Coordinate } from "../API/Google Places/Geocoding";
@@ -13,6 +14,7 @@ interface SessionData {
   searchCity: string;
   searchBounds: BoundingBox;
   listings?: Listing[] | null;
+  pointsOfInterest?: PointOfInterest[] | null;
 }
 
 export interface Listing {
@@ -25,6 +27,14 @@ export interface Listing {
   numberOfBathrooms: number;
 }
 
+export interface PointOfInterest {
+  id: string;
+  name: string;
+  type: PointOfInterestType;
+  address: string;
+  location: Coordinate;
+}
+
 export function sessionDataToApiSessionInput(
   sessionData: SessionData
 ): CreateSessionInput {
@@ -34,6 +44,7 @@ export function sessionDataToApiSessionInput(
     searchCity: sessionData.searchCity,
     searchBounds: sessionData.searchBounds,
     listings: sessionData.listings,
+    pointsOfInterest: sessionData.pointsOfInterest,
   };
 }
 
@@ -49,6 +60,7 @@ function mapListSessionsQuery(
           searchCity: session?.searchCity,
           searchBounds: session?.searchBounds,
           listings: session?.listings,
+          pointsOfInterest: session?.pointsOfInterest,
         } as SessionData)
     ) ?? []
   );

@@ -3,14 +3,20 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { ListingContext } from "../../../../Contexts/ListingContext";
-import SessionData, { Listing } from "../../../../Models/Session";
+import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
+import SessionData, { PointOfInterest } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
-import EditListingDialog from "../Listings/EditListingDialog";
 import { getAddressComponents } from "../../../../Utils/address";
+import EditPointOfInterestDialog from "./EditPointOfInterestDialog";
+import { PointOfInterestType } from "../../../../API";
 
-export default function ListingViewer({ listing, session }: IProps) {
-  const { setSelectedListing } = React.useContext(ListingContext);
+export default function PointOfInterestViewer({
+  pointOfInterest,
+  session,
+}: IProps) {
+  const { setSelectedPointOfInterest } = React.useContext(
+    PointOfInterestContext
+  );
 
   const [isEditing, setIsEditing] = React.useState(false);
 
@@ -23,18 +29,20 @@ export default function ListingViewer({ listing, session }: IProps) {
   async function handleDeleteClick() {
     await updateSessionMutation.mutateAsync({
       ...session,
-      listings: session.listings!.filter((l) => l.id !== listing.id),
+      pointsOfInterest: session.pointsOfInterest!.filter(
+        (p) => p.id !== pointOfInterest.id
+      ),
     });
-    setSelectedListing(undefined);
+    setSelectedPointOfInterest(undefined);
   }
 
-  getAddressComponents(listing.address);
+  getAddressComponents(pointOfInterest.address);
 
   return (
     <>
       {isEditing && (
-        <EditListingDialog
-          listing={listing}
+        <EditPointOfInterestDialog
+          pointOfInterest={pointOfInterest}
           session={session}
           onClose={() => setIsEditing(false)}
         />
@@ -43,30 +51,26 @@ export default function ListingViewer({ listing, session }: IProps) {
         <Card.Header>
           <Button
             size="sm"
-            onClick={() => setSelectedListing(undefined)}
+            onClick={() => setSelectedPointOfInterest(undefined)}
           >{`<`}</Button>{" "}
-          <span>{listing.name}</span>
+          <span>{pointOfInterest.name}</span>
         </Card.Header>
         <Card.Body>
           <Row>
-            <Col className="col-sm-5">Price:</Col>
-            <Col>{"$" + listing.price}</Col>
-          </Row>
-          <Row>
-            <Col className="col-sm-5">Bedrooms:</Col>
-            <Col>{listing.numberOfBedrooms}</Col>
-          </Row>
-          <Row>
-            <Col className="col-sm-5">Bathrooms:</Col>
-            <Col>{listing.numberOfBathrooms}</Col>
+            <Col className="col-sm-5">Type:</Col>
+            <Col>
+              {pointOfInterest.type === PointOfInterestType.WORK
+                ? "Work"
+                : "Other"}
+            </Col>
           </Row>
           <Row>
             <Col className="col-sm-5">Street:</Col>
-            <Col>{getAddressComponents(listing.address).street}</Col>
+            <Col>{getAddressComponents(pointOfInterest.address).street}</Col>
           </Row>
           <Row>
             <Col className="col-sm-5">State:</Col>
-            <Col>{getAddressComponents(listing.address).state}</Col>
+            <Col>{getAddressComponents(pointOfInterest.address).state}</Col>
           </Row>
         </Card.Body>
         <Card.Footer className="d-flex justify-content-end">
@@ -84,5 +88,5 @@ export default function ListingViewer({ listing, session }: IProps) {
 
 interface IProps {
   session: SessionData;
-  listing: Listing;
+  pointOfInterest: PointOfInterest;
 }
