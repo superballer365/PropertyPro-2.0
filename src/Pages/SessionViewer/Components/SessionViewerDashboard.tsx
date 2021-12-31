@@ -1,7 +1,7 @@
 import React from "react";
 import { ListingContextProvider } from "../../../Contexts/ListingContext";
 import SessionData from "../../../Models/Session";
-import ListingsPanel from "./Listings/ListingsPanel";
+import SidePanel from "./SidePanel";
 import Map from "./Map";
 import styles from "./SessionViewerDashboard.module.scss";
 
@@ -13,7 +13,7 @@ export default function SessionViewerDashboard({ session }: IProps) {
   return (
     <ListingContextProvider>
       <div className={styles.container}>
-        <ListingsPanel session={session} />
+        <SidePanel session={session} />
         <div className={styles.mapContainer}>
           <Map session={session} />
         </div>
