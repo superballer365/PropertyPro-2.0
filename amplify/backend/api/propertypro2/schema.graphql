@@ -8,6 +8,7 @@ type Session @model {
   searchCity: String!
   searchBounds: BoundingBox!
   listings: [Listing!]
+  pointsOfInterest: [PointOfInterest!]
 }
 
 type Listing {
@@ -18,6 +19,19 @@ type Listing {
   price: Float!
   numberOfBedrooms: Int!
   numberOfBathrooms: Int!
+}
+
+type PointOfInterest {
+  id: ID!
+  name: String!
+  type: PointOfInterestType!
+  address: String!
+  location: Coordinate!
+}
+
+enum PointOfInterestType {
+  WORK
+  OTHER
 }
 
 type Coordinate {

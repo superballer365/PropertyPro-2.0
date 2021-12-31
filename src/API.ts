@@ -8,6 +8,7 @@ export type CreateSessionInput = {
   searchCity: string,
   searchBounds: BoundingBoxInput,
   listings?: Array< ListingInput > | null,
+  pointsOfInterest?: Array< PointOfInterestInput > | null,
 };
 
 export type BoundingBoxInput = {
@@ -29,6 +30,20 @@ export type ListingInput = {
   numberOfBedrooms: number,
   numberOfBathrooms: number,
 };
+
+export type PointOfInterestInput = {
+  id?: string | null,
+  name: string,
+  type: PointOfInterestType,
+  address: string,
+  location: CoordinateInput,
+};
+
+export enum PointOfInterestType {
+  WORK = "WORK",
+  OTHER = "OTHER",
+}
+
 
 export type ModelSessionConditionInput = {
   name?: ModelStringInput | null,
@@ -85,6 +100,7 @@ export type Session = {
   searchCity: string,
   searchBounds: BoundingBox,
   listings?:  Array<Listing > | null,
+  pointsOfInterest?:  Array<PointOfInterest > | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -112,12 +128,22 @@ export type Listing = {
   numberOfBathrooms: number,
 };
 
+export type PointOfInterest = {
+  __typename: "PointOfInterest",
+  id: string,
+  name: string,
+  type: PointOfInterestType,
+  address: string,
+  location: Coordinate,
+};
+
 export type UpdateSessionInput = {
   id: string,
   name?: string | null,
   searchCity?: string | null,
   searchBounds?: BoundingBoxInput | null,
   listings?: Array< ListingInput > | null,
+  pointsOfInterest?: Array< PointOfInterestInput > | null,
 };
 
 export type DeleteSessionInput = {
@@ -193,6 +219,18 @@ export type CreateSessionMutation = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
     } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -235,6 +273,18 @@ export type UpdateSessionMutation = {
       price: number,
       numberOfBedrooms: number,
       numberOfBathrooms: number,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
     } > | null,
     createdAt: string,
     updatedAt: string,
@@ -279,6 +329,18 @@ export type DeleteSessionMutation = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
     } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -320,6 +382,18 @@ export type GetSessionQuery = {
       price: number,
       numberOfBedrooms: number,
       numberOfBathrooms: number,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
     } > | null,
     createdAt: string,
     updatedAt: string,
@@ -367,6 +441,18 @@ export type ListSessionsQuery = {
         numberOfBedrooms: number,
         numberOfBathrooms: number,
       } > | null,
+      pointsOfInterest?:  Array< {
+        __typename: "PointOfInterest",
+        id: string,
+        name: string,
+        type: PointOfInterestType,
+        address: string,
+        location:  {
+          __typename: "Coordinate",
+          lat: number,
+          lng: number,
+        },
+      } > | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -407,6 +493,18 @@ export type OnCreateSessionSubscription = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
     } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -445,6 +543,18 @@ export type OnUpdateSessionSubscription = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
     } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -482,6 +592,18 @@ export type OnDeleteSessionSubscription = {
       price: number,
       numberOfBedrooms: number,
       numberOfBathrooms: number,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
     } > | null,
     createdAt: string,
     updatedAt: string,

@@ -30,6 +30,16 @@ export const getSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
       }
+      pointsOfInterest {
+        id
+        name
+        type
+        address
+        location {
+          lat
+          lng
+        }
+      }
       createdAt
       updatedAt
     }
@@ -67,6 +77,16 @@ export const listSessions = /* GraphQL */ `
           price
           numberOfBedrooms
           numberOfBathrooms
+        }
+        pointsOfInterest {
+          id
+          name
+          type
+          address
+          location {
+            lat
+            lng
+          }
         }
         createdAt
         updatedAt

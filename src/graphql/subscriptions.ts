@@ -30,6 +30,16 @@ export const onCreateSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
       }
+      pointsOfInterest {
+        id
+        name
+        type
+        address
+        location {
+          lat
+          lng
+        }
+      }
       createdAt
       updatedAt
     }
@@ -63,6 +73,16 @@ export const onUpdateSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
       }
+      pointsOfInterest {
+        id
+        name
+        type
+        address
+        location {
+          lat
+          lng
+        }
+      }
       createdAt
       updatedAt
     }
@@ -95,6 +115,16 @@ export const onDeleteSession = /* GraphQL */ `
         price
         numberOfBedrooms
         numberOfBathrooms
+      }
+      pointsOfInterest {
+        id
+        name
+        type
+        address
+        location {
+          lat
+          lng
+        }
       }
       createdAt
       updatedAt
