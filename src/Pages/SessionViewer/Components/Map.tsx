@@ -2,8 +2,9 @@ import React from "react";
 import GoogleMapReact, { fitBounds } from "google-map-react";
 import { Coordinate } from "../../../API/Google Places/Geocoding";
 import SessionData from "../../../Models/Session";
-import ListingMarker, { ListingMarkerProps } from "./Listings/ListingMarker";
 import { ListingContext } from "../../../Contexts/ListingContext";
+import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext";
+import MapMarker, { MapMarkerProps, MarkerType } from "./MapMarker";
 
 interface IProps {
   session: SessionData;
@@ -17,6 +18,13 @@ export default function Map({ session }: IProps) {
     addHoveredListingId,
     removeHoveredListingId,
   } = React.useContext(ListingContext);
+  const {
+    selectedPointOfInterest,
+    hoveredPointOfInterestIds,
+    setSelectedPointOfInterest,
+    addHoveredPointOfInterestId,
+    removeHoveredPointOfInterestId,
+  } = React.useContext(PointOfInterestContext);
 
   const [zoom, setZoom] = React.useState<number>();
   const [center, setCenter] = React.useState<Coordinate>();
@@ -60,16 +68,29 @@ export default function Map({ session }: IProps) {
     setCenter(defaultCenterRef.current);
   }, [selectedListing]);
 
-  function handleMarkerClick(key: string, markerProps: ListingMarkerProps) {
-    setSelectedListing(markerProps.listing);
+  // update the zoom and center when the selected point of interest changes
+  React.useEffect(() => {
+    if (selectedPointOfInterest) {
+      setZoom(17);
+      setCenter(selectedPointOfInterest.location);
+      return;
+    }
+
+    // reset the zoom and center if no point of interest is selected
+    setZoom(defaultZoomRef.current);
+    setCenter(defaultCenterRef.current);
+  }, [selectedPointOfInterest]);
+
+  function handleMarkerClick(key: string, markerProps: MapMarkerProps) {
+    markerProps.onClick();
   }
 
-  function handleMarkerHover(key: string, markerProps: ListingMarkerProps) {
-    addHoveredListingId(key);
+  function handleMarkerHover(key: string, markerProps: MapMarkerProps) {
+    markerProps.onMouseEnter();
   }
 
-  function handleMarkerUnhover(key: string, markerProps: ListingMarkerProps) {
-    removeHoveredListingId(key);
+  function handleMarkerUnhover(key: string, markerProps: MapMarkerProps) {
+    markerProps.onMouseLeave();
   }
 
   return (
@@ -90,12 +111,33 @@ export default function Map({ session }: IProps) {
           }}
         >
           {session.listings?.map((listing) => (
-            <ListingMarker
+            <MapMarker
               key={listing.id}
-              listing={listing}
+              type={MarkerType.Listing}
+              data={listing}
               hovered={hoveredListingIds.includes(listing.id)}
               lat={listing.location.lat}
               lng={listing.location.lng}
+              onClick={() => setSelectedListing(listing)}
+              onMouseEnter={() => addHoveredListingId(listing.id)}
+              onMouseLeave={() => removeHoveredListingId(listing.id)}
+            />
+          ))}
+          {session.pointsOfInterest?.map((pointOfInterest) => (
+            <MapMarker
+              key={pointOfInterest.id}
+              type={MarkerType.PointOfInterest}
+              data={pointOfInterest}
+              hovered={hoveredPointOfInterestIds.includes(pointOfInterest.id)}
+              lat={pointOfInterest.location.lat}
+              lng={pointOfInterest.location.lng}
+              onClick={() => setSelectedPointOfInterest(pointOfInterest)}
+              onMouseEnter={() =>
+                addHoveredPointOfInterestId(pointOfInterest.id)
+              }
+              onMouseLeave={() =>
+                removeHoveredPointOfInterestId(pointOfInterest.id)
+              }
             />
           ))}
         </GoogleMapReact>
