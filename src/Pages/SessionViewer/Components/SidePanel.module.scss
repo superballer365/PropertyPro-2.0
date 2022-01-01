@@ -4,14 +4,16 @@
   width: 300px;
   height: 100%;
 
-  :global(.card) {
-    border-top-color: rgb(247, 247, 247);
-    border-radius: 0px;
-  }
+  .content {
+    :global(.card) {
+      border-top-color: rgb(247, 247, 247);
+      border-radius: 0px;
+    }
 
-  :global(.card-header) {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    :global(.card-header) {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
   }
 }
 

@@ -23,6 +23,12 @@ export default function SidePanel({ session }: IProps) {
     if (selectedPointOfInterest) setActiveTab("POI");
   }, [selectedPointOfInterest]);
 
+  const getPanelContent = () => {
+    if (activeTab === "Listings") return <ListingsPanel session={session} />;
+    if (activeTab === "POI") return <PointsOfInterestPanel session={session} />;
+    return null;
+  };
+
   return (
     <div className={styles.container}>
       <Nav variant="tabs">
@@ -42,13 +48,7 @@ export default function SidePanel({ session }: IProps) {
           )
         )}
       </Nav>
-      <div>
-        {activeTab === "Listings" ? (
-          <ListingsPanel session={session} />
-        ) : activeTab === "POI" ? (
-          <PointsOfInterestPanel session={session} />
-        ) : null}
-      </div>
+      <div className={styles.content}>{getPanelContent()}</div>
     </div>
   );
 }
