@@ -5,9 +5,23 @@ import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
 import SessionData from "../../../Models/Session";
 import styles from "./SidePanel.module.scss";
 import classNames from "classnames";
+import { ListingContext } from "../../../Contexts/ListingContext";
+import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext";
 
 export default function SidePanel({ session }: IProps) {
+  const { selectedListing } = React.useContext(ListingContext);
+  const { selectedPointOfInterest } = React.useContext(PointOfInterestContext);
   const [activeTab, setActiveTab] = React.useState<TabOption>("Listings");
+
+  // change active tab when selected listing changes
+  React.useEffect(() => {
+    if (selectedListing) setActiveTab("Listings");
+  }, [selectedListing]);
+
+  // change active tab when selected point of interest changes
+  React.useEffect(() => {
+    if (selectedPointOfInterest) setActiveTab("POI");
+  }, [selectedPointOfInterest]);
 
   return (
     <div className={styles.container}>
