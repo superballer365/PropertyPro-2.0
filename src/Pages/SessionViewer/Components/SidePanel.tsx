@@ -1,11 +1,17 @@
 import React from "react";
+import classNames from "classnames";
 import Nav from "react-bootstrap/Nav";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faMapMarkerAlt,
+  faRoute,
+} from "@fortawesome/free-solid-svg-icons";
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
 import DirectionsPanel from "./Directions/DirectionsPanel";
 import SessionData from "../../../Models/Session";
 import styles from "./SidePanel.module.scss";
-import classNames from "classnames";
 import { ListingContext } from "../../../Contexts/ListingContext";
 import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext";
 
@@ -44,7 +50,7 @@ export default function SidePanel({ session }: IProps) {
                   activeTab === option && styles.activeNavLink
                 )}
               >
-                {option}
+                <FontAwesomeIcon icon={getTabIcon(option)} />
               </Nav.Link>
             </Nav.Item>
           )
@@ -55,8 +61,14 @@ export default function SidePanel({ session }: IProps) {
   );
 }
 
-type TabOption = "Listings" | "POI" | "Directions";
-
 interface IProps {
   session: SessionData;
+}
+
+type TabOption = "Listings" | "POI" | "Directions";
+
+function getTabIcon(tab: TabOption) {
+  if (tab === "Listings") return faHome;
+  if (tab === "POI") return faMapMarkerAlt;
+  return faRoute;
 }

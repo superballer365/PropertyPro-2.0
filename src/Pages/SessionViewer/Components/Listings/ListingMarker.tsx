@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
-import houseImg from "../../../../Images/house.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Listing } from "../../../../Models/Session";
 import styles from "./ListingMarker.module.scss";
 
@@ -10,9 +11,9 @@ export default function ListingMarker({
   hovered,
 }: ListingMarkerProps) {
   return (
-    <img
+    <FontAwesomeIcon
       className={classNames(styles.container, hovered && styles.hovered)}
-      src={houseImg}
+      icon={faHome}
     />
   );
 }

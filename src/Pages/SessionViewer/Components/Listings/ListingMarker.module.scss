@@ -8,7 +8,7 @@ $K_HEIGHT_HOVERED: 35px;
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0;0 coordinates
   position: absolute;
-  width: $K_WIDTH;
+  width: $K_WIDTH !important;
   height: $K_HEIGHT;
   left: -$K_WIDTH / 2;
   top: -$K_HEIGHT / 2;
@@ -16,7 +16,7 @@ $K_HEIGHT_HOVERED: 35px;
 
 .hovered {
   cursor: pointer;
-  width: $K_WIDTH_HOVERED;
+  width: $K_WIDTH_HOVERED !important;
   height: $K_HEIGHT_HOVERED;
   left: -$K_WIDTH_HOVERED / 2;
   top: -$K_HEIGHT_HOVERED / 2;
