@@ -43,6 +43,7 @@ export function MapContextProvider({ children }: { children: JSX.Element }) {
 
   const clearDirections = React.useCallback(() => {
     setDirections(undefined);
+    directionRendererRef.current.set("directions", null);
   }, []);
 
   // when the map reference changes, update the direction renderer
@@ -55,7 +56,7 @@ export function MapContextProvider({ children }: { children: JSX.Element }) {
   // when the directions change, render them on the map
   React.useEffect(() => {
     if (!directions) return;
-    // TODO: figure out how to hide directions
+
     directionRendererRef.current.setDirections(directions);
   }, [directions]);
 

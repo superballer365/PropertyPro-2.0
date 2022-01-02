@@ -3,7 +3,7 @@ import { getDirections } from "../../../../API/Google Routes";
 import { MapContext } from "../../../../Contexts/MapContext";
 
 export default function DirectionsPanel() {
-  const { setDirections } = React.useContext(MapContext);
+  const { setDirections, clearDirections } = React.useContext(MapContext);
 
   React.useEffect(() => {
     const request = {
@@ -13,6 +13,8 @@ export default function DirectionsPanel() {
     };
 
     getDirections(request).then((result) => setDirections(result));
+
+    return () => clearDirections();
   }, []);
 
   return <div>directions</div>;
