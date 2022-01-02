@@ -3,7 +3,7 @@ import { getDirections } from "../../../../API/Google Routes";
 import { MapContext } from "../../../../Contexts/MapContext";
 
 export default function DirectionsPanel() {
-  const { setDirections, clearDirections } = React.useContext(MapContext);
+  const { showDirections, clearDirections } = React.useContext(MapContext);
 
   React.useEffect(() => {
     const request = {
@@ -12,7 +12,7 @@ export default function DirectionsPanel() {
       travelMode: google.maps.TravelMode.DRIVING,
     };
 
-    getDirections(request).then((result) => setDirections(result));
+    getDirections(request).then((result) => showDirections(result));
 
     return () => clearDirections();
   }, []);
