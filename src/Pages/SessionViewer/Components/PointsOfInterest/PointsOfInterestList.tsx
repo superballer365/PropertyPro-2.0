@@ -32,7 +32,7 @@ export default function PointsOfInterestList({
       <Card.Header className={styles.header}>
         <span className={styles.title}>Points of Interest</span>
         <Button size="sm" onClick={onCreateNewPointOfInterestClick}>
-          +
+          Create
         </Button>
       </Card.Header>
       {getContent()}

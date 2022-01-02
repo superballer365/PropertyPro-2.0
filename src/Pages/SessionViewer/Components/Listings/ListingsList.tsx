@@ -29,7 +29,7 @@ export default function ListingsList({
       <Card.Header className={styles.header}>
         <span className={styles.title}>Listings</span>
         <Button size="sm" onClick={onCreateNewListingClick}>
-          +
+          Create
         </Button>
       </Card.Header>
       {getContent()}

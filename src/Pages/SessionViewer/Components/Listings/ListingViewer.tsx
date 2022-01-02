@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { ListingContext } from "../../../../Contexts/ListingContext";
 import SessionData, { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
@@ -42,9 +44,13 @@ export default function ListingViewer({ listing, session }: IProps) {
       <Card className="h-100">
         <Card.Header>
           <Button
+            className="mr-2"
             size="sm"
+            variant="light"
             onClick={() => setSelectedListing(undefined)}
-          >{`<`}</Button>{" "}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </Button>
           <span>{listing.name}</span>
         </Card.Header>
         <Card.Body>

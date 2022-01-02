@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 import SessionData, { PointOfInterest } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
@@ -50,9 +52,13 @@ export default function PointOfInterestViewer({
       <Card className="h-100">
         <Card.Header>
           <Button
+            className="mr-2"
             size="sm"
+            variant="light"
             onClick={() => setSelectedPointOfInterest(undefined)}
-          >{`<`}</Button>{" "}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </Button>
           <span>{pointOfInterest.name}</span>
         </Card.Header>
         <Card.Body>
