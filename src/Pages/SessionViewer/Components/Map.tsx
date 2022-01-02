@@ -5,6 +5,7 @@ import SessionData from "../../../Models/Session";
 import { ListingContext } from "../../../Contexts/ListingContext";
 import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext";
 import MapMarker, { MapMarkerProps, MarkerType } from "./MapMarker";
+import { MapContext } from "../../../Contexts/MapContext";
 
 interface IProps {
   session: SessionData;
@@ -25,9 +26,8 @@ export default function Map({ session }: IProps) {
     addHoveredPointOfInterestId,
     removeHoveredPointOfInterestId,
   } = React.useContext(PointOfInterestContext);
-
-  const [zoom, setZoom] = React.useState<number>();
-  const [center, setCenter] = React.useState<Coordinate>();
+  const { center, zoom, setMap, setCenter, setZoom } =
+    React.useContext(MapContext);
 
   // default zoom and center, to be used for resetting
   const defaultZoomRef = React.useRef<number>();
@@ -103,6 +103,7 @@ export default function Map({ session }: IProps) {
           onChildClick={handleMarkerClick}
           onChildMouseEnter={handleMarkerHover}
           onChildMouseLeave={handleMarkerUnhover}
+          onGoogleApiLoaded={({ map }) => setMap(map)}
           yesIWantToUseGoogleMapApiInternals={true}
           options={{
             streetViewControl: true,

@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "react-bootstrap/Nav";
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
+import DirectionsPanel from "./Directions/DirectionsPanel";
 import SessionData from "../../../Models/Session";
 import styles from "./SidePanel.module.scss";
 import classNames from "classnames";
@@ -26,6 +27,7 @@ export default function SidePanel({ session }: IProps) {
   const getPanelContent = () => {
     if (activeTab === "Listings") return <ListingsPanel session={session} />;
     if (activeTab === "POI") return <PointsOfInterestPanel session={session} />;
+    if (activeTab === "Directions") return <DirectionsPanel />;
     return null;
   };
 
