@@ -29,7 +29,7 @@ export async function geocodeByPlaceId(
       ) => {
         if (status === google.maps.GeocoderStatus.OK)
           resolve(results.map((r) => geocodeResultFromGoogleGeocoderResult(r)));
-        reject("Failed to geocode by placeId");
+        reject("Failed to geocode by placeId with status " + status);
       }
     );
   });

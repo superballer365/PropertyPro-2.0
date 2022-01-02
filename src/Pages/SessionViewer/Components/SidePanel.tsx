@@ -34,7 +34,7 @@ export default function SidePanel({ session }: IProps) {
       <Nav variant="tabs">
         {(["Listings", "POI", "Directions"] as TabOption[]).map(
           (option: TabOption) => (
-            <Nav.Item>
+            <Nav.Item key={option}>
               <Nav.Link
                 active={activeTab === option}
                 onClick={() => setActiveTab(option)}
