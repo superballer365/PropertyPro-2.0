@@ -57,11 +57,12 @@ export default function DirectionsPanel() {
       </div>
       <div className={styles.results}>
         {loading ? (
-          <LoadingSpinner />
+          <LoadingSpinner text="calculating routes..." />
         ) : (
           <DirectionsResults
             directions={directions}
             onRouteClick={setRouteIndex}
+            activeRouteIndex={routeIndex}
           />
         )}
       </div>
