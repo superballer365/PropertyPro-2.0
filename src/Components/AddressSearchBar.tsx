@@ -40,6 +40,7 @@ export default function AutoCompleteSearchBar({
 
   return (
     <AsyncTypeahead
+      className="w-100"
       id="address search typeahead"
       delay={500}
       multiple={false}
