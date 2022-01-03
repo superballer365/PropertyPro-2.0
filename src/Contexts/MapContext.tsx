@@ -26,6 +26,11 @@ const DEFAULT_MAP_CONTEXT_STATE: MapContextState = {
   clearDirections: () => {},
 };
 
+const DEFAULT_DIRECTIONS_RENDER_OPTIONS: google.maps.DirectionsRendererOptions =
+  {
+    suppressBicyclingLayer: true,
+  };
+
 export const MapContext = React.createContext(DEFAULT_MAP_CONTEXT_STATE);
 
 export function MapContextProvider({ children }: { children: JSX.Element }) {
@@ -43,7 +48,10 @@ export function MapContextProvider({ children }: { children: JSX.Element }) {
       options?: google.maps.DirectionsRendererOptions
     ) => {
       directionRendererRef.current.setDirections(directions);
-      options && directionRendererRef.current.setOptions(options);
+      directionRendererRef.current.setOptions({
+        ...DEFAULT_DIRECTIONS_RENDER_OPTIONS,
+        ...options,
+      });
     },
     []
   );
