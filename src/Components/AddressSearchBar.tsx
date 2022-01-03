@@ -7,7 +7,7 @@ import {
 } from "../API/Google Places";
 
 interface IProps {
-  onSelect: (selection: AutoCompleteSuggestion) => void;
+  onSelect: (selection: AutoCompleteSuggestion | undefined) => void;
   defaultInputValue?: string;
   isInvalid: boolean;
   searchType: SearchType;
@@ -35,7 +35,7 @@ export default function AutoCompleteSearchBar({
   }
 
   function handleSelect(selections: AutoCompleteSuggestion[]) {
-    onSelect(selections[0]);
+    onSelect(selections.length > 0 ? selections[0] : undefined);
   }
 
   return (
