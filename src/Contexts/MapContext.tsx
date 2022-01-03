@@ -42,8 +42,8 @@ export function MapContextProvider({ children }: { children: JSX.Element }) {
       directions: google.maps.DirectionsResult,
       options?: google.maps.DirectionsRendererOptions
     ) => {
-      options && directionRendererRef.current.setOptions(options);
       directionRendererRef.current.setDirections(directions);
+      options && directionRendererRef.current.setOptions(options);
     },
     []
   );
