@@ -18,6 +18,7 @@ export default function DirectionsPanel() {
     return () => clearDirections();
   }, []);
 
+  // show directions whenever they change
   React.useEffect(() => {
     if (!directions) {
       clearDirections();
@@ -37,6 +38,7 @@ export default function DirectionsPanel() {
         origin,
         destination,
         travelMode,
+        provideRouteAlternatives: true,
       });
       setRouteIndex(0);
       setDirections(directions);
@@ -54,7 +56,14 @@ export default function DirectionsPanel() {
         <DirectionsForm onSearchClick={handleSearch} />
       </div>
       <div className={styles.results}>
-        {loading ? <LoadingSpinner /> : <DirectionsResults />}
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <DirectionsResults
+            directions={directions}
+            onRouteClick={setRouteIndex}
+          />
+        )}
       </div>
     </div>
   );
