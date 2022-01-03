@@ -1,19 +1,11 @@
 import React from "react";
-import classNames from "classnames";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {
-  faMapMarkerAlt,
-  faWalking,
-  faCar,
-  faSubway,
-  faBiking,
-} from "@fortawesome/free-solid-svg-icons";
-import AddressSearchBar from "../../../../Components/AddressSearchBar";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { SearchType } from "../../../../API/Google Places";
-import styles from "./DirectionsPanel.module.scss";
+import AddressSearchBar from "../../../../Components/AddressSearchBar";
+import TravelModeButton, { getIcon } from "./TravelModeButton";
 
 // copying for shorthand
 type TravelMode = google.maps.TravelMode;
@@ -94,28 +86,4 @@ interface IProps {
     destination: string,
     mode: google.maps.TravelMode
   ) => void;
-}
-
-function TravelModeButton({ icon, active, onClick }: TravelModeButtonProps) {
-  return (
-    <div
-      className={classNames(styles.travelModeButton, active && styles.active)}
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={icon} />
-    </div>
-  );
-}
-
-interface TravelModeButtonProps {
-  icon: IconProp;
-  active?: boolean;
-  onClick: () => void;
-}
-
-function getIcon(travelMode: TravelMode): IconProp {
-  if (travelMode === TravelMode.BICYCLING) return faBiking;
-  if (travelMode === TravelMode.TRANSIT) return faSubway;
-  if (travelMode === TravelMode.WALKING) return faWalking;
-  return faCar;
 }
