@@ -63,7 +63,18 @@ export default function EditPointOfInterestDialog({
     }
   }
 
-  async function handleAddressSelect(address: AutoCompleteSuggestion) {
+  async function handleAddressSelect(
+    address: AutoCompleteSuggestion | undefined
+  ) {
+    if (!address) {
+      setFormData((prev) => ({
+        ...prev,
+        address: undefined,
+        location: undefined,
+      }));
+      return;
+    }
+
     try {
       const addressGeocodingInfo = await geocodeByPlaceId(address.id);
       // there is guaranteed to be one result

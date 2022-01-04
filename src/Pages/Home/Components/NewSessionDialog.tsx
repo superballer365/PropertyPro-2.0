@@ -34,7 +34,16 @@ export default function NewSessionDialog({ onClose }: IProps) {
     }
   }
 
-  async function handleCitySelect(city: AutoCompleteSuggestion) {
+  async function handleCitySelect(city: AutoCompleteSuggestion | undefined) {
+    if (!city) {
+      setFormData((prev) => ({
+        ...prev,
+        searchCity: undefined,
+        searchBounds: undefined,
+      }));
+      return;
+    }
+
     try {
       const cityGeocodingInfo = await geocodeByPlaceId(city.id);
       console.log(cityGeocodingInfo);

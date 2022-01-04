@@ -37,7 +37,7 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           title="Origin"
         />
         <AddressSearchBar
-          onSelect={(address) => setOrigin(address.name)}
+          onSelect={(address) => setOrigin(address ? address.name : undefined)}
           isInvalid={false}
           searchType={SearchType.Address}
         />
@@ -53,7 +53,9 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           title="Destination"
         />
         <AddressSearchBar
-          onSelect={(address) => setDestination(address.name)}
+          onSelect={(address) =>
+            setDestination(address ? address.name : undefined)
+          }
           isInvalid={false}
           searchType={SearchType.Address}
         />
