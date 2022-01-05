@@ -33,7 +33,7 @@ function App() {
         <Route path="/Settings" element={<SettingsPageWithHeader />} />
         <Route path="/About" element={<AboutPageWithHeader />} />
         <Route
-          path="/Session/:sessionId"
+          path="/Session/:sessionId/*"
           element={<SessionViewerPageWithHeader />}
         />
       </>
