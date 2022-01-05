@@ -7,7 +7,7 @@ import {
 } from "../API/Google Places";
 
 interface IProps {
-  onSelect: (selection: AutoCompleteSuggestion | undefined) => void;
+  onSelect: (selectedAddress: string | undefined) => void;
   defaultInputValue?: string;
   isInvalid: boolean;
   searchType: SearchType;
@@ -20,9 +20,7 @@ export default function AutoCompleteSearchBar({
   searchType,
 }: IProps) {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [suggestions, setSuggestions] = React.useState<
-    AutoCompleteSuggestion[]
-  >([]);
+  const [suggestions, setSuggestions] = React.useState<string[]>([]);
 
   async function handleSearch(searchText: string) {
     setIsLoading(true);
@@ -30,11 +28,13 @@ export default function AutoCompleteSearchBar({
       searchText,
       searchType
     );
-    setSuggestions(autoCompleteResult.suggestions);
+    setSuggestions(
+      autoCompleteResult.suggestions.map((suggestion) => suggestion.name)
+    );
     setIsLoading(false);
   }
 
-  function handleSelect(selections: AutoCompleteSuggestion[]) {
+  function handleSelect(selections: string[]) {
     onSelect(selections.length > 0 ? selections[0] : undefined);
   }
 
@@ -51,7 +51,6 @@ export default function AutoCompleteSearchBar({
       options={suggestions}
       onChange={handleSelect}
       filterBy={() => true}
-      labelKey="name"
       useCache={true}
       isInvalid={isInvalid}
     />

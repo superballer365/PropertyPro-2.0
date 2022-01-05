@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +18,18 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
   const [travelMode, setTravelMode] = React.useState<TravelMode>(
     TravelMode.DRIVING
   );
+
+  const navigate = useNavigate();
+  const navigationState = useLocation().state as {
+    origin?: string;
+    destination?: string;
+  };
+
+  // update origin and destination of they're passed via navigation
+  React.useEffect(() => {
+    navigationState.origin && setOrigin(navigationState.origin);
+    navigationState.destination && setDestination(navigationState.destination);
+  }, [navigationState.origin, navigationState.destination]);
 
   const handleSearch = () => {
     if (!origin || !destination) return;
@@ -37,7 +50,8 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           title="Origin"
         />
         <AddressSearchBar
-          onSelect={(address) => setOrigin(address ? address.name : undefined)}
+          defaultInputValue={"ok"}
+          onSelect={(address) => setOrigin(address ? address : undefined)}
           isInvalid={false}
           searchType={SearchType.Address}
         />
@@ -53,9 +67,7 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           title="Destination"
         />
         <AddressSearchBar
-          onSelect={(address) =>
-            setDestination(address ? address.name : undefined)
-          }
+          onSelect={(address) => setDestination(address ? address : undefined)}
           isInvalid={false}
           searchType={SearchType.Address}
         />
@@ -77,6 +89,9 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           ))}
         </div>
         <Button onClick={handleSearch}>Search</Button>
+        <Button onClick={() => navigate("./", { state: { origin: "test" } })}>
+          Test
+        </Button>
       </div>
     </Form>
   );

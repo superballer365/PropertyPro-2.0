@@ -10,7 +10,7 @@ import {
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import {
   Coordinate,
-  geocodeByPlaceId,
+  geocodeByAddress,
 } from "../../../../API/Google Places/Geocoding";
 import { uuid } from "uuidv4";
 import { useUpdateSession } from "../../../../Utils/Hooks";
@@ -48,9 +48,7 @@ export default function NewListingDialog({ onClose, session }: IProps) {
     }
   }
 
-  async function handleAddressSelect(
-    address: AutoCompleteSuggestion | undefined
-  ) {
+  async function handleAddressSelect(address: string | undefined) {
     if (!address) {
       setFormData((prev) => ({
         ...prev,
@@ -61,7 +59,7 @@ export default function NewListingDialog({ onClose, session }: IProps) {
     }
 
     try {
-      const addressGeocodingInfo = await geocodeByPlaceId(address.id);
+      const addressGeocodingInfo = await geocodeByAddress(address);
       // there is guaranteed to be one result
       const addressInfo = addressGeocodingInfo[0];
       console.log(addressInfo);
