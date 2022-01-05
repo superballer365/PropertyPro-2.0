@@ -20,16 +20,23 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
   );
 
   const navigate = useNavigate();
-  const navigationState = useLocation().state as {
-    origin?: string;
-    destination?: string;
-  };
+  let navigationState = useLocation().state as
+    | {
+        origin?: string;
+        destination?: string;
+      }
+    | undefined;
+  console.log(navigationState);
 
   // update origin and destination of they're passed via navigation
   React.useEffect(() => {
+    if (!navigationState) return;
+
     navigationState.origin && setOrigin(navigationState.origin);
     navigationState.destination && setDestination(navigationState.destination);
-  }, [navigationState.origin, navigationState.destination]);
+
+    return () => (navigationState = undefined);
+  }, [navigationState]);
 
   const handleSearch = () => {
     if (!origin || !destination) return;
@@ -50,10 +57,10 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           title="Origin"
         />
         <AddressSearchBar
-          defaultInputValue={"ok"}
           onSelect={(address) => setOrigin(address ? address : undefined)}
           isInvalid={false}
           searchType={SearchType.Address}
+          selected={origin}
         />
       </Form.Group>
       <Form.Group
@@ -70,6 +77,7 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           onSelect={(address) => setDestination(address ? address : undefined)}
           isInvalid={false}
           searchType={SearchType.Address}
+          selected={destination}
         />
       </Form.Group>
       <div className="d-flex w-100 align-items-center">
@@ -89,7 +97,13 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           ))}
         </div>
         <Button onClick={handleSearch}>Search</Button>
-        <Button onClick={() => navigate("./", { state: { origin: "test" } })}>
+        <Button
+          onClick={() =>
+            navigate("./", {
+              state: { origin: "1325 Boylston Street, Boston, MA" },
+            })
+          }
+        >
           Test
         </Button>
       </div>

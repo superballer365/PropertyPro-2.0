@@ -66,7 +66,7 @@ export default function NewPointOfInterestDialog({ onClose, session }: IProps) {
       console.log(addressInfo);
       setFormData((prev) => ({
         ...prev,
-        address: addressInfo.name,
+        address: address,
         location: addressInfo.location,
       }));
     } catch (err) {
@@ -106,6 +106,7 @@ export default function NewPointOfInterestDialog({ onClose, session }: IProps) {
               onSelect={handleAddressSelect}
               isInvalid={!!formDataErrors.addressError}
               searchType={SearchType.Address}
+              selected={formData.address}
             />
             <Form.Control.Feedback type="invalid">
               {formDataErrors.nameError}

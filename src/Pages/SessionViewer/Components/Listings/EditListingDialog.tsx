@@ -77,7 +77,7 @@ export default function EditListingDialog({
       console.log(addressInfo);
       setFormData((prev) => ({
         ...prev,
-        address: addressInfo.name,
+        address: address,
         location: addressInfo.location,
       }));
     } catch (err) {
@@ -117,6 +117,7 @@ export default function EditListingDialog({
               onSelect={handleAddressSelect}
               isInvalid={!!formDataErrors.addressError}
               searchType={SearchType.Address}
+              selected={formData.address}
             />
             <Form.Control.Feedback type="invalid">
               {formDataErrors.nameError}

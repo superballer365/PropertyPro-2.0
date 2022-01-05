@@ -1,16 +1,13 @@
 import React from "react";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
-import {
-  AutoCompleteSuggestion,
-  googlePlacesAutoComplete,
-  SearchType,
-} from "../API/Google Places";
+import { googlePlacesAutoComplete, SearchType } from "../API/Google Places";
 
 interface IProps {
   onSelect: (selectedAddress: string | undefined) => void;
   defaultInputValue?: string;
   isInvalid: boolean;
   searchType: SearchType;
+  selected: string | undefined;
 }
 
 export default function AutoCompleteSearchBar({
@@ -18,6 +15,7 @@ export default function AutoCompleteSearchBar({
   defaultInputValue,
   isInvalid,
   searchType,
+  selected,
 }: IProps) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [suggestions, setSuggestions] = React.useState<string[]>([]);
@@ -53,6 +51,7 @@ export default function AutoCompleteSearchBar({
       filterBy={() => true}
       useCache={true}
       isInvalid={isInvalid}
+      selected={selected ? [selected] : undefined}
     />
   );
 }

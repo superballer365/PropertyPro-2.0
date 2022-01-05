@@ -89,6 +89,7 @@ export default function NewSessionDialog({ onClose }: IProps) {
               onSelect={handleCitySelect}
               isInvalid={!!formDataErrors.searchCityError}
               searchType={SearchType.City}
+              selected={formData.searchCity}
             />
             <Form.Control.Feedback type="invalid">
               {formDataErrors.nameError}
