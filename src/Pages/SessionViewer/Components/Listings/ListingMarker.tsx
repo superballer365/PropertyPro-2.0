@@ -6,6 +6,7 @@ import Popover from "react-bootstrap/Popover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Listing } from "../../../../Models/Session";
+import { useOnClickOutside } from "../../../../Utils/Hooks";
 import styles from "./ListingMarker.module.scss";
 
 export default function ListingMarker({
@@ -45,6 +46,9 @@ function ListingMarkerContextMenu({
   listing: Listing;
   onClose: () => void;
 }) {
+  const popoverRef = React.useRef(null);
+  useOnClickOutside(popoverRef, onClose);
+
   const navigate = useNavigate();
 
   const handleToClick = () => {
@@ -58,7 +62,7 @@ function ListingMarkerContextMenu({
   };
   return (
     <div className={styles.contextMenu}>
-      <Popover id="popover-basic">
+      <Popover id="popover-basic" ref={popoverRef}>
         <Popover.Title as="h3">{listing.name}</Popover.Title>
         <Popover.Content className="d-flex">
           <Button onClick={handleToClick}>To</Button>
