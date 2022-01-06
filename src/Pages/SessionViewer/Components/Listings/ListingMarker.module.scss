@@ -27,14 +27,10 @@ $MENU_WIDTH: 150px;
 $GAP: 15px;
 
 .contextMenu {
-  padding: 0.5rem;
-  position: relative;
-  bottom: $K_HEIGHT/2 + $MENU_HEIGHT;
-  left: $K_WIDTH/2;
-  background-color: white;
-  height: $MENU_HEIGHT;
-  width: $MENU_WIDTH;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
-  z-index: 1;
+  display: flex;
+
+  :global(.popover) {
+    top: -$K_HEIGHT/2;
+    left: $K_WIDTH/2;
+  }
 }

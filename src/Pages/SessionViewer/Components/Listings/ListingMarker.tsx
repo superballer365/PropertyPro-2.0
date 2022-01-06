@@ -9,24 +9,10 @@ import { Listing } from "../../../../Models/Session";
 import styles from "./ListingMarker.module.scss";
 
 export default function ListingMarker({
-  lat,
-  lng,
   hovered,
   listing,
 }: ListingMarkerProps) {
   const [showContextMenu, setShowContextMenu] = React.useState(false);
-
-  const navigate = useNavigate();
-
-  const handleToClick = () => {
-    setShowContextMenu(false);
-    navigate("./Directions", { state: { destination: listing.address } });
-  };
-
-  const handleFromClick = () => {
-    setShowContextMenu(false);
-    navigate("./Directions", { state: { origin: listing.address } });
-  };
 
   return (
     <>
@@ -36,10 +22,10 @@ export default function ListingMarker({
         onContextMenu={() => setShowContextMenu((prev) => !prev)}
       />
       {showContextMenu && (
-        <div className={styles.contextMenu}>
-          <Button onClick={handleToClick}>To</Button>
-          <Button onClick={handleFromClick}>From</Button>
-        </div>
+        <ListingMarkerContextMenu
+          listing={listing}
+          onClose={() => setShowContextMenu(false)}
+        />
       )}
     </>
   );
@@ -52,14 +38,33 @@ export interface ListingMarkerProps {
   lng: number;
 }
 
-function ListingMarkerContextMenu({ listing }: { listing: Listing }) {
+function ListingMarkerContextMenu({
+  listing,
+  onClose,
+}: {
+  listing: Listing;
+  onClose: () => void;
+}) {
+  const navigate = useNavigate();
+
+  const handleToClick = () => {
+    onClose();
+    navigate("./Directions", { state: { destination: listing.address } });
+  };
+
+  const handleFromClick = () => {
+    onClose();
+    navigate("./Directions", { state: { origin: listing.address } });
+  };
   return (
-    <Popover id="popover-basic">
-      <Popover.Title as="h3">{listing.name}</Popover.Title>
-      <Popover.Content>
-        And here's some <strong>amazing</strong> content. It's very engaging.
-        right?
-      </Popover.Content>
-    </Popover>
+    <div className={styles.contextMenu}>
+      <Popover id="popover-basic">
+        <Popover.Title as="h3">{listing.name}</Popover.Title>
+        <Popover.Content className="d-flex">
+          <Button onClick={handleToClick}>To</Button>
+          <Button onClick={handleFromClick}>From</Button>
+        </Popover.Content>
+      </Popover>
+    </div>
   );
 }
