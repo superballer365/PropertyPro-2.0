@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import Popover from "react-bootstrap/Popover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
@@ -15,18 +16,32 @@ export default function ListingMarker({
 }: ListingMarkerProps) {
   const [showContextMenu, setShowContextMenu] = React.useState(false);
 
+  const navigate = useNavigate();
+
+  const handleToClick = () => {
+    setShowContextMenu(false);
+    navigate("./Directions", { state: { destination: listing.address } });
+  };
+
+  const handleFromClick = () => {
+    setShowContextMenu(false);
+    navigate("./Directions", { state: { origin: listing.address } });
+  };
+
   return (
-    <OverlayTrigger
-      show={showContextMenu}
-      placement="right"
-      overlay={<ListingMarkerContextMenu listing={listing} />}
-    >
+    <>
       <FontAwesomeIcon
         className={classNames(styles.container, hovered && styles.hovered)}
         icon={faHome}
         onContextMenu={() => setShowContextMenu((prev) => !prev)}
       />
-    </OverlayTrigger>
+      {showContextMenu && (
+        <div className={styles.contextMenu}>
+          <Button onClick={handleToClick}>To</Button>
+          <Button onClick={handleFromClick}>From</Button>
+        </div>
+      )}
+    </>
   );
 }
 

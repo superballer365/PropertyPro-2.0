@@ -19,14 +19,12 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
     TravelMode.DRIVING
   );
 
-  const navigate = useNavigate();
   let navigationState = useLocation().state as
     | {
         origin?: string;
         destination?: string;
       }
     | undefined;
-  console.log(navigationState);
 
   // update origin and destination of they're passed via navigation
   React.useEffect(() => {
@@ -34,8 +32,6 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
 
     navigationState.origin && setOrigin(navigationState.origin);
     navigationState.destination && setDestination(navigationState.destination);
-
-    return () => (navigationState = undefined);
   }, [navigationState]);
 
   const handleSearch = () => {
@@ -97,15 +93,6 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           ))}
         </div>
         <Button onClick={handleSearch}>Search</Button>
-        <Button
-          onClick={() =>
-            navigate("./", {
-              state: { origin: "1325 Boylston Street, Boston, MA" },
-            })
-          }
-        >
-          Test
-        </Button>
       </div>
     </Form>
   );

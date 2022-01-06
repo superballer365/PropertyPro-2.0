@@ -21,3 +21,20 @@ $K_HEIGHT_HOVERED: 35px;
   left: -$K_WIDTH_HOVERED / 2;
   top: -$K_HEIGHT_HOVERED / 2;
 }
+
+$MENU_HEIGHT: 60px;
+$MENU_WIDTH: 150px;
+$GAP: 15px;
+
+.contextMenu {
+  padding: 0.5rem;
+  position: relative;
+  bottom: $K_HEIGHT/2 + $MENU_HEIGHT;
+  left: $K_WIDTH/2;
+  background-color: white;
+  height: $MENU_HEIGHT;
+  width: $MENU_WIDTH;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  z-index: 1;
+}
