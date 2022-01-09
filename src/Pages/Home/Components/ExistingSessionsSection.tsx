@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../Components/LoadingSpinner";
 import Card from "react-bootstrap/Card";
 import SessionData from "../../../Models/Session";
@@ -67,7 +67,7 @@ function SessionEntry({ sessionData, onEditClick }: ISessionEntryProps) {
 
   const [deletingSession, setDeletingSession] = React.useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function handleDeleteClick() {
     if (deletingSession) return;
@@ -82,7 +82,7 @@ function SessionEntry({ sessionData, onEditClick }: ISessionEntryProps) {
   }
 
   function handleOpenClick() {
-    history.push(`/Session/${sessionData.id!}`);
+    navigate(`/Session/${sessionData.id!}`);
   }
 
   return (

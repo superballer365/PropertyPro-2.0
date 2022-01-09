@@ -1,16 +1,13 @@
 import React from "react";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
-import {
-  AutoCompleteSuggestion,
-  googlePlacesAutoComplete,
-  SearchType,
-} from "../API/Google Places";
+import { googlePlacesAutoComplete, SearchType } from "../API/Google Places";
 
 interface IProps {
-  onSelect: (selection: AutoCompleteSuggestion | undefined) => void;
+  onSelect: (selectedAddress: string | undefined) => void;
   defaultInputValue?: string;
   isInvalid: boolean;
   searchType: SearchType;
+  selected: string | undefined;
 }
 
 export default function AutoCompleteSearchBar({
@@ -18,11 +15,10 @@ export default function AutoCompleteSearchBar({
   defaultInputValue,
   isInvalid,
   searchType,
+  selected,
 }: IProps) {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [suggestions, setSuggestions] = React.useState<
-    AutoCompleteSuggestion[]
-  >([]);
+  const [suggestions, setSuggestions] = React.useState<string[]>([]);
 
   async function handleSearch(searchText: string) {
     setIsLoading(true);
@@ -30,11 +26,13 @@ export default function AutoCompleteSearchBar({
       searchText,
       searchType
     );
-    setSuggestions(autoCompleteResult.suggestions);
+    setSuggestions(
+      autoCompleteResult.suggestions.map((suggestion) => suggestion.name)
+    );
     setIsLoading(false);
   }
 
-  function handleSelect(selections: AutoCompleteSuggestion[]) {
+  function handleSelect(selections: string[]) {
     onSelect(selections.length > 0 ? selections[0] : undefined);
   }
 
@@ -51,9 +49,9 @@ export default function AutoCompleteSearchBar({
       options={suggestions}
       onChange={handleSelect}
       filterBy={() => true}
-      labelKey="name"
       useCache={true}
       isInvalid={isInvalid}
+      selected={selected ? [selected] : undefined}
     />
   );
 }

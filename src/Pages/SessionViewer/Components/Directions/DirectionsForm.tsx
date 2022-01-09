@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +18,21 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
   const [travelMode, setTravelMode] = React.useState<TravelMode>(
     TravelMode.DRIVING
   );
+
+  let navigationState = useLocation().state as
+    | {
+        origin?: string;
+        destination?: string;
+      }
+    | undefined;
+
+  // update origin and destination of they're passed via navigation
+  React.useEffect(() => {
+    if (!navigationState) return;
+
+    navigationState.origin && setOrigin(navigationState.origin);
+    navigationState.destination && setDestination(navigationState.destination);
+  }, [navigationState]);
 
   const handleSearch = () => {
     if (!origin || !destination) return;
@@ -37,9 +53,10 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           title="Origin"
         />
         <AddressSearchBar
-          onSelect={(address) => setOrigin(address ? address.name : undefined)}
+          onSelect={(address) => setOrigin(address ? address : undefined)}
           isInvalid={false}
           searchType={SearchType.Address}
+          selected={origin}
         />
       </Form.Group>
       <Form.Group
@@ -53,11 +70,10 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
           title="Destination"
         />
         <AddressSearchBar
-          onSelect={(address) =>
-            setDestination(address ? address.name : undefined)
-          }
+          onSelect={(address) => setDestination(address ? address : undefined)}
           isInvalid={false}
           searchType={SearchType.Address}
+          selected={destination}
         />
       </Form.Group>
       <div className="d-flex w-100 align-items-center">

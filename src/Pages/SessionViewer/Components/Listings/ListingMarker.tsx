@@ -1,20 +1,34 @@
 import React from "react";
 import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Popover from "react-bootstrap/Popover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Listing } from "../../../../Models/Session";
+import { useOnClickOutside } from "../../../../Utils/Hooks";
 import styles from "./ListingMarker.module.scss";
 
 export default function ListingMarker({
-  lat,
-  lng,
   hovered,
+  listing,
 }: ListingMarkerProps) {
+  const [showContextMenu, setShowContextMenu] = React.useState(false);
+
   return (
-    <FontAwesomeIcon
-      className={classNames(styles.container, hovered && styles.hovered)}
-      icon={faHome}
-    />
+    <>
+      <FontAwesomeIcon
+        className={classNames(styles.container, hovered && styles.hovered)}
+        icon={faHome}
+        onContextMenu={() => setShowContextMenu((prev) => !prev)}
+      />
+      {showContextMenu && (
+        <ListingMarkerContextMenu
+          listing={listing}
+          onClose={() => setShowContextMenu(false)}
+        />
+      )}
+    </>
   );
 }
 
@@ -23,4 +37,38 @@ export interface ListingMarkerProps {
   hovered?: boolean;
   lat: number;
   lng: number;
+}
+
+function ListingMarkerContextMenu({
+  listing,
+  onClose,
+}: {
+  listing: Listing;
+  onClose: () => void;
+}) {
+  const popoverRef = React.useRef(null);
+  useOnClickOutside(popoverRef, onClose);
+
+  const navigate = useNavigate();
+
+  const handleToClick = () => {
+    onClose();
+    navigate("./Directions", { state: { destination: listing.address } });
+  };
+
+  const handleFromClick = () => {
+    onClose();
+    navigate("./Directions", { state: { origin: listing.address } });
+  };
+  return (
+    <div className={styles.contextMenu}>
+      <Popover id="popover-basic" ref={popoverRef}>
+        <Popover.Title as="h3">{listing.name}</Popover.Title>
+        <Popover.Content className="d-flex">
+          <Button onClick={handleToClick}>To</Button>
+          <Button onClick={handleFromClick}>From</Button>
+        </Popover.Content>
+      </Popover>
+    </div>
+  );
 }

@@ -6,12 +6,8 @@ import SessionData from "../../Models/Session";
 import { useSession } from "../../Utils/Hooks";
 import ErrorPage from "../Error/ErrorPage";
 
-interface RouteParams {
-  sessionId: string;
-}
-
 export default function SessionViewerPage() {
-  const { sessionId } = useParams<RouteParams>();
+  let { sessionId } = useParams<string>() as { sessionId: string };
 
   const {
     isLoading: loadingSessions,

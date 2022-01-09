@@ -1,5 +1,12 @@
 import React from "react";
 import classNames from "classnames";
+import {
+  useNavigate,
+  useLocation,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,30 +19,10 @@ import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
 import DirectionsPanel from "./Directions/DirectionsPanel";
 import SessionData from "../../../Models/Session";
 import styles from "./SidePanel.module.scss";
-import { ListingContext } from "../../../Contexts/ListingContext";
-import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext";
 
 export default function SidePanel({ session }: IProps) {
-  const { selectedListing } = React.useContext(ListingContext);
-  const { selectedPointOfInterest } = React.useContext(PointOfInterestContext);
-  const [activeTab, setActiveTab] = React.useState<TabOption>("Listings");
-
-  // change active tab when selected listing changes
-  React.useEffect(() => {
-    if (selectedListing) setActiveTab("Listings");
-  }, [selectedListing]);
-
-  // change active tab when selected point of interest changes
-  React.useEffect(() => {
-    if (selectedPointOfInterest) setActiveTab("POI");
-  }, [selectedPointOfInterest]);
-
-  const getPanelContent = () => {
-    if (activeTab === "Listings") return <ListingsPanel session={session} />;
-    if (activeTab === "POI") return <PointsOfInterestPanel session={session} />;
-    if (activeTab === "Directions") return <DirectionsPanel />;
-    return null;
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className={styles.container}>
@@ -44,11 +31,11 @@ export default function SidePanel({ session }: IProps) {
           (option: TabOption) => (
             <Nav.Item key={option}>
               <Nav.Link
-                active={activeTab === option}
-                onClick={() => setActiveTab(option)}
                 className={classNames(
-                  activeTab === option && styles.activeNavLink
+                  location.pathname.includes(option) && styles.activeNavLink
                 )}
+                active={location.pathname.includes(option)}
+                onClick={() => navigate(option)}
               >
                 <FontAwesomeIcon icon={getTabIcon(option)} />
               </Nav.Link>
@@ -56,7 +43,20 @@ export default function SidePanel({ session }: IProps) {
           )
         )}
       </Nav>
-      <div className={styles.content}>{getPanelContent()}</div>
+      <div className={styles.content}>
+        <Routes>
+          <Route
+            path="Listings"
+            element={<ListingsPanel session={session} />}
+          />
+          <Route
+            path="POI"
+            element={<PointsOfInterestPanel session={session} />}
+          />
+          <Route path="Directions" element={<DirectionsPanel />} />
+          <Route path="*" element={<Navigate to="Listings" />} />
+        </Routes>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { AuthorizationContext } from "./Contexts/AuthorizationContext";
 import "./App.css";
 import LoadingPage from "./Pages/Loading/LoadingPage";
@@ -10,6 +10,11 @@ import SettingsPage from "./Pages/Settings/SettingsPage";
 import AboutPage from "./Pages/About/AboutPage";
 import SessionViewerPage from "./Pages/SessionViewer/SessionViewerPage";
 
+const HomePageWithHeader = withHeader(HomePage);
+const SettingsPageWithHeader = withHeader(SettingsPage);
+const AboutPageWithHeader = withHeader(AboutPage);
+const SessionViewerPageWithHeader = withHeader(SessionViewerPage);
+
 function App() {
   const { user, loadingUser } = React.useContext(AuthorizationContext);
 
@@ -18,30 +23,28 @@ function App() {
 
   function getRoutes() {
     if (loadingUser)
-      return (
-        <Route
-          path="/"
-          component={() => <LoadingPage text="signing in..." />}
-        />
-      );
+      return <Route path="/" element={<LoadingPage text="signing in..." />} />;
 
-    if (!user) return <Route path="/" component={LandingPage} />;
+    if (!user) return <Route path="/" element={<LandingPage />} />;
 
     return (
       <>
-        <Route path="/" exact component={withHeader(HomePage)} />
-        <Route path="/Settings" component={withHeader(SettingsPage)} />
-        <Route path="/About" component={withHeader(AboutPage)} />
+        <Route path="/" element={<HomePageWithHeader />} />
+        <Route path="/Settings" element={<SettingsPageWithHeader />} />
+        <Route path="/About" element={<AboutPageWithHeader />} />
         <Route
-          path="/Session/:sessionId"
-          exact
-          component={withHeader(SessionViewerPage)}
+          path="/Session/:sessionId/*"
+          element={<SessionViewerPageWithHeader />}
         />
       </>
     );
   }
 
-  return <Router>{getRoutes()}</Router>;
+  return (
+    <BrowserRouter>
+      <Routes>{getRoutes()}</Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
