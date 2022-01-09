@@ -4,10 +4,18 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Popover from "react-bootstrap/Popover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faRoute,
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { Listing } from "../../../../Models/Session";
 import { useOnClickOutside } from "../../../../Utils/Hooks";
 import styles from "./ListingMarker.module.scss";
+import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
+import DropdownButton from "react-bootstrap/esm/DropdownButton";
+import Dropdown from "react-bootstrap/esm/Dropdown";
 
 export default function ListingMarker({
   hovered,
@@ -65,8 +73,32 @@ function ListingMarkerContextMenu({
       <Popover id="popover-basic" ref={popoverRef}>
         <Popover.Title as="h3">{listing.name}</Popover.Title>
         <Popover.Content className="d-flex">
-          <Button onClick={handleToClick}>To</Button>
-          <Button onClick={handleFromClick}>From</Button>
+          <ButtonGroup>
+            <Button className={styles.button} variant="light">
+              <FontAwesomeIcon icon={faEdit} color="blue" />
+            </Button>
+            <DropdownButton
+              className={styles.button}
+              as={ButtonGroup}
+              variant="light"
+              title={
+                <span className={styles.button}>
+                  <FontAwesomeIcon icon={faRoute} color="blue" />
+                </span>
+              }
+              id="bg-nested-dropdown"
+            >
+              <Dropdown.Item eventKey="1" onClick={handleToClick}>
+                Route To
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="2" onClick={handleFromClick}>
+                Route From
+              </Dropdown.Item>
+            </DropdownButton>
+            <Button className={styles.button} variant="light">
+              <FontAwesomeIcon icon={faTrash} color="red" />
+            </Button>
+          </ButtonGroup>
         </Popover.Content>
       </Popover>
     </div>
