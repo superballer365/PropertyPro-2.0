@@ -10,19 +10,33 @@ import SessionData, { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "../Listings/EditListingDialog";
 import { getAddressComponents } from "../../../../Utils/address";
+import { useParams, useNavigate } from "react-router-dom";
 
-export default function ListingViewer({ listing, session }: IProps) {
+export default function ListingViewer({ session }: IProps) {
   const { setSelectedListing } = React.useContext(ListingContext);
 
   const [isEditing, setIsEditing] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
 
+  const navigate = useNavigate();
+  const { listingId } = useParams();
+
+  const listing = React.useMemo(() => {
+    return session.listings?.find((l) => l.id === listingId);
+  }, [session, listingId]);
+
+  React.useEffect(() => {
+    setSelectedListing(listing);
+  }, [listing]);
+
   async function handleEditClick() {
     setIsEditing(true);
   }
 
   async function handleDeleteClick() {
+    if (!listing) return;
+
     await updateSessionMutation.mutateAsync({
       ...session,
       listings: session.listings!.filter((l) => l.id !== listing.id),
@@ -30,7 +44,8 @@ export default function ListingViewer({ listing, session }: IProps) {
     setSelectedListing(undefined);
   }
 
-  getAddressComponents(listing.address);
+  if (!listing)
+    return <div>{`Listing with id ${listingId} does not exist`}</div>;
 
   return (
     <>
@@ -47,7 +62,7 @@ export default function ListingViewer({ listing, session }: IProps) {
             className="mr-2"
             size="sm"
             variant="light"
-            onClick={() => setSelectedListing(undefined)}
+            onClick={() => navigate("../")}
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
@@ -90,5 +105,5 @@ export default function ListingViewer({ listing, session }: IProps) {
 
 interface IProps {
   session: SessionData;
-  listing: Listing;
+  listing: Listing | undefined;
 }

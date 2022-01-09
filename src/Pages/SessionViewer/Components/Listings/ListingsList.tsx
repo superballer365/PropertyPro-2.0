@@ -6,6 +6,7 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import SessionData, { Listing } from "../../../../Models/Session";
 import styles from "./ListingsList.module.scss";
 import { ListingContext } from "../../../../Contexts/ListingContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ListingsList({
   session,
@@ -46,6 +47,8 @@ function ListingsListItem({ listing }: IListingsListItemProps) {
   const { setSelectedListing, addHoveredListingId, removeHoveredListingId } =
     React.useContext(ListingContext);
 
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     return () => {
       removeHoveredListingId(listing.id);
@@ -53,7 +56,8 @@ function ListingsListItem({ listing }: IListingsListItemProps) {
   }, []);
 
   function handleClick() {
-    setSelectedListing(listing);
+    navigate(`./${listing.id}`);
+    // setSelectedListing(listing);
   }
 
   function handleListingHover() {

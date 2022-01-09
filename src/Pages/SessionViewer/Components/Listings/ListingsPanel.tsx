@@ -1,12 +1,11 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import styles from "./ListingsPanel.module.scss";
 import SessionData from "../../../../Models/Session";
 import NewListingDialog from "./NewListingDialog";
 import ListingsList from "./ListingsList";
 import { ListingContext } from "../../../../Contexts/ListingContext";
 import ListingViewer from "./ListingViewer";
+import { Routes, Route } from "react-router-dom";
 
 export default function ListingsPanel({ session }: IProps) {
   const { selectedListing } = React.useContext(ListingContext);
@@ -35,7 +34,25 @@ export default function ListingsPanel({ session }: IProps) {
           onClose={() => setCreatingNewListing(false)}
         />
       )}
-      <div className={styles.container}>{getContent()}</div>
+      <div className={styles.container}>
+        <Routes>
+          <Route
+            path=":listingId"
+            element={
+              <ListingViewer session={session} listing={selectedListing!} />
+            }
+          />
+          <Route
+            path=""
+            element={
+              <ListingsList
+                onCreateNewListingClick={() => setCreatingNewListing(true)}
+                session={session}
+              />
+            }
+          />
+        </Routes>
+      </div>
     </>
   );
 }
