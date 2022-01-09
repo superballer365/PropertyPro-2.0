@@ -7,6 +7,7 @@ import SessionData, { PointOfInterest } from "../../../../Models/Session";
 import styles from "./PointsOfInterestList.module.scss";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
 
 export default function PointsOfInterestList({
   onCreateNewPointOfInterestClick,
@@ -49,11 +50,10 @@ interface IPointsOfInterestListProps {
 function PointsOfInterestListItem({
   pointOfInterest,
 }: IPointsOfInterestListItemProps) {
-  const {
-    setSelectedPointOfInterest,
-    addHoveredPointOfInterestId,
-    removeHoveredPointOfInterestId,
-  } = React.useContext(PointOfInterestContext);
+  const { addHoveredPointOfInterestId, removeHoveredPointOfInterestId } =
+    React.useContext(PointOfInterestContext);
+
+  const { setSelectedPointOfInterest } = useSelectedPointOfInterest();
 
   React.useEffect(() => {
     return () => {

@@ -5,23 +5,29 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
-import SessionData, { PointOfInterest } from "../../../../Models/Session";
+import { PointOfInterest } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import { getAddressComponents } from "../../../../Utils/address";
 import EditPointOfInterestDialog from "./EditPointOfInterestDialog";
 import { PointOfInterestType } from "../../../../API";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import { useLocation } from "react-router-dom";
+import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
 
 export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
   const { session } = React.useContext(SessionContext);
-  const { setSelectedPointOfInterest } = React.useContext(
-    PointOfInterestContext
-  );
+  const { setSelectedPointOfInterest } = useSelectedPointOfInterest();
 
   const [isEditing, setIsEditing] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
+
+  const locationState = useLocation().state as { edit: boolean } | null;
+
+  // update editing state if location state changes
+  React.useEffect(() => {
+    if (locationState?.edit) setIsEditing(true);
+  }, [locationState]);
 
   async function handleEditClick() {
     setIsEditing(true);
