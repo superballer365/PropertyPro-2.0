@@ -27,7 +27,7 @@
     "react-query": "^3.13.10",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.1",
-    "typescript": "^4.1.3",
+    "typescript": "^3.9.10",
     "uuidv4": "^6.2.8",
     "web-vitals": "^0.2.4"
   },
