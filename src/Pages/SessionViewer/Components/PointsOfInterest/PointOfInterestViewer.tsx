@@ -11,11 +11,10 @@ import { useUpdateSession } from "../../../../Utils/Hooks";
 import { getAddressComponents } from "../../../../Utils/address";
 import EditPointOfInterestDialog from "./EditPointOfInterestDialog";
 import { PointOfInterestType } from "../../../../API";
+import { SessionContext } from "../../../../Contexts/SessionContext";
 
-export default function PointOfInterestViewer({
-  pointOfInterest,
-  session,
-}: IProps) {
+export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
+  const { session } = React.useContext(SessionContext);
   const { setSelectedPointOfInterest } = React.useContext(
     PointOfInterestContext
   );
@@ -93,6 +92,5 @@ export default function PointOfInterestViewer({
 }
 
 interface IProps {
-  session: SessionData;
   pointOfInterest: PointOfInterest;
 }

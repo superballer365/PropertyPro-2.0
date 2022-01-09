@@ -22,7 +22,6 @@ export default function MapMarker(props: MapMarkerProps) {
 }
 
 export interface MapMarkerProps {
-  session: SessionData;
   data: Listing | PointOfInterest;
   type: MarkerType;
   hovered?: boolean;

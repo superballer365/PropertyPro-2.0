@@ -21,7 +21,6 @@ import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 export default function ListingMarker({
   hovered,
   listing,
-  session,
 }: ListingMarkerProps) {
   const [showContextMenu, setShowContextMenu] = React.useState(false);
 
@@ -35,7 +34,6 @@ export default function ListingMarker({
       />
       {showContextMenu && (
         <ListingMarkerContextMenu
-          session={session}
           listing={listing}
           onClose={() => setShowContextMenu(false)}
         />
@@ -45,7 +43,6 @@ export default function ListingMarker({
 }
 
 export interface ListingMarkerProps {
-  session: SessionData;
   listing: Listing;
   hovered?: boolean;
   lat: number;
@@ -53,18 +50,16 @@ export interface ListingMarkerProps {
 }
 
 function ListingMarkerContextMenu({
-  session,
   listing,
   onClose,
 }: {
-  session: SessionData;
   listing: Listing;
   onClose: () => void;
 }) {
   const popoverRef = React.useRef(null);
   useOnClickOutside(popoverRef, onClose);
 
-  const { setSelectedListing } = useSelectedListing(session);
+  const { setSelectedListing } = useSelectedListing();
 
   const navigate = useNavigate();
 

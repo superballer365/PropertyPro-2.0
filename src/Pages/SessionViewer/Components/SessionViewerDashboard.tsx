@@ -19,9 +19,9 @@ export default function SessionViewerDashboard({ session }: IProps) {
         <ListingContextProvider>
           <PointOfInterestContextProvider>
             <div className={styles.container}>
-              <SidePanel session={session} />
+              <SidePanel />
               <div className={styles.mapContainer}>
-                <Map session={session} />
+                <Map />
               </div>
             </div>
           </PointOfInterestContextProvider>

@@ -2,10 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {
-  AutoCompleteSuggestion,
-  SearchType,
-} from "../../../../API/Google Places";
+import { SearchType } from "../../../../API/Google Places";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import {
   Coordinate,
@@ -16,8 +13,10 @@ import { useUpdateSession } from "../../../../Utils/Hooks";
 import SessionData, { PointOfInterest } from "../../../../Models/Session";
 import { PointOfInterestType } from "../../../../API";
 import { Typeahead } from "react-bootstrap-typeahead";
+import { SessionContext } from "../../../../Contexts/SessionContext";
 
-export default function NewPointOfInterestDialog({ onClose, session }: IProps) {
+export default function NewPointOfInterestDialog({ onClose }: IProps) {
+  const { session } = React.useContext(SessionContext);
   const updateSessionMutation = useUpdateSession();
 
   const [formData, setFormData] =
@@ -156,7 +155,6 @@ export default function NewPointOfInterestDialog({ onClose, session }: IProps) {
 
 interface IProps {
   onClose: () => void;
-  session: SessionData;
 }
 
 interface CreatePointOfInterestFormData {

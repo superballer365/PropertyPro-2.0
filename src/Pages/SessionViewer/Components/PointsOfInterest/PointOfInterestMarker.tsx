@@ -14,6 +14,7 @@ export default function PointOfInterestMarker({
     <FontAwesomeIcon
       className={classNames(styles.container, hovered && styles.hovered)}
       icon={faMapMarkerAlt}
+      color="red"
     />
   );
 }
