@@ -6,19 +6,15 @@ import { ListingContext } from "../../../Contexts/ListingContext";
 import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext";
 import MapMarker, { MapMarkerProps, MarkerType } from "./MapMarker";
 import { MapContext } from "../../../Contexts/MapContext";
+import useSelectedListing from "../../../Utils/Hooks/useSelectedListing";
 
 interface IProps {
   session: SessionData;
 }
 
 export default function Map({ session }: IProps) {
-  const {
-    selectedListing,
-    hoveredListingIds,
-    setSelectedListing,
-    addHoveredListingId,
-    removeHoveredListingId,
-  } = React.useContext(ListingContext);
+  const { hoveredListingIds, addHoveredListingId, removeHoveredListingId } =
+    React.useContext(ListingContext);
   const {
     selectedPointOfInterest,
     hoveredPointOfInterestIds,
@@ -28,6 +24,8 @@ export default function Map({ session }: IProps) {
   } = React.useContext(PointOfInterestContext);
   const { center, zoom, setMap, setCenter, setZoom } =
     React.useContext(MapContext);
+
+  const { selectedListing, setSelectedListing } = useSelectedListing(session);
 
   // default zoom and center, to be used for resetting
   const defaultZoomRef = React.useRef<number>();
@@ -114,6 +112,7 @@ export default function Map({ session }: IProps) {
           {session.listings?.map((listing) => (
             <MapMarker
               key={listing.id}
+              session={session}
               type={MarkerType.Listing}
               data={listing}
               hovered={hoveredListingIds.includes(listing.id)}
@@ -127,6 +126,7 @@ export default function Map({ session }: IProps) {
           {session.pointsOfInterest?.map((pointOfInterest) => (
             <MapMarker
               key={pointOfInterest.id}
+              session={session}
               type={MarkerType.PointOfInterest}
               data={pointOfInterest}
               hovered={hoveredPointOfInterestIds.includes(pointOfInterest.id)}

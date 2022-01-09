@@ -1,5 +1,5 @@
 import React from "react";
-import { PointOfInterest, Listing } from "../../../Models/Session";
+import SessionData, { PointOfInterest, Listing } from "../../../Models/Session";
 import ListingMarker from "./Listings/ListingMarker";
 import PointOfInterestMarker from "./PointsOfInterest/PointOfInterestMarker";
 
@@ -22,6 +22,7 @@ export default function MapMarker(props: MapMarkerProps) {
 }
 
 export interface MapMarkerProps {
+  session: SessionData;
   data: Listing | PointOfInterest;
   type: MarkerType;
   hovered?: boolean;

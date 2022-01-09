@@ -26,8 +26,9 @@ export function ListingContextProvider({
 }: {
   children: JSX.Element;
 }) {
-  const [selectedListing, setSelectedListing] =
-    React.useState<Listing | undefined>(undefined);
+  const [selectedListing, setSelectedListing] = React.useState<
+    Listing | undefined
+  >(undefined);
   const [hoveredListingIds, setHoveredListingIds] = React.useState<string[]>(
     []
   );

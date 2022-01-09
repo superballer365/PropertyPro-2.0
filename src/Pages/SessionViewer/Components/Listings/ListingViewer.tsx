@@ -5,30 +5,26 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { ListingContext } from "../../../../Contexts/ListingContext";
 import SessionData, { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "../Listings/EditListingDialog";
 import { getAddressComponents } from "../../../../Utils/address";
-import { useParams, useNavigate } from "react-router-dom";
+import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
+import { useLocation } from "react-router-dom";
 
-export default function ListingViewer({ session }: IProps) {
-  const { setSelectedListing } = React.useContext(ListingContext);
-
+export default function ListingViewer({ session, listing }: IProps) {
   const [isEditing, setIsEditing] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
 
-  const navigate = useNavigate();
-  const { listingId } = useParams();
+  const { setSelectedListing } = useSelectedListing(session);
 
-  const listing = React.useMemo(() => {
-    return session.listings?.find((l) => l.id === listingId);
-  }, [session, listingId]);
+  const locationState = useLocation().state as { edit: boolean } | null;
 
+  // update editing state if location state changes
   React.useEffect(() => {
-    setSelectedListing(listing);
-  }, [listing]);
+    if (locationState?.edit) setIsEditing(true);
+  }, [locationState]);
 
   async function handleEditClick() {
     setIsEditing(true);
@@ -43,9 +39,6 @@ export default function ListingViewer({ session }: IProps) {
     });
     setSelectedListing(undefined);
   }
-
-  if (!listing)
-    return <div>{`Listing with id ${listingId} does not exist`}</div>;
 
   return (
     <>
@@ -62,7 +55,7 @@ export default function ListingViewer({ session }: IProps) {
             className="mr-2"
             size="sm"
             variant="light"
-            onClick={() => navigate("../")}
+            onClick={() => setSelectedListing(undefined)}
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
@@ -105,5 +98,5 @@ export default function ListingViewer({ session }: IProps) {
 
 interface IProps {
   session: SessionData;
-  listing: Listing | undefined;
+  listing: Listing;
 }

@@ -10,16 +10,18 @@ import {
   faEdit,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { Listing } from "../../../../Models/Session";
+import SessionData, { Listing } from "../../../../Models/Session";
 import { useOnClickOutside } from "../../../../Utils/Hooks";
 import styles from "./ListingMarker.module.scss";
 import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
 import DropdownButton from "react-bootstrap/esm/DropdownButton";
 import Dropdown from "react-bootstrap/esm/Dropdown";
+import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 
 export default function ListingMarker({
   hovered,
   listing,
+  session,
 }: ListingMarkerProps) {
   const [showContextMenu, setShowContextMenu] = React.useState(false);
 
@@ -27,11 +29,13 @@ export default function ListingMarker({
     <>
       <FontAwesomeIcon
         className={classNames(styles.container, hovered && styles.hovered)}
+        color="green"
         icon={faHome}
         onContextMenu={() => setShowContextMenu((prev) => !prev)}
       />
       {showContextMenu && (
         <ListingMarkerContextMenu
+          session={session}
           listing={listing}
           onClose={() => setShowContextMenu(false)}
         />
@@ -41,6 +45,7 @@ export default function ListingMarker({
 }
 
 export interface ListingMarkerProps {
+  session: SessionData;
   listing: Listing;
   hovered?: boolean;
   lat: number;
@@ -48,14 +53,18 @@ export interface ListingMarkerProps {
 }
 
 function ListingMarkerContextMenu({
+  session,
   listing,
   onClose,
 }: {
+  session: SessionData;
   listing: Listing;
   onClose: () => void;
 }) {
   const popoverRef = React.useRef(null);
   useOnClickOutside(popoverRef, onClose);
+
+  const { setSelectedListing } = useSelectedListing(session);
 
   const navigate = useNavigate();
 
@@ -68,13 +77,23 @@ function ListingMarkerContextMenu({
     onClose();
     navigate("./Directions", { state: { origin: listing.address } });
   };
+
+  const handleEditClick = () => {
+    onClose();
+    setSelectedListing(listing, { edit: true });
+  };
+
   return (
     <div className={styles.contextMenu}>
       <Popover id="popover-basic" ref={popoverRef}>
         <Popover.Title as="h3">{listing.name}</Popover.Title>
         <Popover.Content className="d-flex">
           <ButtonGroup>
-            <Button className={styles.button} variant="light">
+            <Button
+              className={styles.button}
+              variant="light"
+              onClick={handleEditClick}
+            >
               <FontAwesomeIcon icon={faEdit} color="blue" />
             </Button>
             <DropdownButton
