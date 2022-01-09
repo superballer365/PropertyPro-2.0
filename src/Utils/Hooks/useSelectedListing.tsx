@@ -1,8 +1,11 @@
 import React from "react";
 import SessionData, { Listing } from "../../Models/Session";
 import { useMatch, useNavigate } from "react-router-dom";
+import { SessionContext } from "../../Contexts/SessionContext";
 
-export default function useSelectedListing(session: SessionData) {
+export default function useSelectedListing() {
+  const { session } = React.useContext(SessionContext);
+
   const match = useMatch<{ sessionId: string; listingId: string }, string>(
     "/Session/:sessionId/Listings/:listingId"
   );

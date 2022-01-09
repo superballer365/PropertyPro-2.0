@@ -5,19 +5,22 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import SessionData, { Listing } from "../../../../Models/Session";
+import { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "../Listings/EditListingDialog";
 import { getAddressComponents } from "../../../../Utils/address";
 import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 import { useLocation } from "react-router-dom";
+import { SessionContext } from "../../../../Contexts/SessionContext";
 
-export default function ListingViewer({ session, listing }: IProps) {
+export default function ListingViewer({ listing }: IProps) {
+  const { session } = React.useContext(SessionContext);
+
   const [isEditing, setIsEditing] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
 
-  const { setSelectedListing } = useSelectedListing(session);
+  const { setSelectedListing } = useSelectedListing();
 
   const locationState = useLocation().state as { edit: boolean } | null;
 
@@ -97,6 +100,5 @@ export default function ListingViewer({ session, listing }: IProps) {
 }
 
 interface IProps {
-  session: SessionData;
   listing: Listing;
 }

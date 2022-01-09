@@ -45,10 +45,7 @@ export default function SidePanel({ session }: IProps) {
       </Nav>
       <div className={styles.content}>
         <Routes>
-          <Route
-            path="Listings/*"
-            element={<ListingsPanel session={session} />}
-          />
+          <Route path="Listings/*" element={<ListingsPanel />} />
           <Route
             path="POI/*"
             element={<PointsOfInterestPanel session={session} />}

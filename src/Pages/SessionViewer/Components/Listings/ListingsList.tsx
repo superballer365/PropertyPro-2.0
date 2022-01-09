@@ -6,12 +6,14 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import SessionData, { Listing } from "../../../../Models/Session";
 import styles from "./ListingsList.module.scss";
 import { ListingContext } from "../../../../Contexts/ListingContext";
-import { useNavigate } from "react-router-dom";
+import { SessionContext } from "../../../../Contexts/SessionContext";
+import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 
 export default function ListingsList({
-  session,
   onCreateNewListingClick,
 }: IListingsListProps) {
+  const { session } = React.useContext(SessionContext);
+
   function getContent() {
     if (!session.listings || session.listings.length < 1)
       return <Card.Body>No listings</Card.Body>;
@@ -39,15 +41,14 @@ export default function ListingsList({
 }
 
 interface IListingsListProps {
-  session: SessionData;
   onCreateNewListingClick: () => void;
 }
 
 function ListingsListItem({ listing }: IListingsListItemProps) {
-  const { setSelectedListing, addHoveredListingId, removeHoveredListingId } =
+  const { addHoveredListingId, removeHoveredListingId } =
     React.useContext(ListingContext);
 
-  const navigate = useNavigate();
+  const { setSelectedListing } = useSelectedListing();
 
   React.useEffect(() => {
     return () => {
@@ -56,8 +57,7 @@ function ListingsListItem({ listing }: IListingsListItemProps) {
   }, []);
 
   function handleClick() {
-    navigate(`./${listing.id}`);
-    // setSelectedListing(listing);
+    setSelectedListing(listing);
   }
 
   function handleListingHover() {
