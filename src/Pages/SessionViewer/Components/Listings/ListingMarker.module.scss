@@ -21,3 +21,16 @@ $K_HEIGHT_HOVERED: 35px;
   left: -$K_WIDTH_HOVERED / 2;
   top: -$K_HEIGHT_HOVERED / 2;
 }
+
+$MENU_HEIGHT: 60px;
+$MENU_WIDTH: 150px;
+$GAP: 15px;
+
+.contextMenu {
+  display: flex;
+
+  :global(.popover) {
+    top: -$K_HEIGHT/2;
+    left: $K_WIDTH/2;
+  }
+}

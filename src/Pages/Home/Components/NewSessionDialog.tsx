@@ -6,7 +6,7 @@ import { AutoCompleteSuggestion, SearchType } from "../../../API/Google Places";
 import AddressSearchBar from "../../../Components/AddressSearchBar";
 import {
   BoundingBox,
-  geocodeByPlaceId,
+  geocodeByAddress,
 } from "../../../API/Google Places/Geocoding";
 import { useCreateSession } from "../../../Utils/Hooks";
 
@@ -34,7 +34,7 @@ export default function NewSessionDialog({ onClose }: IProps) {
     }
   }
 
-  async function handleCitySelect(city: AutoCompleteSuggestion | undefined) {
+  async function handleCitySelect(city: string | undefined) {
     if (!city) {
       setFormData((prev) => ({
         ...prev,
@@ -45,11 +45,11 @@ export default function NewSessionDialog({ onClose }: IProps) {
     }
 
     try {
-      const cityGeocodingInfo = await geocodeByPlaceId(city.id);
+      const cityGeocodingInfo = await geocodeByAddress(city);
       console.log(cityGeocodingInfo);
       setFormData((prev) => ({
         ...prev,
-        searchCity: city.name,
+        searchCity: city,
         // there is guaranteed to be one result
         searchBounds: cityGeocodingInfo[0].boundingBox,
       }));
@@ -89,6 +89,7 @@ export default function NewSessionDialog({ onClose }: IProps) {
               onSelect={handleCitySelect}
               isInvalid={!!formDataErrors.searchCityError}
               searchType={SearchType.City}
+              selected={formData.searchCity}
             />
             <Form.Control.Feedback type="invalid">
               {formDataErrors.nameError}
