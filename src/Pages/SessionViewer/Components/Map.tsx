@@ -8,6 +8,7 @@ import { MapContext } from "../../../Contexts/MapContext";
 import useSelectedListing from "../../../Utils/Hooks/useSelectedListing";
 import { SessionContext } from "../../../Contexts/SessionContext";
 import useSelectedPointOfInterest from "../../../Utils/Hooks/useSelectedPointOfInterest";
+import { Listing, PointOfInterest } from "../../../Models/Session";
 
 export default function Map() {
   const { session } = React.useContext(SessionContext);
@@ -51,31 +52,28 @@ export default function Map() {
     loaded.current = true;
   }, [session]);
 
-  // update the zoom and center when the selected listing changes
+  // update the zoom and center when the selected listing or point of interest changes
+  const prevSelectedListingRef = React.useRef<Listing>();
+  const prevSelectedPointOfInterestRef = React.useRef<PointOfInterest>();
   React.useEffect(() => {
     if (selectedListing) {
       setZoom(17);
       setCenter(selectedListing.location);
+      prevSelectedListingRef.current = selectedListing;
+      return;
+    }
+
+    if (selectedPointOfInterest) {
+      setZoom(17);
+      setCenter(selectedPointOfInterest.location);
+      prevSelectedPointOfInterestRef.current = selectedPointOfInterest;
       return;
     }
 
     // reset the zoom and center if no listing is selected
     setZoom(defaultZoomRef.current);
     setCenter(defaultCenterRef.current);
-  }, [selectedListing]);
-
-  // update the zoom and center when the selected point of interest changes
-  React.useEffect(() => {
-    if (selectedPointOfInterest) {
-      setZoom(17);
-      setCenter(selectedPointOfInterest.location);
-      return;
-    }
-
-    // reset the zoom and center if no point of interest is selected
-    setZoom(defaultZoomRef.current);
-    setCenter(defaultCenterRef.current);
-  }, [selectedPointOfInterest]);
+  }, [selectedListing, selectedPointOfInterest]);
 
   function handleMarkerClick(key: string, markerProps: MapMarkerProps) {
     markerProps.onClick();
