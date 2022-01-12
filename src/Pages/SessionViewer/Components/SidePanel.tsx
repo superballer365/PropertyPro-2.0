@@ -17,10 +17,9 @@ import {
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
 import DirectionsPanel from "./Directions/DirectionsPanel";
-import SessionData from "../../../Models/Session";
 import styles from "./SidePanel.module.scss";
 
-export default function SidePanel({ session }: IProps) {
+export default function SidePanel() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -45,24 +44,14 @@ export default function SidePanel({ session }: IProps) {
       </Nav>
       <div className={styles.content}>
         <Routes>
-          <Route
-            path="Listings"
-            element={<ListingsPanel session={session} />}
-          />
-          <Route
-            path="POI"
-            element={<PointsOfInterestPanel session={session} />}
-          />
+          <Route path="Listings/*" element={<ListingsPanel />} />
+          <Route path="POI/*" element={<PointsOfInterestPanel />} />
           <Route path="Directions" element={<DirectionsPanel />} />
           <Route path="*" element={<Navigate to="Listings" />} />
         </Routes>
       </div>
     </div>
   );
-}
-
-interface IProps {
-  session: SessionData;
 }
 
 type TabOption = "Listings" | "POI" | "Directions";

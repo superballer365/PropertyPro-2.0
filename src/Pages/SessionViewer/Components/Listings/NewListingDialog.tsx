@@ -3,10 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import {
-  AutoCompleteSuggestion,
-  SearchType,
-} from "../../../../API/Google Places";
+import { SearchType } from "../../../../API/Google Places";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import {
   Coordinate,
@@ -15,8 +12,10 @@ import {
 import { uuid } from "uuidv4";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import SessionData, { Listing } from "../../../../Models/Session";
+import { SessionContext } from "../../../../Contexts/SessionContext";
 
-export default function NewListingDialog({ onClose, session }: IProps) {
+export default function NewListingDialog({ onClose }: IProps) {
+  const { session } = React.useContext(SessionContext);
   const updateSessionMutation = useUpdateSession();
 
   const [formData, setFormData] =
@@ -179,7 +178,6 @@ export default function NewListingDialog({ onClose, session }: IProps) {
 
 interface IProps {
   onClose: () => void;
-  session: SessionData;
 }
 
 interface CreateListingFormData {

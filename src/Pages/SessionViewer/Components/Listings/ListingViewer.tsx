@@ -5,18 +5,29 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { ListingContext } from "../../../../Contexts/ListingContext";
-import SessionData, { Listing } from "../../../../Models/Session";
+import { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "../Listings/EditListingDialog";
 import { getAddressComponents } from "../../../../Utils/address";
+import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
+import { useLocation } from "react-router-dom";
+import { SessionContext } from "../../../../Contexts/SessionContext";
 
-export default function ListingViewer({ listing, session }: IProps) {
-  const { setSelectedListing } = React.useContext(ListingContext);
+export default function ListingViewer({ listing }: IProps) {
+  const { session } = React.useContext(SessionContext);
 
   const [isEditing, setIsEditing] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
+
+  const { setSelectedListing } = useSelectedListing();
+
+  const locationState = useLocation().state as { edit: boolean } | null;
+
+  // update editing state if location state changes
+  React.useEffect(() => {
+    if (locationState?.edit) setIsEditing(true);
+  }, [locationState]);
 
   async function handleEditClick() {
     setIsEditing(true);
@@ -29,8 +40,6 @@ export default function ListingViewer({ listing, session }: IProps) {
     });
     setSelectedListing(undefined);
   }
-
-  getAddressComponents(listing.address);
 
   return (
     <>
@@ -89,6 +98,5 @@ export default function ListingViewer({ listing, session }: IProps) {
 }
 
 interface IProps {
-  session: SessionData;
   listing: Listing;
 }

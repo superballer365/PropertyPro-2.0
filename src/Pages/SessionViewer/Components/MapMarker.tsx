@@ -1,5 +1,5 @@
 import React from "react";
-import { PointOfInterest, Listing } from "../../../Models/Session";
+import SessionData, { PointOfInterest, Listing } from "../../../Models/Session";
 import ListingMarker from "./Listings/ListingMarker";
 import PointOfInterestMarker from "./PointsOfInterest/PointOfInterestMarker";
 

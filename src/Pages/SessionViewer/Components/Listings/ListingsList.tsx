@@ -6,11 +6,14 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import SessionData, { Listing } from "../../../../Models/Session";
 import styles from "./ListingsList.module.scss";
 import { ListingContext } from "../../../../Contexts/ListingContext";
+import { SessionContext } from "../../../../Contexts/SessionContext";
+import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 
 export default function ListingsList({
-  session,
   onCreateNewListingClick,
 }: IListingsListProps) {
+  const { session } = React.useContext(SessionContext);
+
   function getContent() {
     if (!session.listings || session.listings.length < 1)
       return <Card.Body>No listings</Card.Body>;
@@ -38,13 +41,14 @@ export default function ListingsList({
 }
 
 interface IListingsListProps {
-  session: SessionData;
   onCreateNewListingClick: () => void;
 }
 
 function ListingsListItem({ listing }: IListingsListItemProps) {
-  const { setSelectedListing, addHoveredListingId, removeHoveredListingId } =
+  const { addHoveredListingId, removeHoveredListingId } =
     React.useContext(ListingContext);
+
+  const { setSelectedListing } = useSelectedListing();
 
   React.useEffect(() => {
     return () => {

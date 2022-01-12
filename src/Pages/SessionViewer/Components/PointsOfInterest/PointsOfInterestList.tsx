@@ -6,11 +6,14 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import SessionData, { PointOfInterest } from "../../../../Models/Session";
 import styles from "./PointsOfInterestList.module.scss";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
+import { SessionContext } from "../../../../Contexts/SessionContext";
+import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
 
 export default function PointsOfInterestList({
-  session,
   onCreateNewPointOfInterestClick,
 }: IPointsOfInterestListProps) {
+  const { session } = React.useContext(SessionContext);
+
   function getContent() {
     if (!session.pointsOfInterest || session.pointsOfInterest.length < 1)
       return <Card.Body>No points of interest</Card.Body>;
@@ -41,18 +44,16 @@ export default function PointsOfInterestList({
 }
 
 interface IPointsOfInterestListProps {
-  session: SessionData;
   onCreateNewPointOfInterestClick: () => void;
 }
 
 function PointsOfInterestListItem({
   pointOfInterest,
 }: IPointsOfInterestListItemProps) {
-  const {
-    setSelectedPointOfInterest,
-    addHoveredPointOfInterestId,
-    removeHoveredPointOfInterestId,
-  } = React.useContext(PointOfInterestContext);
+  const { addHoveredPointOfInterestId, removeHoveredPointOfInterestId } =
+    React.useContext(PointOfInterestContext);
+
+  const { setSelectedPointOfInterest } = useSelectedPointOfInterest();
 
   React.useEffect(() => {
     return () => {

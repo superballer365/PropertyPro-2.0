@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./PointsOfInterestPanel.module.scss";
-import SessionData from "../../../../Models/Session";
 import NewPointOfInterestDialog from "./NewPointOfInterestDialog";
 import PointsOfInterestList from "./PointsOfInterestList";
-import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 import PointOfInterestViewer from "./PointOfInterestViewer";
+import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
 
-export default function PointsOfInterestPanel({ session }: IProps) {
-  const { selectedPointOfInterest } = React.useContext(PointOfInterestContext);
+export default function PointsOfInterestPanel() {
+  const { selectedPointOfInterest } = useSelectedPointOfInterest();
 
   const [creatingNewPointOfInterest, setCreatingNewPointOfInterest] =
     React.useState(false);
@@ -16,10 +15,7 @@ export default function PointsOfInterestPanel({ session }: IProps) {
     // if we have a selected point of interest, show it
     if (selectedPointOfInterest)
       return (
-        <PointOfInterestViewer
-          session={session}
-          pointOfInterest={selectedPointOfInterest}
-        />
+        <PointOfInterestViewer pointOfInterest={selectedPointOfInterest} />
       );
 
     // otherwise, render the list of point of interest
@@ -28,7 +24,6 @@ export default function PointsOfInterestPanel({ session }: IProps) {
         onCreateNewPointOfInterestClick={() =>
           setCreatingNewPointOfInterest(true)
         }
-        session={session}
       />
     );
   }
@@ -37,15 +32,10 @@ export default function PointsOfInterestPanel({ session }: IProps) {
     <>
       {creatingNewPointOfInterest && (
         <NewPointOfInterestDialog
-          session={session}
           onClose={() => setCreatingNewPointOfInterest(false)}
         />
       )}
       <div className={styles.container}>{getContent()}</div>
     </>
   );
-}
-
-interface IProps {
-  session: SessionData;
 }

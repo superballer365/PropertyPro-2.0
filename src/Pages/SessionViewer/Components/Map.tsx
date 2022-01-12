@@ -1,33 +1,29 @@
 import React from "react";
 import GoogleMapReact, { fitBounds } from "google-map-react";
 import { Coordinate } from "../../../API/Google Places/Geocoding";
-import SessionData from "../../../Models/Session";
 import { ListingContext } from "../../../Contexts/ListingContext";
 import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext";
 import MapMarker, { MapMarkerProps, MarkerType } from "./MapMarker";
 import { MapContext } from "../../../Contexts/MapContext";
+import useSelectedListing from "../../../Utils/Hooks/useSelectedListing";
+import { SessionContext } from "../../../Contexts/SessionContext";
+import useSelectedPointOfInterest from "../../../Utils/Hooks/useSelectedPointOfInterest";
 
-interface IProps {
-  session: SessionData;
-}
-
-export default function Map({ session }: IProps) {
+export default function Map() {
+  const { session } = React.useContext(SessionContext);
+  const { hoveredListingIds, addHoveredListingId, removeHoveredListingId } =
+    React.useContext(ListingContext);
   const {
-    selectedListing,
-    hoveredListingIds,
-    setSelectedListing,
-    addHoveredListingId,
-    removeHoveredListingId,
-  } = React.useContext(ListingContext);
-  const {
-    selectedPointOfInterest,
     hoveredPointOfInterestIds,
-    setSelectedPointOfInterest,
     addHoveredPointOfInterestId,
     removeHoveredPointOfInterestId,
   } = React.useContext(PointOfInterestContext);
   const { center, zoom, setMap, setCenter, setZoom } =
     React.useContext(MapContext);
+
+  const { selectedListing, setSelectedListing } = useSelectedListing();
+  const { selectedPointOfInterest, setSelectedPointOfInterest } =
+    useSelectedPointOfInterest();
 
   // default zoom and center, to be used for resetting
   const defaultZoomRef = React.useRef<number>();
