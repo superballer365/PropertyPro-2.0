@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { PointOfInterest } from "../../../../Models/Session";
 import styles from "./PointOfInterestMarker.module.scss";
-import { useOnClickOutside } from "../../../../Utils/Hooks";
+import { useOnClickOutside, useUpdateSession } from "../../../../Utils/Hooks";
 import { useNavigate } from "react-router-dom";
 import Popover from "react-bootstrap/Popover";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -17,6 +17,7 @@ import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
+import { SessionContext } from "../../../../Contexts/SessionContext";
 
 export default function PointOfInterestMarker({
   lat,
@@ -57,21 +58,22 @@ function PointOfInterestMarkerContextMenu({
   pointOfInterest: PointOfInterest;
   onClose: () => void;
 }) {
+  const { session } = React.useContext(SessionContext);
+
+  const { setSelectedPointOfInterest } = useSelectedPointOfInterest();
+  const updateSessionMutation = useUpdateSession();
+  const navigate = useNavigate();
   const popoverRef = React.useRef(null);
   useOnClickOutside(popoverRef, onClose);
 
-  const { setSelectedPointOfInterest } = useSelectedPointOfInterest();
-
-  const navigate = useNavigate();
-
-  const handleToClick = () => {
+  const handleSetDestinationClick = () => {
     onClose();
     navigate("./Directions", {
       state: { destination: pointOfInterest.address },
     });
   };
 
-  const handleFromClick = () => {
+  const handleSetOriginClick = () => {
     onClose();
     navigate("./Directions", { state: { origin: pointOfInterest.address } });
   };
@@ -79,6 +81,17 @@ function PointOfInterestMarkerContextMenu({
   const handleEditClick = () => {
     onClose();
     setSelectedPointOfInterest(pointOfInterest, { edit: true });
+  };
+
+  const handleDeleteClick = async () => {
+    onClose();
+    await updateSessionMutation.mutateAsync({
+      ...session,
+      pointsOfInterest: session.pointsOfInterest!.filter(
+        (p) => p.id !== pointOfInterest.id
+      ),
+    });
+    setSelectedPointOfInterest(undefined);
   };
 
   return (
@@ -105,14 +118,18 @@ function PointOfInterestMarkerContextMenu({
               }
               id="bg-nested-dropdown"
             >
-              <Dropdown.Item eventKey="1" onClick={handleToClick}>
-                Route To
+              <Dropdown.Item eventKey="1" onClick={handleSetOriginClick}>
+                Set Origin
               </Dropdown.Item>
-              <Dropdown.Item eventKey="2" onClick={handleFromClick}>
-                Route From
+              <Dropdown.Item eventKey="2" onClick={handleSetDestinationClick}>
+                Set Destination
               </Dropdown.Item>
             </DropdownButton>
-            <Button className={styles.button} variant="light">
+            <Button
+              className={styles.button}
+              variant="light"
+              onClick={handleDeleteClick}
+            >
               <FontAwesomeIcon icon={faTrash} color="red" />
             </Button>
           </ButtonGroup>

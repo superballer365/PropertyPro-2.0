@@ -34,8 +34,6 @@ export default function ListingViewer({ listing }: IProps) {
   }
 
   async function handleDeleteClick() {
-    if (!listing) return;
-
     await updateSessionMutation.mutateAsync({
       ...session,
       listings: session.listings!.filter((l) => l.id !== listing.id),

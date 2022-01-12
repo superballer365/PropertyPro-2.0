@@ -11,12 +11,13 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import SessionData, { Listing } from "../../../../Models/Session";
-import { useOnClickOutside } from "../../../../Utils/Hooks";
+import { useOnClickOutside, useUpdateSession } from "../../../../Utils/Hooks";
 import styles from "./ListingMarker.module.scss";
 import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
 import DropdownButton from "react-bootstrap/esm/DropdownButton";
 import Dropdown from "react-bootstrap/esm/Dropdown";
 import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
+import { SessionContext } from "../../../../Contexts/SessionContext";
 
 export default function ListingMarker({
   hovered,
@@ -56,19 +57,20 @@ function ListingMarkerContextMenu({
   listing: Listing;
   onClose: () => void;
 }) {
+  const { session } = React.useContext(SessionContext);
+
+  const { setSelectedListing } = useSelectedListing();
+  const updateSessionMutation = useUpdateSession();
+  const navigate = useNavigate();
   const popoverRef = React.useRef(null);
   useOnClickOutside(popoverRef, onClose);
 
-  const { setSelectedListing } = useSelectedListing();
-
-  const navigate = useNavigate();
-
-  const handleToClick = () => {
+  const handleSetDestinationClick = () => {
     onClose();
     navigate("./Directions", { state: { destination: listing.address } });
   };
 
-  const handleFromClick = () => {
+  const handleSetOriginClick = () => {
     onClose();
     navigate("./Directions", { state: { origin: listing.address } });
   };
@@ -77,6 +79,15 @@ function ListingMarkerContextMenu({
     onClose();
     setSelectedListing(listing, { edit: true });
   };
+
+  async function handleDeleteClick() {
+    onClose();
+    await updateSessionMutation.mutateAsync({
+      ...session,
+      listings: session.listings!.filter((l) => l.id !== listing.id),
+    });
+    setSelectedListing(undefined);
+  }
 
   return (
     <div className={styles.contextMenu}>
@@ -102,14 +113,18 @@ function ListingMarkerContextMenu({
               }
               id="bg-nested-dropdown"
             >
-              <Dropdown.Item eventKey="1" onClick={handleToClick}>
-                Route To
+              <Dropdown.Item eventKey="1" onClick={handleSetOriginClick}>
+                Set Origin
               </Dropdown.Item>
-              <Dropdown.Item eventKey="2" onClick={handleFromClick}>
-                Route From
+              <Dropdown.Item eventKey="2" onClick={handleSetDestinationClick}>
+                Set Destination
               </Dropdown.Item>
             </DropdownButton>
-            <Button className={styles.button} variant="light">
+            <Button
+              className={styles.button}
+              variant="light"
+              onClick={handleDeleteClick}
+            >
               <FontAwesomeIcon icon={faTrash} color="red" />
             </Button>
           </ButtonGroup>
