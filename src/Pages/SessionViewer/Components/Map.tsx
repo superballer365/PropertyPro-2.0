@@ -54,13 +54,13 @@ export default function Map() {
   // update the zoom and center when the selected listing or point of interest changes
   React.useEffect(() => {
     if (selectedListing) {
-      setZoom(getZoomedLevel(17));
+      setZoom(17);
       setCenter(selectedListing.location);
       return;
     }
 
     if (selectedPointOfInterest) {
-      setZoom(getZoomedLevel(17));
+      setZoom(17);
       setCenter(selectedPointOfInterest.location);
       return;
     }
@@ -93,6 +93,10 @@ export default function Map() {
           onChildMouseEnter={handleMarkerHover}
           onChildMouseLeave={handleMarkerUnhover}
           onGoogleApiLoaded={({ map }) => setMap(map)}
+          onChange={({ center, zoom }) => {
+            setCenter(center);
+            setZoom(zoom);
+          }}
           yesIWantToUseGoogleMapApiInternals={true}
           options={{
             streetViewControl: true,
@@ -134,10 +138,4 @@ export default function Map() {
       )}
     </div>
   );
-}
-
-// HACK: forcing the map to change zoom level by providing a slightly different value.
-
-function getZoomedLevel(desiredZoom: number) {
-  return desiredZoom + Math.random() / 1;
 }
