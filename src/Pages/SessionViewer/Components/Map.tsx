@@ -8,7 +8,6 @@ import { MapContext } from "../../../Contexts/MapContext";
 import useSelectedListing from "../../../Utils/Hooks/useSelectedListing";
 import { SessionContext } from "../../../Contexts/SessionContext";
 import useSelectedPointOfInterest from "../../../Utils/Hooks/useSelectedPointOfInterest";
-import { Listing, PointOfInterest } from "../../../Models/Session";
 
 export default function Map() {
   const { session } = React.useContext(SessionContext);
@@ -53,20 +52,16 @@ export default function Map() {
   }, [session]);
 
   // update the zoom and center when the selected listing or point of interest changes
-  const prevSelectedListingRef = React.useRef<Listing>();
-  const prevSelectedPointOfInterestRef = React.useRef<PointOfInterest>();
   React.useEffect(() => {
     if (selectedListing) {
-      setZoom(17);
+      setZoom(getZoomedLevel(17));
       setCenter(selectedListing.location);
-      prevSelectedListingRef.current = selectedListing;
       return;
     }
 
     if (selectedPointOfInterest) {
-      setZoom(17);
+      setZoom(getZoomedLevel(17));
       setCenter(selectedPointOfInterest.location);
-      prevSelectedPointOfInterestRef.current = selectedPointOfInterest;
       return;
     }
 
@@ -139,4 +134,10 @@ export default function Map() {
       )}
     </div>
   );
+}
+
+// HACK: forcing the map to change zoom level by providing a slightly different value.
+
+function getZoomedLevel(desiredZoom: number) {
+  return desiredZoom + Math.random() / 1;
 }
