@@ -18,7 +18,7 @@ export default function DirectionsResults({
             styles.container,
             activeRouteIndex === index && styles.active
           )}
-          key={route.summary}
+          key={`${route.summary}${index}`}
           onClick={() => onRouteClick(index)}
         >
           <RouteSummary route={route} />

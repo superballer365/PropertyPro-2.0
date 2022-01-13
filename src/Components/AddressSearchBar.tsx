@@ -51,7 +51,7 @@ export default function AutoCompleteSearchBar({
       filterBy={() => true}
       useCache={true}
       isInvalid={isInvalid}
-      selected={selected ? [selected] : undefined}
+      selected={selected ? [selected] : []}
     />
   );
 }
