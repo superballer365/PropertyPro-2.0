@@ -33,7 +33,12 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
       onMouseEnter={handleListingHover}
       onMouseLeave={handleListingUnhover}
     >
-      {listing.name}
+      <div className={styles.name}>{listing.name}</div>
+      <div className={styles.details}>
+        <div>{`$${listing.price}`}</div>
+        <div>{`Beds: ${listing.numberOfBedrooms}`}</div>
+        <div>{`Baths: ${listing.numberOfBathrooms}`}</div>
+      </div>
     </ListGroupItem>
   );
 }

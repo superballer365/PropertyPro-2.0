@@ -3,4 +3,14 @@
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
   }
+
+  .name {
+    font-weight: 500;
+  }
+
+  .details {
+    display: grid;
+    color: var(--secondary);
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
