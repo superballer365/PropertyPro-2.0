@@ -11,8 +11,12 @@ import useSelectedPointOfInterest from "../../../Utils/Hooks/useSelectedPointOfI
 
 export default function Map() {
   const { session } = React.useContext(SessionContext);
-  const { hoveredListingIds, addHoveredListingId, removeHoveredListingId } =
-    React.useContext(ListingContext);
+  const {
+    filteredListings,
+    hoveredListingIds,
+    addHoveredListingId,
+    removeHoveredListingId,
+  } = React.useContext(ListingContext);
   const {
     hoveredPointOfInterestIds,
     addHoveredPointOfInterestId,
@@ -104,7 +108,7 @@ export default function Map() {
             fullscreenControl: false,
           }}
         >
-          {session.listings?.map((listing) => (
+          {filteredListings.map((listing) => (
             <MapMarker
               key={listing.id}
               type={MarkerType.Listing}

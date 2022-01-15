@@ -4,10 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { ListingContext } from "../../../../Contexts/ListingContext";
-import {
-  AutoCompleteSuggestion,
-  SearchType,
-} from "../../../../API/Google Places";
+import { SearchType } from "../../../../API/Google Places";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import {
   Coordinate,

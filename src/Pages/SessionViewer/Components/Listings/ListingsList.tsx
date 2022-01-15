@@ -10,19 +10,19 @@ import { SessionContext } from "../../../../Contexts/SessionContext";
 import ListingsListItem from "./ListingsListItem";
 import styles from "./ListingsList.module.scss";
 import ListingFilters from "./ListingFilters";
+import { ListingContext } from "../../../../Contexts/ListingContext";
 
 export default function ListingsList({
   onCreateNewListingClick,
 }: IListingsListProps) {
-  const { session } = React.useContext(SessionContext);
+  const { filteredListings } = React.useContext(ListingContext);
 
   function getContent() {
-    if (!session.listings || session.listings.length < 1)
-      return <Card.Body>No listings</Card.Body>;
+    if (filteredListings.length < 1) return <Card.Body>No listings</Card.Body>;
 
     return (
       <ListGroup>
-        {session.listings.map((listing) => (
+        {filteredListings.map((listing) => (
           <ListingsListItem key={listing.id} listing={listing} />
         ))}
       </ListGroup>
