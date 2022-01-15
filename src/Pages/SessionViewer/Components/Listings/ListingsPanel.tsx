@@ -3,10 +3,10 @@ import styles from "./ListingsPanel.module.scss";
 import NewListingDialog from "./NewListingDialog";
 import ListingsList from "./ListingsList";
 import ListingViewer from "./ListingViewer";
-import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
+import { ListingContext } from "../../../../Contexts/ListingContext";
 
 export default function ListingsPanel() {
-  const { selectedListing } = useSelectedListing();
+  const { selectedListing } = React.useContext(ListingContext);
 
   const [creatingNewListing, setCreatingNewListing] = React.useState(false);
 

@@ -10,14 +10,14 @@ import {
   faEdit,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import SessionData, { Listing } from "../../../../Models/Session";
+import { Listing } from "../../../../Models/Session";
 import { useOnClickOutside, useUpdateSession } from "../../../../Utils/Hooks";
-import styles from "./ListingMarker.module.scss";
 import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
 import DropdownButton from "react-bootstrap/esm/DropdownButton";
 import Dropdown from "react-bootstrap/esm/Dropdown";
-import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import { ListingContext } from "../../../../Contexts/ListingContext";
+import styles from "./ListingMarker.module.scss";
 
 export default function ListingMarker({
   hovered,
@@ -58,8 +58,8 @@ function ListingMarkerContextMenu({
   onClose: () => void;
 }) {
   const { session } = React.useContext(SessionContext);
+  const { setSelectedListing } = React.useContext(ListingContext);
 
-  const { setSelectedListing } = useSelectedListing();
   const updateSessionMutation = useUpdateSession();
   const navigate = useNavigate();
   const popoverRef = React.useRef(null);

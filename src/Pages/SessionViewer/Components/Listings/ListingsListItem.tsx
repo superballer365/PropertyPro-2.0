@@ -2,14 +2,11 @@ import React from "react";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import { Listing } from "../../../../Models/Session";
 import { ListingContext } from "../../../../Contexts/ListingContext";
-import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 import styles from "./ListingsListItem.module.scss";
 
 export default function ListingsListItem({ listing }: IListingsListItemProps) {
-  const { addHoveredListingId, removeHoveredListingId } =
+  const { setSelectedListing, addHoveredListingId, removeHoveredListingId } =
     React.useContext(ListingContext);
-
-  const { setSelectedListing } = useSelectedListing();
 
   React.useEffect(() => {
     return () => {

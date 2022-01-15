@@ -9,18 +9,17 @@ import { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "../Listings/EditListingDialog";
 import { getAddressComponents } from "../../../../Utils/address";
-import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
 import { useLocation } from "react-router-dom";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import { ListingContext } from "../../../../Contexts/ListingContext";
 
 export default function ListingViewer({ listing }: IProps) {
   const { session } = React.useContext(SessionContext);
+  const { setSelectedListing } = React.useContext(ListingContext);
 
   const [isEditing, setIsEditing] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
-
-  const { setSelectedListing } = useSelectedListing();
 
   const locationState = useLocation().state as { edit: boolean } | null;
 

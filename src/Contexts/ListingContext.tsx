@@ -22,7 +22,10 @@ interface ListingContextState {
   hoveredListingIds: string[];
   filteredListings: Listing[];
   filterSettings: ListingFilterSettings;
-  setSelectedListing: (listing: Listing | undefined) => void;
+  setSelectedListing: (
+    listing: Listing | undefined,
+    options?: { edit: boolean }
+  ) => void;
   setFilterSettings: (filterSettings: ListingFilterSettings) => void;
   addHoveredListingId: (id: string) => void;
   removeHoveredListingId: (id: string) => void;
