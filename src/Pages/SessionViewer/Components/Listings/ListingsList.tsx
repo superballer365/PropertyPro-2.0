@@ -1,13 +1,15 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
-import ListGroupItem from "react-bootstrap/ListGroupItem";
-import SessionData, { Listing } from "../../../../Models/Session";
-import styles from "./ListingsList.module.scss";
-import { ListingContext } from "../../../../Contexts/ListingContext";
+import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { SessionContext } from "../../../../Contexts/SessionContext";
-import useSelectedListing from "../../../../Utils/Hooks/useSelectedListing";
+import ListingsListItem from "./ListingsListItem";
+import styles from "./ListingsList.module.scss";
+import ListingFilters from "./ListingFilters";
 
 export default function ListingsList({
   onCreateNewListingClick,
@@ -29,11 +31,23 @@ export default function ListingsList({
 
   return (
     <Card className={styles.card}>
-      <Card.Header className={styles.header}>
-        <span className={styles.title}>Listings</span>
-        <Button size="sm" onClick={onCreateNewListingClick}>
-          Create
-        </Button>
+      <Card.Header>
+        <Accordion>
+          <div className={styles.header}>
+            <span className={styles.title}>Listings</span>
+            <ButtonGroup>
+              <Accordion.Toggle as={Button} eventKey="0">
+                <FontAwesomeIcon icon={faFilter} />
+              </Accordion.Toggle>
+              <Button onClick={onCreateNewListingClick}>
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
+            </ButtonGroup>
+          </div>
+          <Accordion.Collapse eventKey="0">
+            <ListingFilters />
+          </Accordion.Collapse>
+        </Accordion>
       </Card.Header>
       {getContent()}
     </Card>
@@ -42,44 +56,4 @@ export default function ListingsList({
 
 interface IListingsListProps {
   onCreateNewListingClick: () => void;
-}
-
-function ListingsListItem({ listing }: IListingsListItemProps) {
-  const { addHoveredListingId, removeHoveredListingId } =
-    React.useContext(ListingContext);
-
-  const { setSelectedListing } = useSelectedListing();
-
-  React.useEffect(() => {
-    return () => {
-      removeHoveredListingId(listing.id);
-    };
-  }, []);
-
-  function handleClick() {
-    setSelectedListing(listing);
-  }
-
-  function handleListingHover() {
-    addHoveredListingId(listing.id);
-  }
-
-  function handleListingUnhover() {
-    removeHoveredListingId(listing.id);
-  }
-
-  return (
-    <ListGroupItem
-      className={styles.listItem}
-      onClick={handleClick}
-      onMouseEnter={handleListingHover}
-      onMouseLeave={handleListingUnhover}
-    >
-      {listing.name}
-    </ListGroupItem>
-  );
-}
-
-interface IListingsListItemProps {
-  listing: Listing;
 }

@@ -8,12 +8,13 @@
     .title {
       flex-grow: 1;
     }
-  }
-}
 
-.listItem {
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+    .button {
+      width: 42px;
+
+      .icon {
+        width: 1rem;
+      }
+    }
   }
 }
