@@ -7,6 +7,8 @@ import { PointOfInterest } from "../../../../Models/Session";
 import styles from "./PointsOfInterestList.module.scss";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function PointsOfInterestList({
   onCreateNewPointOfInterestClick,
@@ -34,7 +36,7 @@ export default function PointsOfInterestList({
       <Card.Header className={styles.header}>
         <span className={styles.title}>Points of Interest</span>
         <Button size="sm" onClick={onCreateNewPointOfInterestClick}>
-          Create
+          <FontAwesomeIcon icon={faPlus} />
         </Button>
       </Card.Header>
       {getContent()}

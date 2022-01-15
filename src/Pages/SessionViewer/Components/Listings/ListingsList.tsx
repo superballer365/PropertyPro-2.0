@@ -6,7 +6,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFilter } from "@fortawesome/free-solid-svg-icons";
-import { SessionContext } from "../../../../Contexts/SessionContext";
 import ListingsListItem from "./ListingsListItem";
 import styles from "./ListingsList.module.scss";
 import ListingFilters from "./ListingFilters";
@@ -36,10 +35,10 @@ export default function ListingsList({
           <div className={styles.header}>
             <span className={styles.title}>Listings</span>
             <ButtonGroup>
-              <Accordion.Toggle as={Button} eventKey="0">
+              <Accordion.Toggle as={Button} eventKey="0" size="sm">
                 <FontAwesomeIcon icon={faFilter} />
               </Accordion.Toggle>
-              <Button onClick={onCreateNewListingClick}>
+              <Button onClick={onCreateNewListingClick} size="sm">
                 <FontAwesomeIcon icon={faPlus} />
               </Button>
             </ButtonGroup>
