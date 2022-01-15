@@ -17,16 +17,25 @@ const DEFAULT_LISTING_FILTER_SETTINGS: ListingFilterSettings = {
   maxPrice: undefined,
 };
 
+export type ListingSortOption =
+  | "None"
+  | "Price (low to high)"
+  | "Price (high to low)"
+  | "Beds"
+  | "Baths";
+
 interface ListingContextState {
   selectedListing: Listing | undefined;
   hoveredListingIds: string[];
   filteredListings: Listing[];
   filterSettings: ListingFilterSettings;
+  sortOption: ListingSortOption;
   setSelectedListing: (
     listing: Listing | undefined,
     options?: { edit: boolean }
   ) => void;
   setFilterSettings: (filterSettings: ListingFilterSettings) => void;
+  setSortOption: (sortOption: ListingSortOption) => void;
   addHoveredListingId: (id: string) => void;
   removeHoveredListingId: (id: string) => void;
 }
@@ -36,8 +45,10 @@ const DEFAULT_LISTING_CONTEXT_STATE: ListingContextState = {
   hoveredListingIds: [],
   filteredListings: [],
   filterSettings: DEFAULT_LISTING_FILTER_SETTINGS,
+  sortOption: "None",
   setSelectedListing: () => {},
   setFilterSettings: () => {},
+  setSortOption: () => {},
   addHoveredListingId: () => {},
   removeHoveredListingId: () => {},
 };
@@ -60,6 +71,7 @@ export function ListingContextProvider({
   const [hoveredListingIds, setHoveredListingIds] = React.useState<string[]>(
     []
   );
+  const [sortOption, setSortOption] = React.useState<ListingSortOption>("None");
 
   const addHoveredListingId = React.useCallback((id: string) => {
     setHoveredListingIds((prev) => prev.concat(id));
@@ -73,8 +85,8 @@ export function ListingContextProvider({
 
   const filteredListings = React.useMemo(() => {
     const { beds, baths, minPrice, maxPrice } = filterSettings;
-    return (
-      session.listings?.filter((listing) => {
+    return (session.listings ?? [])
+      .filter((listing) => {
         const bedsMatch =
           beds === undefined ? true : listing.numberOfBedrooms === beds;
         const bathsMatch =
@@ -85,9 +97,18 @@ export function ListingContextProvider({
           maxPrice === undefined ? true : listing.price <= maxPrice;
 
         return bedsMatch && bathsMatch && minPriceMatch && maxPriceMatch;
-      }) ?? []
-    );
-  }, [session, filterSettings]);
+      })
+      .sort((listingA, listingB) => {
+        if (sortOption === "None") return 1;
+        else if (sortOption === "Price (high to low)")
+          return listingA.price - listingB.price;
+        else if (sortOption === "Price (low to high)")
+          return listingB.price - listingA.price;
+        else if (sortOption === "Beds")
+          return listingA.numberOfBedrooms - listingB.numberOfBedrooms;
+        else return listingA.numberOfBathrooms - listingB.numberOfBathrooms;
+      });
+  }, [session, filterSettings, sortOption]);
 
   return (
     <ListingContext.Provider
@@ -96,8 +117,10 @@ export function ListingContextProvider({
         hoveredListingIds,
         filteredListings,
         filterSettings,
+        sortOption,
         setSelectedListing,
         setFilterSettings,
+        setSortOption,
         addHoveredListingId,
         removeHoveredListingId,
       }}

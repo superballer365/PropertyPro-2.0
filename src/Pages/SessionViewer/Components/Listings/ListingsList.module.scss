@@ -16,5 +16,9 @@
         width: 1rem;
       }
     }
+
+    :global(.dropdown-toggle::after) {
+      display: none;
+    }
   }
 }
