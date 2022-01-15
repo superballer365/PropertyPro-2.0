@@ -16,8 +16,8 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 
 export default function PointOfInterestMarker({
   lat,
@@ -59,8 +59,10 @@ function PointOfInterestMarkerContextMenu({
   onClose: () => void;
 }) {
   const { session } = React.useContext(SessionContext);
+  const { setSelectedPointOfInterest } = React.useContext(
+    PointOfInterestContext
+  );
 
-  const { setSelectedPointOfInterest } = useSelectedPointOfInterest();
   const updateSessionMutation = useUpdateSession();
   const navigate = useNavigate();
   const popoverRef = React.useRef(null);

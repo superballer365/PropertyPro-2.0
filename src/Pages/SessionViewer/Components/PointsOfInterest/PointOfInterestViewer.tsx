@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -11,12 +12,13 @@ import { getAddressComponents } from "../../../../Utils/address";
 import EditPointOfInterestDialog from "./EditPointOfInterestDialog";
 import { PointOfInterestType } from "../../../../API";
 import { SessionContext } from "../../../../Contexts/SessionContext";
-import { useLocation } from "react-router-dom";
-import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
+import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 
 export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
   const { session } = React.useContext(SessionContext);
-  const { setSelectedPointOfInterest } = useSelectedPointOfInterest();
+  const { setSelectedPointOfInterest } = React.useContext(
+    PointOfInterestContext
+  );
 
   const [isEditing, setIsEditing] = React.useState(false);
 

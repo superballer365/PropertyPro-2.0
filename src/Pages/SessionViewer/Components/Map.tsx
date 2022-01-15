@@ -6,7 +6,6 @@ import { PointOfInterestContext } from "../../../Contexts/PointOfInterestContext
 import MapMarker, { MapMarkerProps, MarkerType } from "./MapMarker";
 import { MapContext } from "../../../Contexts/MapContext";
 import { SessionContext } from "../../../Contexts/SessionContext";
-import useSelectedPointOfInterest from "../../../Utils/Hooks/useSelectedPointOfInterest";
 
 export default function Map() {
   const { session } = React.useContext(SessionContext);
@@ -19,15 +18,14 @@ export default function Map() {
     removeHoveredListingId,
   } = React.useContext(ListingContext);
   const {
+    selectedPointOfInterest,
     hoveredPointOfInterestIds,
+    setSelectedPointOfInterest,
     addHoveredPointOfInterestId,
     removeHoveredPointOfInterestId,
   } = React.useContext(PointOfInterestContext);
   const { center, zoom, setMap, setCenter, setZoom } =
     React.useContext(MapContext);
-
-  const { selectedPointOfInterest, setSelectedPointOfInterest } =
-    useSelectedPointOfInterest();
 
   // default zoom and center, to be used for resetting
   const defaultZoomRef = React.useRef<number>();

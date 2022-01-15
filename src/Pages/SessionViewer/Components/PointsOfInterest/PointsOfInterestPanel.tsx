@@ -3,10 +3,10 @@ import styles from "./PointsOfInterestPanel.module.scss";
 import NewPointOfInterestDialog from "./NewPointOfInterestDialog";
 import PointsOfInterestList from "./PointsOfInterestList";
 import PointOfInterestViewer from "./PointOfInterestViewer";
-import useSelectedPointOfInterest from "../../../../Utils/Hooks/useSelectedPointOfInterest";
+import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 
 export default function PointsOfInterestPanel() {
-  const { selectedPointOfInterest } = useSelectedPointOfInterest();
+  const { selectedPointOfInterest } = React.useContext(PointOfInterestContext);
 
   const [creatingNewPointOfInterest, setCreatingNewPointOfInterest] =
     React.useState(false);

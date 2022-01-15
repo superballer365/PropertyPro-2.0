@@ -1,11 +1,13 @@
 import React from "react";
 import { PointOfInterest } from "../Models/Session";
+import useSelectedPointOfInterest from "../Utils/Hooks/useSelectedPointOfInterest";
 
 interface PointOfInterestContextState {
   selectedPointOfInterest: PointOfInterest | undefined;
   hoveredPointOfInterestIds: string[];
   setSelectedPointOfInterest: (
-    pointOfInterest: PointOfInterest | undefined
+    pointOfInterest: PointOfInterest | undefined,
+    options?: { edit: boolean }
   ) => void;
   addHoveredPointOfInterestId: (id: string) => void;
   removeHoveredPointOfInterestId: (id: string) => void;
@@ -28,8 +30,8 @@ export function PointOfInterestContextProvider({
 }: {
   children: JSX.Element;
 }) {
-  const [selectedPointOfInterest, setSelectedPointOfInterest] =
-    React.useState<PointOfInterest | undefined>(undefined);
+  const { selectedPointOfInterest, setSelectedPointOfInterest } =
+    useSelectedPointOfInterest();
   const [hoveredPointOfInterestIds, setHoveredPointOfInterestIds] =
     React.useState<string[]>([]);
 
