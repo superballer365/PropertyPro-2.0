@@ -5,7 +5,11 @@ import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faFilter,
+  faSortAmountDown,
+} from "@fortawesome/free-solid-svg-icons";
 import ListingsListItem from "./ListingsListItem";
 import styles from "./ListingsList.module.scss";
 import ListingFilters from "./ListingFilters";
@@ -68,7 +72,7 @@ function ListingSortOptionsDropdown() {
 
   return (
     <DropdownButton
-      title={<FontAwesomeIcon icon={faSort} />}
+      title={<FontAwesomeIcon icon={faSortAmountDown} />}
       as={ButtonGroup}
       menuAlign="right"
     >
