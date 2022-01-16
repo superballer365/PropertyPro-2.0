@@ -101,12 +101,12 @@ export function ListingContextProvider({
       .sort((listingA, listingB) => {
         if (sortOption === "None") return 1;
         else if (sortOption === "Price (high to low)")
-          return listingA.price - listingB.price;
-        else if (sortOption === "Price (low to high)")
           return listingB.price - listingA.price;
+        else if (sortOption === "Price (low to high)")
+          return listingA.price - listingB.price;
         else if (sortOption === "Beds")
-          return listingA.numberOfBedrooms - listingB.numberOfBedrooms;
-        else return listingA.numberOfBathrooms - listingB.numberOfBathrooms;
+          return listingB.numberOfBedrooms - listingA.numberOfBedrooms;
+        else return listingB.numberOfBathrooms - listingA.numberOfBathrooms;
       });
   }, [session, filterSettings, sortOption]);
 
