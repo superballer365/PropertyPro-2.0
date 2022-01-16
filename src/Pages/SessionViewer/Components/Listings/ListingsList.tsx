@@ -11,7 +11,6 @@ import {
   faSortAmountDown,
 } from "@fortawesome/free-solid-svg-icons";
 import ListingsListItem from "./ListingsListItem";
-import styles from "./ListingsList.module.scss";
 import ListingFilters from "./ListingFilters";
 import {
   ListingContext,
@@ -19,6 +18,7 @@ import {
 } from "../../../../Contexts/ListingContext";
 import DropdownButton from "react-bootstrap/esm/DropdownButton";
 import Dropdown from "react-bootstrap/esm/Dropdown";
+import styles from "./ListingsList.module.scss";
 
 export default function ListingsList({
   onCreateNewListingClick,
@@ -84,6 +84,7 @@ function ListingSortOptionsDropdown() {
         "Baths",
       ].map((option) => (
         <Dropdown.Item
+          className={styles.dropdownItem}
           as={Button}
           onClick={() => setSortOption(option as ListingSortOption)}
           active={option === sortOption}
