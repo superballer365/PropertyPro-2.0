@@ -1,0 +1,11 @@
+.listItem {
+  height: 60px;
+
+  .deleteButton {
+    display: none;
+  }
+
+  &:hover .deleteButton {
+    display: block;
+  }
+}
