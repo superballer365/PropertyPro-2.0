@@ -9,6 +9,12 @@ type Session @model {
   searchBounds: BoundingBox!
   listings: [Listing!]
   pointsOfInterest: [PointOfInterest!]
+  roommates: [User!]
+}
+
+type User {
+  userName: String!
+  email: String!
 }
 
 type Listing {

@@ -40,6 +40,10 @@ export const getSession = /* GraphQL */ `
           lng
         }
       }
+      roommates {
+        userName
+        email
+      }
       createdAt
       updatedAt
     }
@@ -87,6 +91,10 @@ export const listSessions = /* GraphQL */ `
             lat
             lng
           }
+        }
+        roommates {
+          userName
+          email
         }
         createdAt
         updatedAt

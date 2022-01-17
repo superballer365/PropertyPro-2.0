@@ -9,6 +9,7 @@ export type CreateSessionInput = {
   searchBounds: BoundingBoxInput,
   listings?: Array< ListingInput > | null,
   pointsOfInterest?: Array< PointOfInterestInput > | null,
+  roommates?: Array< UserInput > | null,
 };
 
 export type BoundingBoxInput = {
@@ -44,6 +45,11 @@ export enum PointOfInterestType {
   OTHER = "OTHER",
 }
 
+
+export type UserInput = {
+  userName: string,
+  email: string,
+};
 
 export type ModelSessionConditionInput = {
   name?: ModelStringInput | null,
@@ -101,6 +107,7 @@ export type Session = {
   searchBounds: BoundingBox,
   listings?:  Array<Listing > | null,
   pointsOfInterest?:  Array<PointOfInterest > | null,
+  roommates?:  Array<User > | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -137,6 +144,12 @@ export type PointOfInterest = {
   location: Coordinate,
 };
 
+export type User = {
+  __typename: "User",
+  userName: string,
+  email: string,
+};
+
 export type UpdateSessionInput = {
   id: string,
   name?: string | null,
@@ -144,6 +157,7 @@ export type UpdateSessionInput = {
   searchBounds?: BoundingBoxInput | null,
   listings?: Array< ListingInput > | null,
   pointsOfInterest?: Array< PointOfInterestInput > | null,
+  roommates?: Array< UserInput > | null,
 };
 
 export type DeleteSessionInput = {
@@ -231,6 +245,11 @@ export type CreateSessionMutation = {
         lng: number,
       },
     } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -285,6 +304,11 @@ export type UpdateSessionMutation = {
         lat: number,
         lng: number,
       },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
     } > | null,
     createdAt: string,
     updatedAt: string,
@@ -341,6 +365,11 @@ export type DeleteSessionMutation = {
         lng: number,
       },
     } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -394,6 +423,11 @@ export type GetSessionQuery = {
         lat: number,
         lng: number,
       },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
     } > | null,
     createdAt: string,
     updatedAt: string,
@@ -453,6 +487,11 @@ export type ListSessionsQuery = {
           lng: number,
         },
       } > | null,
+      roommates?:  Array< {
+        __typename: "User",
+        userName: string,
+        email: string,
+      } > | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -505,6 +544,11 @@ export type OnCreateSessionSubscription = {
         lng: number,
       },
     } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -555,6 +599,11 @@ export type OnUpdateSessionSubscription = {
         lng: number,
       },
     } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -604,6 +653,11 @@ export type OnDeleteSessionSubscription = {
         lat: number,
         lng: number,
       },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
     } > | null,
     createdAt: string,
     updatedAt: string,

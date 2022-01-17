@@ -15,6 +15,7 @@ interface SessionData {
   searchBounds: BoundingBox;
   listings?: Listing[] | null;
   pointsOfInterest?: PointOfInterest[] | null;
+  roommates?: User[] | null;
 }
 
 export interface Listing {
@@ -35,6 +36,11 @@ export interface PointOfInterest {
   location: Coordinate;
 }
 
+export interface User {
+  userName: string;
+  email: string;
+}
+
 export function sessionDataToApiSessionInput(
   sessionData: SessionData
 ): CreateSessionInput {
@@ -45,6 +51,7 @@ export function sessionDataToApiSessionInput(
     searchBounds: sessionData.searchBounds,
     listings: sessionData.listings,
     pointsOfInterest: sessionData.pointsOfInterest,
+    roommates: sessionData.roommates,
   };
 }
 
@@ -61,6 +68,7 @@ function mapListSessionsQuery(
           searchBounds: session?.searchBounds,
           listings: session?.listings,
           pointsOfInterest: session?.pointsOfInterest,
+          roommates: session?.roommates,
         } as SessionData)
     ) ?? []
   );

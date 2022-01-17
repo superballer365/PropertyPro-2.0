@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddRoommateDialog from "./AddRoommateDialog";
 import styles from "./RoommatesPanel.module.scss";
+import RoommatesList from "./RoommatesList";
 
 export default function RoommatesPanel() {
   const [addModalOpen, setAddModalOpen] = React.useState(false);
@@ -23,7 +24,7 @@ export default function RoommatesPanel() {
             </Button>
           </div>
         </Card.Header>
-        <Card.Body>No roommates</Card.Body>
+        <RoommatesList />
       </Card>
     </>
   );
