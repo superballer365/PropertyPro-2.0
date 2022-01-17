@@ -1,29 +1,30 @@
 import React from "react";
-import AWS from "aws-sdk";
-import Auth from "@aws-amplify/auth";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import AddRoommateDialog from "./AddRoommateDialog";
+import styles from "./RoommatesPanel.module.scss";
 
 export default function RoommatesPanel() {
-  const dod = async () => {
-    const cred = await Auth.currentCredentials();
-    const c = new AWS.CognitoIdentityServiceProvider({
-      region: "us-east-1",
-      credentials: Auth.essentialCredentials(cred),
-    });
-    c.listUsers(
-      {
-        UserPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID!,
-        AttributesToGet: ["email"],
-      },
-      (err, data) => {
-        console.log("Error:" + err);
-        console.log(data.Users);
-      }
-    );
-  };
+  const [addModalOpen, setAddModalOpen] = React.useState(false);
 
-  React.useEffect(() => {
-    dod();
-  }, []);
-
-  return <div>Roommates</div>;
+  return (
+    <>
+      {addModalOpen && (
+        <AddRoommateDialog onClose={() => setAddModalOpen(false)} />
+      )}
+      <Card className={styles.card}>
+        <Card.Header>
+          <div className={styles.header}>
+            <span className={styles.title}>Roommates</span>
+            <Button size="sm" onClick={() => setAddModalOpen(true)}>
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          </div>
+        </Card.Header>
+        <Card.Body>No roommates</Card.Body>
+      </Card>
+    </>
+  );
 }
