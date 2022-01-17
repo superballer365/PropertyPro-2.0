@@ -13,11 +13,13 @@ import {
   faHome,
   faMapMarkerAlt,
   faRoute,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
 import DirectionsPanel from "./Directions/DirectionsPanel";
 import styles from "./SidePanel.module.scss";
+import RoommatesPanel from "./Roommates/RoommatesPanel";
 
 export default function SidePanel() {
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ export default function SidePanel() {
   return (
     <div className={styles.container}>
       <Nav variant="tabs">
-        {(["Listings", "POI", "Directions"] as TabOption[]).map(
+        {(["Listings", "POI", "Directions", "Roommates"] as TabOption[]).map(
           (option: TabOption) => (
             <Nav.Item key={option}>
               <Nav.Link
@@ -47,6 +49,7 @@ export default function SidePanel() {
           <Route path="Listings/*" element={<ListingsPanel />} />
           <Route path="POI/*" element={<PointsOfInterestPanel />} />
           <Route path="Directions" element={<DirectionsPanel />} />
+          <Route path="Roommates" element={<RoommatesPanel />} />
           <Route path="*" element={<Navigate to="Listings" />} />
         </Routes>
       </div>
@@ -54,10 +57,11 @@ export default function SidePanel() {
   );
 }
 
-type TabOption = "Listings" | "POI" | "Directions";
+type TabOption = "Listings" | "POI" | "Directions" | "Roommates";
 
 function getTabIcon(tab: TabOption) {
   if (tab === "Listings") return faHome;
   if (tab === "POI") return faMapMarkerAlt;
+  if (tab === "Roommates") return faUsers;
   return faRoute;
 }

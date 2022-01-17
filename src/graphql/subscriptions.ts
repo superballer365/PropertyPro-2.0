@@ -40,6 +40,10 @@ export const onCreateSession = /* GraphQL */ `
           lng
         }
       }
+      roommates {
+        userName
+        email
+      }
       createdAt
       updatedAt
     }
@@ -83,6 +87,10 @@ export const onUpdateSession = /* GraphQL */ `
           lng
         }
       }
+      roommates {
+        userName
+        email
+      }
       createdAt
       updatedAt
     }
@@ -125,6 +133,10 @@ export const onDeleteSession = /* GraphQL */ `
           lat
           lng
         }
+      }
+      roommates {
+        userName
+        email
       }
       createdAt
       updatedAt

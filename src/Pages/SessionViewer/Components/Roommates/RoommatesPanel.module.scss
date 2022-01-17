@@ -1,0 +1,12 @@
+.card {
+  height: 100%;
+
+  .header {
+    display: flex;
+    align-items: center;
+
+    .title {
+      flex-grow: 1;
+    }
+  }
+}
