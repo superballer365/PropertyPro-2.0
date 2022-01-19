@@ -26,6 +26,7 @@ export interface Listing {
   price: number;
   numberOfBedrooms: number;
   numberOfBathrooms: number;
+  link?: string | null;
 }
 
 export interface PointOfInterest {

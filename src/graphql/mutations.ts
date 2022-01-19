@@ -32,6 +32,7 @@ export const createSession = /* GraphQL */ `
         price
         numberOfBedrooms
         numberOfBathrooms
+        link
       }
       pointsOfInterest {
         id
@@ -82,6 +83,7 @@ export const updateSession = /* GraphQL */ `
         price
         numberOfBedrooms
         numberOfBathrooms
+        link
       }
       pointsOfInterest {
         id
@@ -132,6 +134,7 @@ export const deleteSession = /* GraphQL */ `
         price
         numberOfBedrooms
         numberOfBathrooms
+        link
       }
       pointsOfInterest {
         id

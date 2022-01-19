@@ -25,6 +25,7 @@ type Listing {
   price: Float!
   numberOfBedrooms: Int!
   numberOfBathrooms: Int!
+  link: String
 }
 
 type PointOfInterest {
