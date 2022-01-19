@@ -82,6 +82,15 @@ export default function ListingViewer({ listing }: IProps) {
             <Col className="col-sm-5">State:</Col>
             <Col>{getAddressComponents(listing.address).state}</Col>
           </Row>
+          <Row>
+            <Col className="col-sm-5">
+              {listing.link && (
+                <a href={listing.link} target="_blank">
+                  Link
+                </a>
+              )}
+            </Col>
+          </Row>
         </Card.Body>
         <Card.Footer className="d-flex justify-content-end">
           <Button className="mr-1" variant="primary" onClick={handleEditClick}>

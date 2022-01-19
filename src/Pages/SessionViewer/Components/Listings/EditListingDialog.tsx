@@ -43,6 +43,7 @@ export default function EditListingDialog({
         price: formData.price!,
         numberOfBedrooms: formData.numberOfBedrooms!,
         numberOfBathrooms: formData.numberOfBathrooms!,
+        link: formData.link,
       };
       const updatedListings = (session.listings ?? []).map((l) => {
         if (l.id === listing.id) return updatedListing;
@@ -173,6 +174,19 @@ export default function EditListingDialog({
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
+          <Form.Group controlId="listingForm.Link">
+            <Form.Label>Link</Form.Label>
+            <Form.Control
+              type="listing link"
+              value={formData.link ?? ""}
+              onChange={(event: any) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  link: event.target.value,
+                }))
+              }
+            />
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -200,6 +214,7 @@ interface EditListingFormData {
   price?: number;
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
+  link?: string | null;
 }
 
 const DEFAULT_FORM_DATA: EditListingFormData = {
@@ -209,6 +224,7 @@ const DEFAULT_FORM_DATA: EditListingFormData = {
   price: undefined,
   numberOfBedrooms: undefined,
   numberOfBathrooms: undefined,
+  link: undefined,
 };
 
 interface FormDataErrors {

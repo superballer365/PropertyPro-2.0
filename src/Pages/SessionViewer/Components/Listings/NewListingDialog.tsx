@@ -38,6 +38,7 @@ export default function NewListingDialog({ onClose }: IProps) {
         price: formData.price!,
         numberOfBedrooms: formData.numberOfBedrooms!,
         numberOfBathrooms: formData.numberOfBathrooms!,
+        link: formData.link,
       };
       await updateSessionMutation.mutateAsync({
         ...session,
@@ -162,6 +163,19 @@ export default function NewListingDialog({ onClose }: IProps) {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
+          <Form.Group controlId="listingForm.Link">
+            <Form.Label>Link</Form.Label>
+            <Form.Control
+              type="listing link"
+              value={formData.link ?? ""}
+              onChange={(event: any) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  link: event.target.value,
+                }))
+              }
+            />
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -187,6 +201,7 @@ interface CreateListingFormData {
   price?: number;
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
+  link?: string;
 }
 
 const DEFAULT_FORM_DATA: CreateListingFormData = {
@@ -196,6 +211,7 @@ const DEFAULT_FORM_DATA: CreateListingFormData = {
   price: undefined,
   numberOfBedrooms: undefined,
   numberOfBathrooms: undefined,
+  link: undefined,
 };
 
 interface FormDataErrors {
