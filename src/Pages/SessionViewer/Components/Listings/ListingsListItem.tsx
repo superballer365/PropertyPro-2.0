@@ -34,7 +34,7 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
       onMouseEnter={handleListingHover}
       onMouseLeave={handleListingUnhover}
     >
-      <div className="d-flex w-100">
+      <div className="d-flex w-100 mb-1">
         <span className={classNames("flex-grow-1", styles.name)}>
           {listing.name}
         </span>
@@ -43,16 +43,20 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
       <div className={styles.details}>
         <div>{`Beds: ${listing.numberOfBedrooms}`}</div>
         <div className="text-center">{`Baths: ${listing.numberOfBathrooms}`}</div>
-        {listing.link && (
-          <a
-            className="text-right"
-            href={listing.link}
-            target="_blank"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Link
-          </a>
-        )}
+        <div className="text-right">
+          {listing.link ? (
+            <a
+              className="text-right"
+              href={listing.link}
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Link
+            </a>
+          ) : (
+            <>No Link</>
+          )}
+        </div>
       </div>
     </ListGroupItem>
   );
