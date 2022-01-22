@@ -11,8 +11,9 @@ import {
 } from "../../../../API/Google Places/Geocoding";
 import { uuid } from "uuidv4";
 import { useUpdateSession } from "../../../../Utils/Hooks";
-import SessionData, { Listing } from "../../../../Models/Session";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import { Listing } from "../../../../Models/Session";
+import { crawlLink } from "../../../../Utils/Crawlers/common";
 
 export default function NewListingDialog({ onClose }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -73,6 +74,13 @@ export default function NewListingDialog({ onClose }: IProps) {
       console.error("Failed to load location information.");
     }
   }
+
+  const handleFetchPicsClick = () => {
+    if (!formData.link) return;
+
+    const pics = crawlLink(formData.link);
+    console.log(pics);
+  };
 
   return (
     <Modal show={true} onHide={onClose}>
@@ -175,6 +183,7 @@ export default function NewListingDialog({ onClose }: IProps) {
                 }))
               }
             />
+            <Button onClick={handleFetchPicsClick}>Fetch Picz</Button>
           </Form.Group>
         </Form>
       </Modal.Body>
