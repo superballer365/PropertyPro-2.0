@@ -380,6 +380,14 @@ export type DeleteSessionMutation = {
   } | null,
 };
 
+export type GetListingPicturesQueryVariables = {
+  linkUrl: string,
+};
+
+export type GetListingPicturesQuery = {
+  getListingPictures: Array< string >,
+};
+
 export type GetSessionQueryVariables = {
   id: string,
 };

@@ -50,3 +50,8 @@ type BoundingBox {
   bottomLeft: Coordinate!
   topRight: Coordinate!
 }
+
+type Query {
+  getListingPictures(linkUrl: String!): [String!]!
+    @function(name: "listingLinkParser-${env}")
+}

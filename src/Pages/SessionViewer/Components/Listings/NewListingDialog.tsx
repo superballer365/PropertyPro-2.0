@@ -75,10 +75,10 @@ export default function NewListingDialog({ onClose }: IProps) {
     }
   }
 
-  const handleFetchPicsClick = () => {
+  const handleFetchPicsClick = async () => {
     if (!formData.link) return;
 
-    const pics = crawlLink(formData.link);
+    const pics = await crawlLink(formData.link);
     console.log(pics);
   };
 

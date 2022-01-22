@@ -1,6 +1,6 @@
 import { crawlApartments } from "./apartments";
 
-export function crawlLink(linkUrl: string): string[] {
+export async function crawlLink(linkUrl: string): Promise<string[]> {
   if (linkUrl.includes("apartments.com")) {
     return crawlApartments(linkUrl);
   } else {
