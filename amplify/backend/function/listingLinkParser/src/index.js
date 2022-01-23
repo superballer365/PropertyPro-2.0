@@ -1,5 +1,12 @@
+const axios = require("axios");
+const os = require("os");
+const { parseZillow } = require("./zillowParser");
+
 async function getListingPicturesHandler(ctx) {
-  return ["test1", "test2"];
+  console.log(os.platform());
+  console.log(os.type());
+  const response = (await axios.get(ctx.arguments.listingUrl)).data;
+  return parseZillow(response);
 }
 
 const resolvers = {

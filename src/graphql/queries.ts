@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const getListingPictures = /* GraphQL */ `
-  query GetListingPictures($linkUrl: String!) {
-    getListingPictures(linkUrl: $linkUrl)
+  query GetListingPictures($listingUrl: String!) {
+    getListingPictures(listingUrl: $listingUrl)
   }
 `;
 export const getSession = /* GraphQL */ `

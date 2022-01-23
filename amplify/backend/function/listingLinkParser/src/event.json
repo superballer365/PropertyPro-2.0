@@ -1,5 +1,7 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "typeName": "Query",
+  "fieldName": "getListingPictures",
+  "arguments": {
+    "listingUrl": "https://www.zillow.com/homedetails/609-Tremont-St-4-Boston-MA-02118/59182621_zpid/?"
+  }
 }
