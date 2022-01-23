@@ -6,6 +6,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "axios": "^0.25.0",
-    "node-html-parser": "^5.2.0"
+    "node-html-parser": "^5.2.0",
+    "selenium-webdriver": "^4.1.1"
   }
 }

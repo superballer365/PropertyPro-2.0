@@ -1,13 +1,47 @@
 const axios = require("axios");
 const os = require("os");
+const fs = require("fs");
+const path = require("path");
+let chrome = require("selenium-webdriver/chrome");
+let firefox = require("selenium-webdriver/firefox");
+let { Builder } = require("selenium-webdriver");
 const { parseZillow } = require("./zillowParser");
 
 async function getListingPicturesHandler(ctx) {
-  console.log(os.platform());
-  console.log(os.type());
-  const response = (await axios.get(ctx.arguments.listingUrl)).data;
-  return parseZillow(response);
+  const driver = configureSelenium();
+  return parseZillow(driver, ctx.arguments.listingUrl);
 }
+
+const configureSelenium = () => {
+  let webDriverPath = undefined;
+  if (os.platform() === "darwin") {
+    webDriverPath = __dirname + "/drivers/mac/";
+  } else if (os.platform() === "linux") {
+    webDriverPath = __dirname + "/drivers/linux/";
+  }
+  if (!webDriverPath)
+    throw new Error("No web driver exists for the current platform");
+  if (!fs.existsSync(webDriverPath))
+    throw new Error(
+      `Web driver for ${os.platform} not found at the expected location`
+    );
+
+  process.env.PATH = process.env.PATH || "";
+  process.env.PATH += webDriverPath + path.delimiter;
+
+  const firefoxPath = webDriverPath + "firefox-bin";
+  const options = new firefox.Options();
+  options.headless();
+  options.setBinary("/Applications/Firefox.app/Contents/MacOS/firefox");
+  let driver = new Builder()
+    .forBrowser("firefox")
+    .setFirefoxOptions(options)
+    .build();
+
+  console.log("Selenium setup complete");
+
+  return driver;
+};
 
 const resolvers = {
   Query: {
