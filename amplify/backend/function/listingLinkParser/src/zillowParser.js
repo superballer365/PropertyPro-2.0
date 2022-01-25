@@ -3,8 +3,15 @@ const { parse } = require("node-html-parser");
 function parseZillow(pageSourceString) {
   const root = parse(pageSourceString);
 
-  const images = root.getElementsByTagName("img");
-  const imageUrls = images.map((img) => img.getAttribute("src"));
+  let imageUrls = [];
+  // TODO: fix the fact that this only gets the first 7 images
+  const mediaStreamTiles = root.querySelectorAll(".media-stream-tile");
+  mediaStreamTiles.forEach((tileElement) => {
+    const images = tileElement.getElementsByTagName("img");
+    images.forEach((imageElement) => {
+      imageUrls.push(imageElement.getAttribute("src"));
+    });
+  });
   return imageUrls;
 }
 

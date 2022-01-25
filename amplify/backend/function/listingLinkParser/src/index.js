@@ -1,5 +1,7 @@
 const chromium = require("chrome-aws-lambda");
 const { parseZillow } = require("./zillowParser");
+const os = require("os");
+const fs = require("fs");
 
 async function getListingPicturesHandler(ctx) {
   let result = null;
@@ -7,6 +9,11 @@ async function getListingPicturesHandler(ctx) {
   let error = null;
 
   try {
+    if (os.platform() === "darwin") {
+      const buffer = fs.readFileSync("test.txt");
+      const test = buffer.toString();
+      return parseZillow(test);
+    }
     browser = await chromium.puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
@@ -23,6 +30,7 @@ async function getListingPicturesHandler(ctx) {
     result = parseZillow(pageContent);
     return result;
   } catch (error) {
+    console.error(error);
     error = error;
   } finally {
     if (browser !== null) {
