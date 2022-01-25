@@ -1,19 +1,11 @@
 const { parse } = require("node-html-parser");
 
-async function parseZillow(driver, listingUrl) {
-  try {
-    await driver.get(listingUrl);
-    const pageSourceString = await driver.getPageSource();
+function parseZillow(pageSourceString) {
+  const root = parse(pageSourceString);
 
-    const root = parse(pageSourceString);
-
-    const images = root.getElementsByTagName("img");
-    const imageUrls = images.map((img) => img.getAttribute("src"));
-    return imageUrls;
-  } catch (e) {
-    console.error(e);
-  }
-  return [];
+  const images = root.getElementsByTagName("img");
+  const imageUrls = images.map((img) => img.getAttribute("src"));
+  return imageUrls;
 }
 
 module.exports = { parseZillow };

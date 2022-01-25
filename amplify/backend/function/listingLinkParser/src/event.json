@@ -2,6 +2,6 @@
   "typeName": "Query",
   "fieldName": "getListingPictures",
   "arguments": {
-    "listingUrl": "https://www.zillow.com/homedetails/609-Tremont-St-4-Boston-MA-02118/59182621_zpid/?"
+    "listingUrl": "https://www.apartments.com/19-vancouver-st-boston-ma/mkpthml/"
   }
 }

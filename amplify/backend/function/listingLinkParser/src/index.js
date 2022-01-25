@@ -1,47 +1,72 @@
-const axios = require("axios");
-const os = require("os");
-const fs = require("fs");
-const path = require("path");
-let chrome = require("selenium-webdriver/chrome");
-let firefox = require("selenium-webdriver/firefox");
-let { Builder } = require("selenium-webdriver");
+const chromium = require("chrome-aws-lambda");
 const { parseZillow } = require("./zillowParser");
 
 async function getListingPicturesHandler(ctx) {
-  const driver = configureSelenium();
-  return parseZillow(driver, ctx.arguments.listingUrl);
+  let result = null;
+  let browser = null;
+  let error = null;
+
+  try {
+    browser = await chromium.puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    });
+
+    let page = await browser.newPage();
+
+    await page.goto(ctx.arguments.listingUrl);
+    const pageContent = await page.content();
+
+    result = parseZillow(pageContent);
+    return result;
+  } catch (error) {
+    error = error;
+  } finally {
+    if (browser !== null) {
+      await browser.close();
+    }
+  }
+  if (error) throw error;
+
+  return result;
 }
 
-const configureSelenium = () => {
-  let webDriverPath = undefined;
-  if (os.platform() === "darwin") {
-    webDriverPath = __dirname + "/drivers/mac/";
-  } else if (os.platform() === "linux") {
-    webDriverPath = __dirname + "/drivers/linux/";
-  }
-  if (!webDriverPath)
-    throw new Error("No web driver exists for the current platform");
-  if (!fs.existsSync(webDriverPath))
-    throw new Error(
-      `Web driver for ${os.platform} not found at the expected location`
-    );
+// const configureSelenium = () => {
+//   let webDriverPath = undefined;
+//   if (os.platform() === "darwin") {
+//     webDriverPath = __dirname + "/drivers/mac/";
+//   } else if (os.platform() === "linux") {
+//     webDriverPath = "/var/task/drivers/linux/";
+//   }
+//   if (!webDriverPath)
+//     throw new Error("No web driver exists for the current platform");
+//   if (!fs.existsSync(webDriverPath))
+//     throw new Error(
+//       `Web driver for ${os.platform} not found at the expected location`
+//     );
 
-  process.env.PATH = process.env.PATH || "";
-  process.env.PATH += webDriverPath + path.delimiter;
+//   process.env.PATH = process.env.PATH || "";
+//   process.env.PATH = webDriverPath + path.delimiter + process.env.PATH;
 
-  const firefoxPath = webDriverPath + "firefox-bin";
-  const options = new firefox.Options();
-  options.headless();
-  options.setBinary("/Applications/Firefox.app/Contents/MacOS/firefox");
-  let driver = new Builder()
-    .forBrowser("firefox")
-    .setFirefoxOptions(options)
-    .build();
+//   const firefoxPath = webDriverPath + "firefox";
+//   const edgePath = new edge.Options().set
+//   const options = new firefox.Options();
+//   console.log(process.env.PATH);
+//   options.headless();
+//   options.setBinary("/var/task/drivers/linux/firefox/firefox");
+//   let driver = new Builder()
+//     .forBrowser("firefox")
+//     .setFirefoxOptions(options)
+//     .setEdgeOptions()
+//     .build();
 
-  console.log("Selenium setup complete");
+//   console.log("Selenium setup complete");
 
-  return driver;
-};
+//   return driver;
+// };
 
 const resolvers = {
   Query: {
