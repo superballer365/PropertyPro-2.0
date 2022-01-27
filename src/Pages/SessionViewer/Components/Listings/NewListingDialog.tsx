@@ -14,6 +14,7 @@ import { useUpdateSession } from "../../../../Utils/Hooks";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { Listing } from "../../../../Models/Session";
 import { crawlLink } from "../../../../Utils/Crawlers/common";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 export default function NewListingDialog({ onClose }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -23,6 +24,7 @@ export default function NewListingDialog({ onClose }: IProps) {
     React.useState<CreateListingFormData>(DEFAULT_FORM_DATA);
   const [formDataErrors, setFormDataErrors] =
     React.useState<FormDataErrors>(DEFAULT_DATA_ERRORS);
+  const [isParsing, setIsParsing] = React.useState(false);
 
   async function handleCreateClick(event: any) {
     event.preventDefault();
@@ -79,8 +81,16 @@ export default function NewListingDialog({ onClose }: IProps) {
   const handleFetchPicsClick = async () => {
     if (!formData.link) return;
 
-    const pictures = await crawlLink(formData.link);
-    setFormData((prev) => ({ ...prev, pictures }));
+    try {
+      setIsParsing(true);
+      const pictures = await crawlLink(formData.link);
+      setFormData((prev) => ({ ...prev, pictures }));
+    } catch (error) {
+      // TODO: show toast
+      console.error(error);
+    } finally {
+      setIsParsing(false);
+    }
   };
 
   return (
@@ -184,7 +194,9 @@ export default function NewListingDialog({ onClose }: IProps) {
                 }))
               }
             />
-            <Button onClick={handleFetchPicsClick}>Fetch Picz</Button>
+            <Button onClick={handleFetchPicsClick} color="success">
+              {isParsing ? <Spinner animation="border" /> : "Fetch Picz"}
+            </Button>
             <div>{`${formData.pictures.length} pictures`}</div>
           </Form.Group>
         </Form>
