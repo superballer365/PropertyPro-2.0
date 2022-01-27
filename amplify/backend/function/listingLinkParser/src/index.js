@@ -1,18 +1,31 @@
 const chromium = require("chrome-aws-lambda");
-const { parseZillow } = require("./zillowParser");
+const { parseZillowPage, parseZillowHtmlString } = require("./zillowParser");
+const {
+  parseApartmentsPage,
+  parseApartmentsHtmlString,
+} = require("./apartmentsParser");
 const os = require("os");
 const fs = require("fs");
-
 async function getListingPicturesHandler(ctx) {
   let result = null;
   let browser = null;
   let error = null;
 
+  const parser = getParser(ctx.arguments.listingUrl);
+  if (!parser) return [];
+
   try {
     if (os.platform() === "darwin") {
-      const buffer = fs.readFileSync("test.txt");
-      const test = buffer.toString();
-      return parseZillow(test);
+      // local
+      if (ctx.arguments.listingUrl.includes("zillow")) {
+        const buffer = fs.readFileSync("zillowTest.txt");
+        const test = buffer.toString();
+        return parseZillowHtmlString(test);
+      } else {
+        const buffer = fs.readFileSync("apartmentsTest.txt");
+        const test = buffer.toString();
+        return parseApartmentsHtmlString(test);
+      }
     }
     browser = await chromium.puppeteer.launch({
       args: chromium.args,
@@ -25,9 +38,8 @@ async function getListingPicturesHandler(ctx) {
     let page = await browser.newPage();
 
     await page.goto(ctx.arguments.listingUrl);
-    const pageContent = await page.content();
 
-    result = parseZillow(pageContent);
+    result = await parser(page);
     return result;
   } catch (error) {
     console.error(error);
@@ -40,6 +52,12 @@ async function getListingPicturesHandler(ctx) {
   if (error) throw error;
 
   return result;
+}
+
+function getParser(listingUrl) {
+  if (listingUrl.includes("zillow")) return parseZillowPage;
+  if (listingUrl.includes("apartments.com")) return parseApartmentsPage;
+  return undefined;
 }
 
 // const configureSelenium = () => {

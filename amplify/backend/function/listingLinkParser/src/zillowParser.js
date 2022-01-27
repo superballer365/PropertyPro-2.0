@@ -1,7 +1,13 @@
 const { parse } = require("node-html-parser");
 
-function parseZillow(pageSourceString) {
-  const root = parse(pageSourceString);
+async function parseZillowPage(page) {
+  const pageContent = await page.content();
+
+  return parseZillowHtmlString(pageContent);
+}
+
+function parseZillowHtmlString(htmlString) {
+  const root = parse(htmlString);
 
   let imageUrls = [];
   // TODO: fix the fact that this only gets the first 7 images
@@ -15,4 +21,4 @@ function parseZillow(pageSourceString) {
   return imageUrls;
 }
 
-module.exports = { parseZillow };
+module.exports = { parseZillowPage, parseZillowHtmlString };

@@ -18,7 +18,7 @@
       "function": {
         "listingLinkParser": {
           "deploymentBucketName": "amplify-propertypro2-dev-203606-deployment",
-          "s3Key": "amplify-builds/listingLinkParser-5a4749566a4c5578514a-build.zip"
+          "s3Key": "amplify-builds/listingLinkParser-65346a6f613769767674-build.zip"
         }
       }
     }
