@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Carousel from "react-bootstrap/Carousel";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -91,6 +92,14 @@ export default function ListingViewer({ listing }: IProps) {
               )}
             </Col>
           </Row>
+          <div>Pictures:</div>
+          <Carousel>
+            {listing.pictures?.map((picture) => (
+              <Carousel.Item key={picture} style={{ width: 300, height: 300 }}>
+                <img src={picture} />
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </Card.Body>
         <Card.Footer className="d-flex justify-content-end">
           <Button className="mr-1" variant="primary" onClick={handleEditClick}>

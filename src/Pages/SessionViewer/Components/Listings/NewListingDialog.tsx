@@ -40,6 +40,7 @@ export default function NewListingDialog({ onClose }: IProps) {
         numberOfBedrooms: formData.numberOfBedrooms!,
         numberOfBathrooms: formData.numberOfBathrooms!,
         link: formData.link,
+        pictures: formData.pictures,
       };
       await updateSessionMutation.mutateAsync({
         ...session,
@@ -78,8 +79,8 @@ export default function NewListingDialog({ onClose }: IProps) {
   const handleFetchPicsClick = async () => {
     if (!formData.link) return;
 
-    const pics = await crawlLink(formData.link);
-    console.log(pics);
+    const pictures = await crawlLink(formData.link);
+    setFormData((prev) => ({ ...prev, pictures }));
   };
 
   return (
@@ -184,6 +185,7 @@ export default function NewListingDialog({ onClose }: IProps) {
               }
             />
             <Button onClick={handleFetchPicsClick}>Fetch Picz</Button>
+            <div>{`${formData.pictures.length} pictures`}</div>
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -211,6 +213,7 @@ interface CreateListingFormData {
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string;
+  pictures: string[];
 }
 
 const DEFAULT_FORM_DATA: CreateListingFormData = {
@@ -221,6 +224,7 @@ const DEFAULT_FORM_DATA: CreateListingFormData = {
   numberOfBedrooms: undefined,
   numberOfBathrooms: undefined,
   link: undefined,
+  pictures: [],
 };
 
 interface FormDataErrors {

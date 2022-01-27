@@ -35,6 +35,7 @@ export const getSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
         link
+        pictures
       }
       pointsOfInterest {
         id
@@ -88,6 +89,7 @@ export const listSessions = /* GraphQL */ `
           numberOfBedrooms
           numberOfBathrooms
           link
+          pictures
         }
         pointsOfInterest {
           id

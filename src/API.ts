@@ -3,42 +3,43 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreateSessionInput = {
-  id?: string | null;
-  name: string;
-  searchCity: string;
-  searchBounds: BoundingBoxInput;
-  listings?: Array<ListingInput> | null;
-  pointsOfInterest?: Array<PointOfInterestInput> | null;
-  roommates?: Array<UserInput> | null;
+  id?: string | null,
+  name: string,
+  searchCity: string,
+  searchBounds: BoundingBoxInput,
+  listings?: Array< ListingInput > | null,
+  pointsOfInterest?: Array< PointOfInterestInput > | null,
+  roommates?: Array< UserInput > | null,
 };
 
 export type BoundingBoxInput = {
-  bottomLeft: CoordinateInput;
-  topRight: CoordinateInput;
+  bottomLeft: CoordinateInput,
+  topRight: CoordinateInput,
 };
 
 export type CoordinateInput = {
-  lat: number;
-  lng: number;
+  lat: number,
+  lng: number,
 };
 
 export type ListingInput = {
-  id?: string | null;
-  name: string;
-  address: string;
-  location: CoordinateInput;
-  price: number;
-  numberOfBedrooms: number;
-  numberOfBathrooms: number;
-  link?: string | null;
+  id?: string | null,
+  name: string,
+  address: string,
+  location: CoordinateInput,
+  price: number,
+  numberOfBedrooms: number,
+  numberOfBathrooms: number,
+  link?: string | null,
+  pictures?: Array< string > | null,
 };
 
 export type PointOfInterestInput = {
-  id?: string | null;
-  name: string;
-  type: PointOfInterestType;
-  address: string;
-  location: CoordinateInput;
+  id?: string | null,
+  name: string,
+  type: PointOfInterestType,
+  address: string,
+  location: CoordinateInput,
 };
 
 export enum PointOfInterestType {
@@ -46,33 +47,34 @@ export enum PointOfInterestType {
   OTHER = "OTHER",
 }
 
+
 export type UserInput = {
-  userName: string;
-  email: string;
+  userName: string,
+  email: string,
 };
 
 export type ModelSessionConditionInput = {
-  name?: ModelStringInput | null;
-  searchCity?: ModelStringInput | null;
-  and?: Array<ModelSessionConditionInput | null> | null;
-  or?: Array<ModelSessionConditionInput | null> | null;
-  not?: ModelSessionConditionInput | null;
+  name?: ModelStringInput | null,
+  searchCity?: ModelStringInput | null,
+  and?: Array< ModelSessionConditionInput | null > | null,
+  or?: Array< ModelSessionConditionInput | null > | null,
+  not?: ModelSessionConditionInput | null,
 };
 
 export type ModelStringInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export enum ModelAttributeTypes {
@@ -88,594 +90,604 @@ export enum ModelAttributeTypes {
   _null = "_null",
 }
 
+
 export type ModelSizeInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
 };
 
 export type Session = {
-  __typename: "Session";
-  id: string;
-  name: string;
-  searchCity: string;
-  searchBounds: BoundingBox;
-  listings?: Array<Listing> | null;
-  pointsOfInterest?: Array<PointOfInterest> | null;
-  roommates?: Array<User> | null;
-  createdAt: string;
-  updatedAt: string;
+  __typename: "Session",
+  id: string,
+  name: string,
+  searchCity: string,
+  searchBounds: BoundingBox,
+  listings?:  Array<Listing > | null,
+  pointsOfInterest?:  Array<PointOfInterest > | null,
+  roommates?:  Array<User > | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type BoundingBox = {
-  __typename: "BoundingBox";
-  bottomLeft: Coordinate;
-  topRight: Coordinate;
+  __typename: "BoundingBox",
+  bottomLeft: Coordinate,
+  topRight: Coordinate,
 };
 
 export type Coordinate = {
-  __typename: "Coordinate";
-  lat: number;
-  lng: number;
+  __typename: "Coordinate",
+  lat: number,
+  lng: number,
 };
 
 export type Listing = {
-  __typename: "Listing";
-  id: string;
-  name: string;
-  address: string;
-  location: Coordinate;
-  price: number;
-  numberOfBedrooms: number;
-  numberOfBathrooms: number;
-  link?: string | null;
+  __typename: "Listing",
+  id: string,
+  name: string,
+  address: string,
+  location: Coordinate,
+  price: number,
+  numberOfBedrooms: number,
+  numberOfBathrooms: number,
+  link?: string | null,
+  pictures?: Array< string > | null,
 };
 
 export type PointOfInterest = {
-  __typename: "PointOfInterest";
-  id: string;
-  name: string;
-  type: PointOfInterestType;
-  address: string;
-  location: Coordinate;
+  __typename: "PointOfInterest",
+  id: string,
+  name: string,
+  type: PointOfInterestType,
+  address: string,
+  location: Coordinate,
 };
 
 export type User = {
-  __typename: "User";
-  userName: string;
-  email: string;
+  __typename: "User",
+  userName: string,
+  email: string,
 };
 
 export type UpdateSessionInput = {
-  id: string;
-  name?: string | null;
-  searchCity?: string | null;
-  searchBounds?: BoundingBoxInput | null;
-  listings?: Array<ListingInput> | null;
-  pointsOfInterest?: Array<PointOfInterestInput> | null;
-  roommates?: Array<UserInput> | null;
+  id: string,
+  name?: string | null,
+  searchCity?: string | null,
+  searchBounds?: BoundingBoxInput | null,
+  listings?: Array< ListingInput > | null,
+  pointsOfInterest?: Array< PointOfInterestInput > | null,
+  roommates?: Array< UserInput > | null,
 };
 
 export type DeleteSessionInput = {
-  id: string;
+  id: string,
 };
 
 export type ModelSessionFilterInput = {
-  id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  searchCity?: ModelStringInput | null;
-  and?: Array<ModelSessionFilterInput | null> | null;
-  or?: Array<ModelSessionFilterInput | null> | null;
-  not?: ModelSessionFilterInput | null;
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  searchCity?: ModelStringInput | null,
+  and?: Array< ModelSessionFilterInput | null > | null,
+  or?: Array< ModelSessionFilterInput | null > | null,
+  not?: ModelSessionFilterInput | null,
 };
 
 export type ModelIDInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type ModelSessionConnection = {
-  __typename: "ModelSessionConnection";
-  items: Array<Session | null>;
-  nextToken?: string | null;
+  __typename: "ModelSessionConnection",
+  items:  Array<Session | null >,
+  nextToken?: string | null,
 };
 
 export type CreateSessionMutationVariables = {
-  input: CreateSessionInput;
-  condition?: ModelSessionConditionInput | null;
+  input: CreateSessionInput,
+  condition?: ModelSessionConditionInput | null,
 };
 
 export type CreateSessionMutation = {
-  createSession?: {
-    __typename: "Session";
-    id: string;
-    name: string;
-    searchCity: string;
-    searchBounds: {
-      __typename: "BoundingBox";
-      bottomLeft: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      topRight: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    };
-    listings?: Array<{
-      __typename: "Listing";
-      id: string;
-      name: string;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      price: number;
-      numberOfBedrooms: number;
-      numberOfBathrooms: number;
-      link?: string | null;
-    }> | null;
-    pointsOfInterest?: Array<{
-      __typename: "PointOfInterest";
-      id: string;
-      name: string;
-      type: PointOfInterestType;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    }> | null;
-    roommates?: Array<{
-      __typename: "User";
-      userName: string;
-      email: string;
-    }> | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
+  createSession?:  {
+    __typename: "Session",
+    id: string,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type UpdateSessionMutationVariables = {
-  input: UpdateSessionInput;
-  condition?: ModelSessionConditionInput | null;
+  input: UpdateSessionInput,
+  condition?: ModelSessionConditionInput | null,
 };
 
 export type UpdateSessionMutation = {
-  updateSession?: {
-    __typename: "Session";
-    id: string;
-    name: string;
-    searchCity: string;
-    searchBounds: {
-      __typename: "BoundingBox";
-      bottomLeft: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      topRight: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    };
-    listings?: Array<{
-      __typename: "Listing";
-      id: string;
-      name: string;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      price: number;
-      numberOfBedrooms: number;
-      numberOfBathrooms: number;
-      link?: string | null;
-    }> | null;
-    pointsOfInterest?: Array<{
-      __typename: "PointOfInterest";
-      id: string;
-      name: string;
-      type: PointOfInterestType;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    }> | null;
-    roommates?: Array<{
-      __typename: "User";
-      userName: string;
-      email: string;
-    }> | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
+  updateSession?:  {
+    __typename: "Session",
+    id: string,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type DeleteSessionMutationVariables = {
-  input: DeleteSessionInput;
-  condition?: ModelSessionConditionInput | null;
+  input: DeleteSessionInput,
+  condition?: ModelSessionConditionInput | null,
 };
 
 export type DeleteSessionMutation = {
-  deleteSession?: {
-    __typename: "Session";
-    id: string;
-    name: string;
-    searchCity: string;
-    searchBounds: {
-      __typename: "BoundingBox";
-      bottomLeft: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      topRight: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    };
-    listings?: Array<{
-      __typename: "Listing";
-      id: string;
-      name: string;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      price: number;
-      numberOfBedrooms: number;
-      numberOfBathrooms: number;
-      link?: string | null;
-    }> | null;
-    pointsOfInterest?: Array<{
-      __typename: "PointOfInterest";
-      id: string;
-      name: string;
-      type: PointOfInterestType;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    }> | null;
-    roommates?: Array<{
-      __typename: "User";
-      userName: string;
-      email: string;
-    }> | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
+  deleteSession?:  {
+    __typename: "Session",
+    id: string,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type GetListingPicturesQueryVariables = {
-  listingUrl: string;
+  listingUrl: string,
 };
 
 export type GetListingPicturesQuery = {
-  getListingPictures: Array<string>;
+  getListingPictures: Array< string >,
 };
 
 export type GetSessionQueryVariables = {
-  id: string;
+  id: string,
 };
 
 export type GetSessionQuery = {
-  getSession?: {
-    __typename: "Session";
-    id: string;
-    name: string;
-    searchCity: string;
-    searchBounds: {
-      __typename: "BoundingBox";
-      bottomLeft: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      topRight: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    };
-    listings?: Array<{
-      __typename: "Listing";
-      id: string;
-      name: string;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      price: number;
-      numberOfBedrooms: number;
-      numberOfBathrooms: number;
-      link?: string | null;
-    }> | null;
-    pointsOfInterest?: Array<{
-      __typename: "PointOfInterest";
-      id: string;
-      name: string;
-      type: PointOfInterestType;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    }> | null;
-    roommates?: Array<{
-      __typename: "User";
-      userName: string;
-      email: string;
-    }> | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
+  getSession?:  {
+    __typename: "Session",
+    id: string,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type ListSessionsQueryVariables = {
-  filter?: ModelSessionFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
+  filter?: ModelSessionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
 export type ListSessionsQuery = {
-  listSessions?: {
-    __typename: "ModelSessionConnection";
-    items: Array<{
-      __typename: "Session";
-      id: string;
-      name: string;
-      searchCity: string;
-      searchBounds: {
-        __typename: "BoundingBox";
-        bottomLeft: {
-          __typename: "Coordinate";
-          lat: number;
-          lng: number;
-        };
-        topRight: {
-          __typename: "Coordinate";
-          lat: number;
-          lng: number;
-        };
-      };
-      listings?: Array<{
-        __typename: "Listing";
-        id: string;
-        name: string;
-        address: string;
-        location: {
-          __typename: "Coordinate";
-          lat: number;
-          lng: number;
-        };
-        price: number;
-        numberOfBedrooms: number;
-        numberOfBathrooms: number;
-        link?: string | null;
-      }> | null;
-      pointsOfInterest?: Array<{
-        __typename: "PointOfInterest";
-        id: string;
-        name: string;
-        type: PointOfInterestType;
-        address: string;
-        location: {
-          __typename: "Coordinate";
-          lat: number;
-          lng: number;
-        };
-      }> | null;
-      roommates?: Array<{
-        __typename: "User";
-        userName: string;
-        email: string;
-      }> | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
+  listSessions?:  {
+    __typename: "ModelSessionConnection",
+    items:  Array< {
+      __typename: "Session",
+      id: string,
+      name: string,
+      searchCity: string,
+      searchBounds:  {
+        __typename: "BoundingBox",
+        bottomLeft:  {
+          __typename: "Coordinate",
+          lat: number,
+          lng: number,
+        },
+        topRight:  {
+          __typename: "Coordinate",
+          lat: number,
+          lng: number,
+        },
+      },
+      listings?:  Array< {
+        __typename: "Listing",
+        id: string,
+        name: string,
+        address: string,
+        location:  {
+          __typename: "Coordinate",
+          lat: number,
+          lng: number,
+        },
+        price: number,
+        numberOfBedrooms: number,
+        numberOfBathrooms: number,
+        link?: string | null,
+        pictures?: Array< string > | null,
+      } > | null,
+      pointsOfInterest?:  Array< {
+        __typename: "PointOfInterest",
+        id: string,
+        name: string,
+        type: PointOfInterestType,
+        address: string,
+        location:  {
+          __typename: "Coordinate",
+          lat: number,
+          lng: number,
+        },
+      } > | null,
+      roommates?:  Array< {
+        __typename: "User",
+        userName: string,
+        email: string,
+      } > | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
 };
 
 export type OnCreateSessionSubscription = {
-  onCreateSession?: {
-    __typename: "Session";
-    id: string;
-    name: string;
-    searchCity: string;
-    searchBounds: {
-      __typename: "BoundingBox";
-      bottomLeft: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      topRight: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    };
-    listings?: Array<{
-      __typename: "Listing";
-      id: string;
-      name: string;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      price: number;
-      numberOfBedrooms: number;
-      numberOfBathrooms: number;
-      link?: string | null;
-    }> | null;
-    pointsOfInterest?: Array<{
-      __typename: "PointOfInterest";
-      id: string;
-      name: string;
-      type: PointOfInterestType;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    }> | null;
-    roommates?: Array<{
-      __typename: "User";
-      userName: string;
-      email: string;
-    }> | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
+  onCreateSession?:  {
+    __typename: "Session",
+    id: string,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type OnUpdateSessionSubscription = {
-  onUpdateSession?: {
-    __typename: "Session";
-    id: string;
-    name: string;
-    searchCity: string;
-    searchBounds: {
-      __typename: "BoundingBox";
-      bottomLeft: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      topRight: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    };
-    listings?: Array<{
-      __typename: "Listing";
-      id: string;
-      name: string;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      price: number;
-      numberOfBedrooms: number;
-      numberOfBathrooms: number;
-      link?: string | null;
-    }> | null;
-    pointsOfInterest?: Array<{
-      __typename: "PointOfInterest";
-      id: string;
-      name: string;
-      type: PointOfInterestType;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    }> | null;
-    roommates?: Array<{
-      __typename: "User";
-      userName: string;
-      email: string;
-    }> | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
+  onUpdateSession?:  {
+    __typename: "Session",
+    id: string,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type OnDeleteSessionSubscription = {
-  onDeleteSession?: {
-    __typename: "Session";
-    id: string;
-    name: string;
-    searchCity: string;
-    searchBounds: {
-      __typename: "BoundingBox";
-      bottomLeft: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      topRight: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    };
-    listings?: Array<{
-      __typename: "Listing";
-      id: string;
-      name: string;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-      price: number;
-      numberOfBedrooms: number;
-      numberOfBathrooms: number;
-      link?: string | null;
-    }> | null;
-    pointsOfInterest?: Array<{
-      __typename: "PointOfInterest";
-      id: string;
-      name: string;
-      type: PointOfInterestType;
-      address: string;
-      location: {
-        __typename: "Coordinate";
-        lat: number;
-        lng: number;
-      };
-    }> | null;
-    roommates?: Array<{
-      __typename: "User";
-      userName: string;
-      email: string;
-    }> | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
+  onDeleteSession?:  {
+    __typename: "Session",
+    id: string,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?:  Array< {
+      __typename: "User",
+      userName: string,
+      email: string,
+    } > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
