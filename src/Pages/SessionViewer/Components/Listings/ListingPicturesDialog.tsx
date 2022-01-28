@@ -9,7 +9,9 @@ export default function ListingPicturesDialog({ pictures, onClose }: Props) {
         {pictures.length === 0 ? (
           <div>No pictures</div>
         ) : (
-          pictures.map((picture) => <FittedImage src={picture} />)
+          pictures.map((picture) => (
+            <FittedImage className="mb-1" src={picture} />
+          ))
         )}
       </Modal.Body>
     </Modal>
