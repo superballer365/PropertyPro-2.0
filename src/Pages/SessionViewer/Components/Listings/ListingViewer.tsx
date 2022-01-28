@@ -13,6 +13,7 @@ import { getAddressComponents } from "../../../../Utils/address";
 import { useLocation } from "react-router-dom";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { ListingContext } from "../../../../Contexts/ListingContext";
+import styles from "./ListingViewer.module.scss";
 
 export default function ListingViewer({ listing }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -92,11 +93,13 @@ export default function ListingViewer({ listing }: IProps) {
               )}
             </Col>
           </Row>
-          <div>Pictures:</div>
-          <Carousel>
+          <div className="mt-4">Pictures:</div>
+          <Carousel className={styles.carousel}>
             {listing.pictures?.map((picture) => (
-              <Carousel.Item key={picture} style={{ width: 300, height: 300 }}>
-                <img src={picture} />
+              <Carousel.Item key={picture} style={{ height: 300 }}>
+                <div className={styles.imageContainer}>
+                  <img className={styles.image} src={picture} />
+                </div>
               </Carousel.Item>
             ))}
           </Carousel>
