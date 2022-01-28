@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { SearchType } from "../../../../API/Google Places";
@@ -15,6 +16,10 @@ import { SessionContext } from "../../../../Contexts/SessionContext";
 import { Listing } from "../../../../Models/Session";
 import { crawlLink } from "../../../../Utils/Crawlers/common";
 import Spinner from "react-bootstrap/esm/Spinner";
+import InputGroup from "react-bootstrap/esm/InputGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import styles from "./NewListingDialog.module.scss";
 
 export default function NewListingDialog({ onClose }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -184,20 +189,40 @@ export default function NewListingDialog({ onClose }: IProps) {
           </Form.Row>
           <Form.Group controlId="listingForm.Link">
             <Form.Label>Link</Form.Label>
-            <Form.Control
-              type="listing link"
-              value={formData.link ?? ""}
-              onChange={(event: any) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  link: event.target.value,
-                }))
-              }
-            />
-            <Button onClick={handleFetchPicsClick} color="success">
-              {isParsing ? <Spinner animation="border" /> : "Fetch Picz"}
-            </Button>
-            <div>{`${formData.pictures.length} pictures`}</div>
+            <InputGroup>
+              <Form.Control
+                type="listing link"
+                value={formData.link ?? ""}
+                onChange={(event: any) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    link: event.target.value,
+                  }))
+                }
+              />
+              <InputGroup.Append>
+                <Button onClick={handleFetchPicsClick} color="success">
+                  {isParsing ? (
+                    <Spinner animation="border" size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faImage} />
+                  )}
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+            {formData.pictures.length > 0 && (
+              <Badge className="p-3 mt-3" variant="light">
+                <span className="mr-3">{`${formData.pictures.length} pictures`}</span>
+                <span
+                  className={styles.close}
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, pictures: [] }))
+                  }
+                >
+                  X
+                </span>
+              </Badge>
+            )}
           </Form.Group>
         </Form>
       </Modal.Body>
