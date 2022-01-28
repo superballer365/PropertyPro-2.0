@@ -101,18 +101,22 @@ export default function ListingViewer({ listing }: IProps) {
               )}
             </Col>
           </Row>
-          <div className="mt-4">Pictures:</div>
-          <Carousel className={styles.carousel}>
-            {listing.pictures?.map((picture) => (
-              <Carousel.Item key={picture} style={{ height: 300 }}>
-                <FittedImage
-                  className={styles.image}
-                  src={picture}
-                  onClick={() => setModalState("Picutres")}
-                />
-              </Carousel.Item>
-            ))}
-          </Carousel>
+          {listing.pictures && listing.pictures.length > 0 && (
+            <>
+              <div className="mt-4">Pictures:</div>
+              <Carousel className={styles.carousel}>
+                {listing.pictures?.map((picture) => (
+                  <Carousel.Item key={picture} style={{ height: 300 }}>
+                    <FittedImage
+                      className={styles.image}
+                      src={picture}
+                      onClick={() => setModalState("Picutres")}
+                    />
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </>
+          )}
         </Card.Body>
         <Card.Footer className="d-flex justify-content-end">
           <Button className="mr-1" variant="primary" onClick={handleEditClick}>
