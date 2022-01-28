@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { ListingContext } from "../../../../Contexts/ListingContext";
 import styles from "./ListingViewer.module.scss";
+import FittedImage from "../../../../Components/FittedImage";
 
 export default function ListingViewer({ listing }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -97,9 +98,11 @@ export default function ListingViewer({ listing }: IProps) {
           <Carousel className={styles.carousel}>
             {listing.pictures?.map((picture) => (
               <Carousel.Item key={picture} style={{ height: 300 }}>
-                <div className={styles.imageContainer}>
-                  <img className={styles.image} src={picture} />
-                </div>
+                <FittedImage
+                  className={styles.image}
+                  src={picture}
+                  onClick={() => console.log(picture)}
+                />
               </Carousel.Item>
             ))}
           </Carousel>
