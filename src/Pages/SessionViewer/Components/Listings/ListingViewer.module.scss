@@ -1,0 +1,9 @@
+.carousel {
+  :global(.carousel-inner) {
+    border-radius: 1rem;
+  }
+
+  .image {
+    cursor: pointer;
+  }
+}

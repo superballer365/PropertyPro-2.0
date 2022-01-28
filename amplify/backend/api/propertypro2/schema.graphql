@@ -26,6 +26,7 @@ type Listing {
   numberOfBedrooms: Int!
   numberOfBathrooms: Int!
   link: String
+  pictures: [String!]
 }
 
 type PointOfInterest {
@@ -49,4 +50,9 @@ type Coordinate {
 type BoundingBox {
   bottomLeft: Coordinate!
   topRight: Coordinate!
+}
+
+type Query {
+  getListingPictures(listingUrl: String!): [String!]!
+    @function(name: "listingLinkParser-${env}")
 }

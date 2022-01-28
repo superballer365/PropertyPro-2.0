@@ -2,6 +2,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getListingPictures = /* GraphQL */ `
+  query GetListingPictures($listingUrl: String!) {
+    getListingPictures(listingUrl: $listingUrl)
+  }
+`;
 export const getSession = /* GraphQL */ `
   query GetSession($id: ID!) {
     getSession(id: $id) {
@@ -30,6 +35,7 @@ export const getSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
         link
+        pictures
       }
       pointsOfInterest {
         id
@@ -83,6 +89,7 @@ export const listSessions = /* GraphQL */ `
           numberOfBedrooms
           numberOfBathrooms
           link
+          pictures
         }
         pointsOfInterest {
           id

@@ -1,0 +1,7 @@
+{
+  "typeName": "Query",
+  "fieldName": "getListingPictures",
+  "arguments": {
+    "listingUrl": "https://www.apartments.com/19-vancouver-st-boston-ma/mkpthml/"
+  }
+}

@@ -31,6 +31,7 @@ export type ListingInput = {
   numberOfBedrooms: number,
   numberOfBathrooms: number,
   link?: string | null,
+  pictures?: Array< string > | null,
 };
 
 export type PointOfInterestInput = {
@@ -135,6 +136,7 @@ export type Listing = {
   numberOfBedrooms: number,
   numberOfBathrooms: number,
   link?: string | null,
+  pictures?: Array< string > | null,
 };
 
 export type PointOfInterest = {
@@ -235,6 +237,7 @@ export type CreateSessionMutation = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
       link?: string | null,
+      pictures?: Array< string > | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -296,6 +299,7 @@ export type UpdateSessionMutation = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
       link?: string | null,
+      pictures?: Array< string > | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -357,6 +361,7 @@ export type DeleteSessionMutation = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
       link?: string | null,
+      pictures?: Array< string > | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -378,6 +383,14 @@ export type DeleteSessionMutation = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type GetListingPicturesQueryVariables = {
+  listingUrl: string,
+};
+
+export type GetListingPicturesQuery = {
+  getListingPictures: Array< string >,
 };
 
 export type GetSessionQueryVariables = {
@@ -417,6 +430,7 @@ export type GetSessionQuery = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
       link?: string | null,
+      pictures?: Array< string > | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -481,6 +495,7 @@ export type ListSessionsQuery = {
         numberOfBedrooms: number,
         numberOfBathrooms: number,
         link?: string | null,
+        pictures?: Array< string > | null,
       } > | null,
       pointsOfInterest?:  Array< {
         __typename: "PointOfInterest",
@@ -539,6 +554,7 @@ export type OnCreateSessionSubscription = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
       link?: string | null,
+      pictures?: Array< string > | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -595,6 +611,7 @@ export type OnUpdateSessionSubscription = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
       link?: string | null,
+      pictures?: Array< string > | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -651,6 +668,7 @@ export type OnDeleteSessionSubscription = {
       numberOfBedrooms: number,
       numberOfBathrooms: number,
       link?: string | null,
+      pictures?: Array< string > | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",

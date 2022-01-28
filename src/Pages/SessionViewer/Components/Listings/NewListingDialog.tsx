@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { SearchType } from "../../../../API/Google Places";
@@ -11,8 +12,14 @@ import {
 } from "../../../../API/Google Places/Geocoding";
 import { uuid } from "uuidv4";
 import { useUpdateSession } from "../../../../Utils/Hooks";
-import SessionData, { Listing } from "../../../../Models/Session";
 import { SessionContext } from "../../../../Contexts/SessionContext";
+import { Listing } from "../../../../Models/Session";
+import { crawlLink } from "../../../../Utils/Crawlers";
+import Spinner from "react-bootstrap/esm/Spinner";
+import InputGroup from "react-bootstrap/esm/InputGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import styles from "./NewListingDialog.module.scss";
 
 export default function NewListingDialog({ onClose }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -22,6 +29,7 @@ export default function NewListingDialog({ onClose }: IProps) {
     React.useState<CreateListingFormData>(DEFAULT_FORM_DATA);
   const [formDataErrors, setFormDataErrors] =
     React.useState<FormDataErrors>(DEFAULT_DATA_ERRORS);
+  const [isParsing, setIsParsing] = React.useState(false);
 
   async function handleCreateClick(event: any) {
     event.preventDefault();
@@ -39,6 +47,7 @@ export default function NewListingDialog({ onClose }: IProps) {
         numberOfBedrooms: formData.numberOfBedrooms!,
         numberOfBathrooms: formData.numberOfBathrooms!,
         link: formData.link,
+        pictures: formData.pictures,
       };
       await updateSessionMutation.mutateAsync({
         ...session,
@@ -73,6 +82,21 @@ export default function NewListingDialog({ onClose }: IProps) {
       console.error("Failed to load location information.");
     }
   }
+
+  const handleFetchPicsClick = async () => {
+    if (!formData.link) return;
+
+    try {
+      setIsParsing(true);
+      const pictures = await crawlLink(formData.link);
+      setFormData((prev) => ({ ...prev, pictures }));
+    } catch (error) {
+      // TODO: show toast
+      console.error(error);
+    } finally {
+      setIsParsing(false);
+    }
+  };
 
   return (
     <Modal show={true} onHide={onClose}>
@@ -165,16 +189,40 @@ export default function NewListingDialog({ onClose }: IProps) {
           </Form.Row>
           <Form.Group controlId="listingForm.Link">
             <Form.Label>Link</Form.Label>
-            <Form.Control
-              type="listing link"
-              value={formData.link ?? ""}
-              onChange={(event: any) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  link: event.target.value,
-                }))
-              }
-            />
+            <InputGroup>
+              <Form.Control
+                type="listing link"
+                value={formData.link ?? ""}
+                onChange={(event: any) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    link: event.target.value,
+                  }))
+                }
+              />
+              <InputGroup.Append>
+                <Button onClick={handleFetchPicsClick} color="success">
+                  {isParsing ? (
+                    <Spinner animation="border" size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faImage} />
+                  )}
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+            {formData.pictures.length > 0 && (
+              <Badge className="p-3 mt-3" variant="light">
+                <span className="mr-3">{`${formData.pictures.length} pictures`}</span>
+                <span
+                  className={styles.close}
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, pictures: [] }))
+                  }
+                >
+                  X
+                </span>
+              </Badge>
+            )}
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -202,6 +250,7 @@ interface CreateListingFormData {
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string;
+  pictures: string[];
 }
 
 const DEFAULT_FORM_DATA: CreateListingFormData = {
@@ -212,6 +261,7 @@ const DEFAULT_FORM_DATA: CreateListingFormData = {
   numberOfBedrooms: undefined,
   numberOfBathrooms: undefined,
   link: undefined,
+  pictures: [],
 };
 
 interface FormDataErrors {
