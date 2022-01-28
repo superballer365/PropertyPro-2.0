@@ -14,7 +14,7 @@ import { uuid } from "uuidv4";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { Listing } from "../../../../Models/Session";
-import { crawlLink } from "../../../../Utils/Crawlers/common";
+import { crawlLink } from "../../../../Utils/Crawlers";
 import Spinner from "react-bootstrap/esm/Spinner";
 import InputGroup from "react-bootstrap/esm/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
