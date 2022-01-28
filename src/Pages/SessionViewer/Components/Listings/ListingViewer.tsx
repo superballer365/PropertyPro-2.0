@@ -15,12 +15,13 @@ import { SessionContext } from "../../../../Contexts/SessionContext";
 import { ListingContext } from "../../../../Contexts/ListingContext";
 import styles from "./ListingViewer.module.scss";
 import FittedImage from "../../../../Components/FittedImage";
+import ListingPicturesDialog from "./ListingPicturesDialog";
 
 export default function ListingViewer({ listing }: IProps) {
   const { session } = React.useContext(SessionContext);
   const { setSelectedListing } = React.useContext(ListingContext);
 
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [modalState, setModalState] = React.useState<ModalState>("None");
 
   const updateSessionMutation = useUpdateSession();
 
@@ -28,11 +29,11 @@ export default function ListingViewer({ listing }: IProps) {
 
   // update editing state if location state changes
   React.useEffect(() => {
-    if (locationState?.edit) setIsEditing(true);
+    if (locationState?.edit) setModalState("Editing");
   }, [locationState]);
 
-  async function handleEditClick() {
-    setIsEditing(true);
+  function handleEditClick() {
+    setModalState("Editing");
   }
 
   async function handleDeleteClick() {
@@ -45,11 +46,17 @@ export default function ListingViewer({ listing }: IProps) {
 
   return (
     <>
-      {isEditing && (
+      {modalState === "Editing" && (
         <EditListingDialog
           listing={listing}
           session={session}
-          onClose={() => setIsEditing(false)}
+          onClose={() => setModalState("None")}
+        />
+      )}
+      {modalState === "Picutres" && (
+        <ListingPicturesDialog
+          pictures={listing.pictures ?? []}
+          onClose={() => setModalState("None")}
         />
       )}
       <Card className="h-100">
@@ -101,7 +108,7 @@ export default function ListingViewer({ listing }: IProps) {
                 <FittedImage
                   className={styles.image}
                   src={picture}
-                  onClick={() => console.log(picture)}
+                  onClick={() => setModalState("Picutres")}
                 />
               </Carousel.Item>
             ))}
@@ -119,6 +126,8 @@ export default function ListingViewer({ listing }: IProps) {
     </>
   );
 }
+
+type ModalState = "None" | "Editing" | "Picutres";
 
 interface IProps {
   listing: Listing;
