@@ -2,6 +2,6 @@
   "typeName": "Query",
   "fieldName": "getListingPictures",
   "arguments": {
-    "listingUrl": "https://www.apartments.com/19-vancouver-st-boston-ma/mkpthml/"
+    "listingUrl": "https://www.zillow.com/homedetails/1232-Beacon-St-B1-Brookline-MA-02446/2103643053_zpid/"
   }
 }

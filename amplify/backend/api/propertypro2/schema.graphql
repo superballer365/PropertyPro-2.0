@@ -24,7 +24,7 @@ type Listing {
   location: Coordinate!
   price: Float!
   numberOfBedrooms: Int!
-  numberOfBathrooms: Int!
+  numberOfBathrooms: Float!
   link: String
   pictures: [String!]
 }
@@ -52,7 +52,16 @@ type BoundingBox {
   topRight: Coordinate!
 }
 
+type GetListingInfoResponse {
+  address: String
+  price: String
+  numberOfBedrooms: Int
+  numberOfBathrooms: Float
+  pictures: [String!]
+}
+
 type Query {
   getListingPictures(listingUrl: String!): [String!]!
     @function(name: "listingLinkParser-${env}")
+  getListingInfo(listingUrl: String!): GetListingInfoResponse!
 }
