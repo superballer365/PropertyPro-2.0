@@ -1,7 +1,7 @@
 {
   "typeName": "Query",
-  "fieldName": "getListingPictures",
+  "fieldName": "getListingInfo",
   "arguments": {
-    "listingUrl": "https://www.zillow.com/homedetails/1232-Beacon-St-B1-Brookline-MA-02446/2103643053_zpid/"
+    "listingUrl": "https://www.apartments.com/2-w-6th-st-boston-ma/7t3jpkx/"
   }
 }
