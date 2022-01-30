@@ -1,10 +1,14 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { getListingPictures } from "../../graphql/queries";
+import { getListingInfo } from "../../graphql/queries";
+import { GetListingInfoResponse } from "../../API";
 
-export async function crawlLink(listingUrl: string): Promise<string[]> {
+export async function crawlLink(
+  listingUrl: string
+): Promise<GetListingInfoResponse> {
   // TODO: cleanup types and stuff
   const response = (await API.graphql(
-    graphqlOperation(getListingPictures, { listingUrl })
+    graphqlOperation(getListingInfo, { listingUrl })
   )) as any;
-  return response.data?.getListingPictures ?? [];
+  const data = response.data?.getListingInfo as GetListingInfoResponse;
+  return data;
 }

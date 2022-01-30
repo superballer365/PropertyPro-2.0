@@ -7,6 +7,17 @@ export const getListingPictures = /* GraphQL */ `
     getListingPictures(listingUrl: $listingUrl)
   }
 `;
+export const getListingInfo = /* GraphQL */ `
+  query GetListingInfo($listingUrl: String!) {
+    getListingInfo(listingUrl: $listingUrl) {
+      address
+      price
+      numberOfBedrooms
+      numberOfBathrooms
+      pictures
+    }
+  }
+`;
 export const getSession = /* GraphQL */ `
   query GetSession($id: ID!) {
     getSession(id: $id) {

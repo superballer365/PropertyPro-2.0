@@ -1,7 +1,7 @@
 {
   "typeName": "Query",
-  "fieldName": "getListingPictures",
+  "fieldName": "getListingInfo",
   "arguments": {
-    "listingUrl": "https://www.apartments.com/19-vancouver-st-boston-ma/mkpthml/"
+    "listingUrl": "https://www.apartments.com/2-w-6th-st-boston-ma/7t3jpkx/"
   }
 }

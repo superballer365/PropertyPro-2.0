@@ -6,7 +6,13 @@ const {
 } = require("./apartmentsParser");
 const os = require("os");
 const fs = require("fs");
+
 async function getListingPicturesHandler(ctx) {
+  const result = await getListingInfoHandler(ctx);
+  return result.pictures;
+}
+
+async function getListingInfoHandler(ctx) {
   let result = null;
   let browser = null;
   let error = null;
@@ -60,43 +66,10 @@ function getParser(listingUrl) {
   return undefined;
 }
 
-// const configureSelenium = () => {
-//   let webDriverPath = undefined;
-//   if (os.platform() === "darwin") {
-//     webDriverPath = __dirname + "/drivers/mac/";
-//   } else if (os.platform() === "linux") {
-//     webDriverPath = "/var/task/drivers/linux/";
-//   }
-//   if (!webDriverPath)
-//     throw new Error("No web driver exists for the current platform");
-//   if (!fs.existsSync(webDriverPath))
-//     throw new Error(
-//       `Web driver for ${os.platform} not found at the expected location`
-//     );
-
-//   process.env.PATH = process.env.PATH || "";
-//   process.env.PATH = webDriverPath + path.delimiter + process.env.PATH;
-
-//   const firefoxPath = webDriverPath + "firefox";
-//   const edgePath = new edge.Options().set
-//   const options = new firefox.Options();
-//   console.log(process.env.PATH);
-//   options.headless();
-//   options.setBinary("/var/task/drivers/linux/firefox/firefox");
-//   let driver = new Builder()
-//     .forBrowser("firefox")
-//     .setFirefoxOptions(options)
-//     .setEdgeOptions()
-//     .build();
-
-//   console.log("Selenium setup complete");
-
-//   return driver;
-// };
-
 const resolvers = {
   Query: {
     getListingPictures: getListingPicturesHandler,
+    getListingInfo: getListingInfoHandler,
   },
 };
 
