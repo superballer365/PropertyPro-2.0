@@ -129,6 +129,30 @@ export default function NewListingDialog({ onClose }: IProps) {
               {formDataErrors.nameError}
             </Form.Control.Feedback>
           </Form.Group>
+          <Form.Group controlId="listingForm.Link">
+            <Form.Label>Link</Form.Label>
+            <InputGroup>
+              <Form.Control
+                type="listing link"
+                value={formData.link ?? ""}
+                onChange={(event: any) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    link: event.target.value,
+                  }))
+                }
+              />
+              <InputGroup.Append>
+                <Button onClick={handleFetchPicsClick} color="success">
+                  {isParsing ? (
+                    <Spinner animation="border" size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faSync} />
+                  )}
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form.Group>
           <Form.Group controlId="listingForm.Address">
             <Form.Label>Address</Form.Label>
             <AddressSearchBar
@@ -194,43 +218,19 @@ export default function NewListingDialog({ onClose }: IProps) {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-          <Form.Group controlId="listingForm.Link">
-            <Form.Label>Link</Form.Label>
-            <InputGroup>
-              <Form.Control
-                type="listing link"
-                value={formData.link ?? ""}
-                onChange={(event: any) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    link: event.target.value,
-                  }))
+          {formData.pictures.length > 0 && (
+            <Badge className="p-3" variant="light">
+              <span className="mr-3">{`${formData.pictures.length} pictures`}</span>
+              <span
+                className={styles.close}
+                onClick={() =>
+                  setFormData((prev) => ({ ...prev, pictures: [] }))
                 }
-              />
-              <InputGroup.Append>
-                <Button onClick={handleFetchPicsClick} color="success">
-                  {isParsing ? (
-                    <Spinner animation="border" size="sm" />
-                  ) : (
-                    <FontAwesomeIcon icon={faSync} />
-                  )}
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-            {formData.pictures.length > 0 && (
-              <Badge className="p-3 mt-3" variant="light">
-                <span className="mr-3">{`${formData.pictures.length} pictures`}</span>
-                <span
-                  className={styles.close}
-                  onClick={() =>
-                    setFormData((prev) => ({ ...prev, pictures: [] }))
-                  }
-                >
-                  X
-                </span>
-              </Badge>
-            )}
-          </Form.Group>
+              >
+                X
+              </span>
+            </Badge>
+          )}
         </Form>
       </Modal.Body>
       <Modal.Footer>
