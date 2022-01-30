@@ -88,8 +88,14 @@ export default function NewListingDialog({ onClose }: IProps) {
 
     try {
       setIsParsing(true);
-      const data = await crawlLink(formData.link);
-      setFormData((prev) => ({ ...prev, pictures: data.pictures ?? [] }));
+      const parsedData = await crawlLink(formData.link);
+      setFormData((prev) => ({
+        ...prev,
+        pictures: parsedData.pictures ?? prev.pictures,
+        numberOfBedrooms: parsedData.numberOfBedrooms ?? prev.numberOfBedrooms,
+        numberOfBathrooms:
+          parsedData.numberOfBathrooms ?? prev.numberOfBathrooms,
+      }));
     } catch (error) {
       // TODO: show toast
       console.error(error);
