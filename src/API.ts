@@ -171,7 +171,7 @@ export type DeleteSessionInput = {
 export type GetListingInfoResponse = {
   __typename: "GetListingInfoResponse",
   address?: string | null,
-  price?: string | null,
+  price?: number | null,
   numberOfBedrooms?: number | null,
   numberOfBathrooms?: number | null,
   pictures?: Array< string > | null,
@@ -410,7 +410,7 @@ export type GetListingInfoQuery = {
   getListingInfo:  {
     __typename: "GetListingInfoResponse",
     address?: string | null,
-    price?: string | null,
+    price?: number | null,
     numberOfBedrooms?: number | null,
     numberOfBathrooms?: number | null,
     pictures?: Array< string > | null,

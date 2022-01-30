@@ -54,7 +54,7 @@ type BoundingBox {
 
 type GetListingInfoResponse {
   address: String
-  price: String
+  price: Float
   numberOfBedrooms: Int
   numberOfBathrooms: Float
   pictures: [String!]

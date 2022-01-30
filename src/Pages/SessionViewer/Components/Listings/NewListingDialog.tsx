@@ -91,6 +91,7 @@ export default function NewListingDialog({ onClose }: IProps) {
       const parsedData = await crawlLink(formData.link);
       setFormData((prev) => ({
         ...prev,
+        price: parsedData.price ?? prev.price,
         pictures: parsedData.pictures ?? prev.pictures,
         numberOfBedrooms: parsedData.numberOfBedrooms ?? prev.numberOfBedrooms,
         numberOfBathrooms:
