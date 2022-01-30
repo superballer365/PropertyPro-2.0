@@ -83,7 +83,7 @@ export default function NewListingDialog({ onClose }: IProps) {
     }
   }
 
-  const handleFetchPicsClick = async () => {
+  const handleLinkSyncClick = async () => {
     if (!formData.link) return;
 
     try {
@@ -143,7 +143,7 @@ export default function NewListingDialog({ onClose }: IProps) {
                 }
               />
               <InputGroup.Append>
-                <Button onClick={handleFetchPicsClick} color="success">
+                <Button onClick={handleLinkSyncClick} color="success">
                   {isParsing ? (
                     <Spinner animation="border" size="sm" />
                   ) : (
