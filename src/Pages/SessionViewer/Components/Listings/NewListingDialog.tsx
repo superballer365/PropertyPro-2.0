@@ -18,7 +18,7 @@ import { crawlLink } from "../../../../Utils/Crawlers";
 import Spinner from "react-bootstrap/esm/Spinner";
 import InputGroup from "react-bootstrap/esm/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 import styles from "./NewListingDialog.module.scss";
 
 export default function NewListingDialog({ onClose }: IProps) {
@@ -88,8 +88,8 @@ export default function NewListingDialog({ onClose }: IProps) {
 
     try {
       setIsParsing(true);
-      const pictures = await crawlLink(formData.link);
-      setFormData((prev) => ({ ...prev, pictures }));
+      const data = await crawlLink(formData.link);
+      setFormData((prev) => ({ ...prev, pictures: data.pictures ?? [] }));
     } catch (error) {
       // TODO: show toast
       console.error(error);
@@ -205,7 +205,7 @@ export default function NewListingDialog({ onClose }: IProps) {
                   {isParsing ? (
                     <Spinner animation="border" size="sm" />
                   ) : (
-                    <FontAwesomeIcon icon={faImage} />
+                    <FontAwesomeIcon icon={faSync} />
                   )}
                 </Button>
               </InputGroup.Append>

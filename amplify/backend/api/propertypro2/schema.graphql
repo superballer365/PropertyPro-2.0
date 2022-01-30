@@ -64,4 +64,5 @@ type Query {
   getListingPictures(listingUrl: String!): [String!]!
     @function(name: "listingLinkParser-${env}")
   getListingInfo(listingUrl: String!): GetListingInfoResponse!
+    @function(name: "listingLinkParser-${env}")
 }

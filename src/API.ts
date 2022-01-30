@@ -168,6 +168,15 @@ export type DeleteSessionInput = {
   id: string,
 };
 
+export type GetListingInfoResponse = {
+  __typename: "GetListingInfoResponse",
+  address?: string | null,
+  price?: string | null,
+  numberOfBedrooms?: number | null,
+  numberOfBathrooms?: number | null,
+  pictures?: Array< string > | null,
+};
+
 export type ModelSessionFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -391,6 +400,21 @@ export type GetListingPicturesQueryVariables = {
 
 export type GetListingPicturesQuery = {
   getListingPictures: Array< string >,
+};
+
+export type GetListingInfoQueryVariables = {
+  listingUrl: string,
+};
+
+export type GetListingInfoQuery = {
+  getListingInfo:  {
+    __typename: "GetListingInfoResponse",
+    address?: string | null,
+    price?: string | null,
+    numberOfBedrooms?: number | null,
+    numberOfBathrooms?: number | null,
+    pictures?: Array< string > | null,
+  },
 };
 
 export type GetSessionQueryVariables = {
