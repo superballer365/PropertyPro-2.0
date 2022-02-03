@@ -9,6 +9,7 @@ export const createSession = /* GraphQL */ `
   ) {
     createSession(input: $input, condition: $condition) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -61,6 +62,7 @@ export const updateSession = /* GraphQL */ `
   ) {
     updateSession(input: $input, condition: $condition) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -113,6 +115,7 @@ export const deleteSession = /* GraphQL */ `
   ) {
     deleteSession(input: $input, condition: $condition) {
       id
+      owner
       name
       searchCity
       searchBounds {

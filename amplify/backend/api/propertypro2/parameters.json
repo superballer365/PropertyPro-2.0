@@ -2,5 +2,12 @@
   "AppSyncApiName": "propertypro2",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "CreateAPIKey": 0
+  "CreateAPIKey": 0,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authpropertypro268610430",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2022-02-03T01:30:28.629Z"
 }

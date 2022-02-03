@@ -4,6 +4,7 @@
 
 export type CreateSessionInput = {
   id?: string | null,
+  owner: string,
   name: string,
   searchCity: string,
   searchBounds: BoundingBoxInput,
@@ -54,6 +55,7 @@ export type UserInput = {
 };
 
 export type ModelSessionConditionInput = {
+  owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
   searchCity?: ModelStringInput | null,
   and?: Array< ModelSessionConditionInput | null > | null,
@@ -104,6 +106,7 @@ export type ModelSizeInput = {
 export type Session = {
   __typename: "Session",
   id: string,
+  owner: string,
   name: string,
   searchCity: string,
   searchBounds: BoundingBox,
@@ -156,6 +159,7 @@ export type User = {
 
 export type UpdateSessionInput = {
   id: string,
+  owner?: string | null,
   name?: string | null,
   searchCity?: string | null,
   searchBounds?: BoundingBoxInput | null,
@@ -179,6 +183,7 @@ export type GetListingInfoResponse = {
 
 export type ModelSessionFilterInput = {
   id?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
   searchCity?: ModelStringInput | null,
   and?: Array< ModelSessionFilterInput | null > | null,
@@ -217,6 +222,7 @@ export type CreateSessionMutation = {
   createSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -279,6 +285,7 @@ export type UpdateSessionMutation = {
   updateSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -341,6 +348,7 @@ export type DeleteSessionMutation = {
   deleteSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -425,6 +433,7 @@ export type GetSessionQuery = {
   getSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -490,6 +499,7 @@ export type ListSessionsQuery = {
     items:  Array< {
       __typename: "Session",
       id: string,
+      owner: string,
       name: string,
       searchCity: string,
       searchBounds:  {
@@ -545,10 +555,15 @@ export type ListSessionsQuery = {
   } | null,
 };
 
+export type OnCreateSessionSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateSessionSubscription = {
   onCreateSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -600,12 +615,17 @@ export type OnCreateSessionSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateSessionSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateSessionSubscription = {
   onUpdateSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -659,10 +679,15 @@ export type OnUpdateSessionSubscription = {
   } | null,
 };
 
+export type OnDeleteSessionSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnDeleteSessionSubscription = {
   onDeleteSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {

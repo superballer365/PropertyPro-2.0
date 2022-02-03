@@ -1,9 +1,6 @@
-input AMPLIFY {
-  globalAuthRule: AuthRule = { allow: public }
-}
-
-type Session @model {
+type Session @model @auth(rules: [{ allow: owner, identityClaim: "email" }]) {
   id: ID!
+  owner: String!
   name: String!
   searchCity: String!
   searchBounds: BoundingBox!

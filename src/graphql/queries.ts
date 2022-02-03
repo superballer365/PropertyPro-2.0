@@ -22,6 +22,7 @@ export const getSession = /* GraphQL */ `
   query GetSession($id: ID!) {
     getSession(id: $id) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -76,6 +77,7 @@ export const listSessions = /* GraphQL */ `
     listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        owner
         name
         searchCity
         searchBounds {

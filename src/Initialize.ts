@@ -1,4 +1,4 @@
-import Amplify from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import config from "./aws-exports";
 
 export default function Initialize() {
@@ -32,5 +32,16 @@ export default function Initialize() {
     },
   };
 
-  Amplify.configure(updatedAwsConfig);
+  Amplify.configure({
+    ...updatedAwsConfig,
+    graphql_headers: async () => {
+      try {
+        const token = (await Auth.currentSession()).getIdToken().getJwtToken();
+        return { Authorization: token };
+      } catch (e) {
+        console.error(e);
+        return {};
+      }
+    },
+  });
 }
