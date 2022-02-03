@@ -12,7 +12,7 @@ type Session
     ]
   ) {
   id: ID!
-  owner: String!
+  owner: String
   name: String!
   searchCity: String!
   searchBounds: BoundingBox!
