@@ -1,4 +1,16 @@
-type Session @model @auth(rules: [{ allow: owner, identityClaim: "email" }]) {
+type Session
+  @model
+  @auth(
+    rules: [
+      { allow: owner, identityClaim: "email" }
+      {
+        allow: owner
+        identityClaim: "email"
+        ownerField: "roommates"
+        operations: [update, read]
+      }
+    ]
+  ) {
   id: ID!
   owner: String!
   name: String!
@@ -6,12 +18,7 @@ type Session @model @auth(rules: [{ allow: owner, identityClaim: "email" }]) {
   searchBounds: BoundingBox!
   listings: [Listing!]
   pointsOfInterest: [PointOfInterest!]
-  roommates: [User!]
-}
-
-type User {
-  userName: String!
-  email: String!
+  roommates: [String!]
 }
 
 type Listing {

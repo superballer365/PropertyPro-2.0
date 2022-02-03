@@ -26,7 +26,7 @@ export default function AddRoommateDialog({ onClose }: Props) {
 
     await updateSessionMutation.mutateAsync({
       ...session,
-      roommates: (session.roommates ?? []).concat(user),
+      roommates: (session.roommates ?? []).concat(user.email),
     });
   };
 

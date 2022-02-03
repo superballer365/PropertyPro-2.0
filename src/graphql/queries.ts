@@ -59,10 +59,7 @@ export const getSession = /* GraphQL */ `
           lng
         }
       }
-      roommates {
-        userName
-        email
-      }
+      roommates
       createdAt
       updatedAt
     }
@@ -114,10 +111,7 @@ export const listSessions = /* GraphQL */ `
             lng
           }
         }
-        roommates {
-          userName
-          email
-        }
+        roommates
         createdAt
         updatedAt
       }

@@ -10,7 +10,7 @@ export type CreateSessionInput = {
   searchBounds: BoundingBoxInput,
   listings?: Array< ListingInput > | null,
   pointsOfInterest?: Array< PointOfInterestInput > | null,
-  roommates?: Array< UserInput > | null,
+  roommates?: Array< string > | null,
 };
 
 export type BoundingBoxInput = {
@@ -49,15 +49,11 @@ export enum PointOfInterestType {
 }
 
 
-export type UserInput = {
-  userName: string,
-  email: string,
-};
-
 export type ModelSessionConditionInput = {
   owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
   searchCity?: ModelStringInput | null,
+  roommates?: ModelStringInput | null,
   and?: Array< ModelSessionConditionInput | null > | null,
   or?: Array< ModelSessionConditionInput | null > | null,
   not?: ModelSessionConditionInput | null,
@@ -112,7 +108,7 @@ export type Session = {
   searchBounds: BoundingBox,
   listings?:  Array<Listing > | null,
   pointsOfInterest?:  Array<PointOfInterest > | null,
-  roommates?:  Array<User > | null,
+  roommates?: Array< string > | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -151,12 +147,6 @@ export type PointOfInterest = {
   location: Coordinate,
 };
 
-export type User = {
-  __typename: "User",
-  userName: string,
-  email: string,
-};
-
 export type UpdateSessionInput = {
   id: string,
   owner?: string | null,
@@ -165,7 +155,7 @@ export type UpdateSessionInput = {
   searchBounds?: BoundingBoxInput | null,
   listings?: Array< ListingInput > | null,
   pointsOfInterest?: Array< PointOfInterestInput > | null,
-  roommates?: Array< UserInput > | null,
+  roommates?: Array< string > | null,
 };
 
 export type DeleteSessionInput = {
@@ -186,6 +176,7 @@ export type ModelSessionFilterInput = {
   owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
   searchCity?: ModelStringInput | null,
+  roommates?: ModelStringInput | null,
   and?: Array< ModelSessionFilterInput | null > | null,
   or?: Array< ModelSessionFilterInput | null > | null,
   not?: ModelSessionFilterInput | null,
@@ -266,11 +257,7 @@ export type CreateSessionMutation = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -329,11 +316,7 @@ export type UpdateSessionMutation = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -392,11 +375,7 @@ export type DeleteSessionMutation = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -477,11 +456,7 @@ export type GetSessionQuery = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -543,11 +518,7 @@ export type ListSessionsQuery = {
           lng: number,
         },
       } > | null,
-      roommates?:  Array< {
-        __typename: "User",
-        userName: string,
-        email: string,
-      } > | null,
+      roommates?: Array< string > | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -607,11 +578,7 @@ export type OnCreateSessionSubscription = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -669,11 +636,7 @@ export type OnUpdateSessionSubscription = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -731,11 +694,7 @@ export type OnDeleteSessionSubscription = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,

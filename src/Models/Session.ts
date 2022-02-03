@@ -10,12 +10,13 @@ import { BoundingBox, Coordinate } from "../API/Google Places/Geocoding";
 
 interface SessionData {
   id?: string;
+  owner: string;
   name: string;
   searchCity: string;
   searchBounds: BoundingBox;
   listings?: Listing[] | null;
   pointsOfInterest?: PointOfInterest[] | null;
-  roommates?: User[] | null;
+  roommates?: string[] | null;
 }
 
 export interface Listing {
@@ -48,6 +49,7 @@ export function sessionDataToApiSessionInput(
 ): CreateSessionInput {
   return {
     name: sessionData.name,
+    owner: sessionData.owner,
     id: sessionData.id,
     searchCity: sessionData.searchCity,
     searchBounds: sessionData.searchBounds,
@@ -65,6 +67,7 @@ function mapListSessionsQuery(
       (session) =>
         ({
           id: session?.id,
+          owner: session?.owner,
           name: session?.name,
           searchCity: session?.searchCity,
           searchBounds: session?.searchBounds,
