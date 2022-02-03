@@ -9,6 +9,7 @@ export const createSession = /* GraphQL */ `
   ) {
     createSession(input: $input, condition: $condition) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -45,10 +46,7 @@ export const createSession = /* GraphQL */ `
           lng
         }
       }
-      roommates {
-        userName
-        email
-      }
+      roommates
       createdAt
       updatedAt
     }
@@ -61,6 +59,7 @@ export const updateSession = /* GraphQL */ `
   ) {
     updateSession(input: $input, condition: $condition) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -97,10 +96,7 @@ export const updateSession = /* GraphQL */ `
           lng
         }
       }
-      roommates {
-        userName
-        email
-      }
+      roommates
       createdAt
       updatedAt
     }
@@ -113,6 +109,7 @@ export const deleteSession = /* GraphQL */ `
   ) {
     deleteSession(input: $input, condition: $condition) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -149,10 +146,7 @@ export const deleteSession = /* GraphQL */ `
           lng
         }
       }
-      roommates {
-        userName
-        email
-      }
+      roommates
       createdAt
       updatedAt
     }

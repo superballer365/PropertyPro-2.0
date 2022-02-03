@@ -1,20 +1,24 @@
-input AMPLIFY {
-  globalAuthRule: AuthRule = { allow: public }
-}
-
-type Session @model {
+type Session
+  @model
+  @auth(
+    rules: [
+      { allow: owner, identityClaim: "email" }
+      {
+        allow: owner
+        identityClaim: "email"
+        ownerField: "roommates"
+        operations: [update, read]
+      }
+    ]
+  ) {
   id: ID!
+  owner: String!
   name: String!
   searchCity: String!
   searchBounds: BoundingBox!
   listings: [Listing!]
   pointsOfInterest: [PointOfInterest!]
-  roommates: [User!]
-}
-
-type User {
-  userName: String!
-  email: String!
+  roommates: [String!]
 }
 
 type Listing {

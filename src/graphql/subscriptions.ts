@@ -3,9 +3,10 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateSession = /* GraphQL */ `
-  subscription OnCreateSession {
-    onCreateSession {
+  subscription OnCreateSession($owner: String) {
+    onCreateSession(owner: $owner) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -42,19 +43,17 @@ export const onCreateSession = /* GraphQL */ `
           lng
         }
       }
-      roommates {
-        userName
-        email
-      }
+      roommates
       createdAt
       updatedAt
     }
   }
 `;
 export const onUpdateSession = /* GraphQL */ `
-  subscription OnUpdateSession {
-    onUpdateSession {
+  subscription OnUpdateSession($owner: String) {
+    onUpdateSession(owner: $owner) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -91,19 +90,17 @@ export const onUpdateSession = /* GraphQL */ `
           lng
         }
       }
-      roommates {
-        userName
-        email
-      }
+      roommates
       createdAt
       updatedAt
     }
   }
 `;
 export const onDeleteSession = /* GraphQL */ `
-  subscription OnDeleteSession {
-    onDeleteSession {
+  subscription OnDeleteSession($owner: String) {
+    onDeleteSession(owner: $owner) {
       id
+      owner
       name
       searchCity
       searchBounds {
@@ -140,10 +137,7 @@ export const onDeleteSession = /* GraphQL */ `
           lng
         }
       }
-      roommates {
-        userName
-        email
-      }
+      roommates
       createdAt
       updatedAt
     }

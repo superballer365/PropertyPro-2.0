@@ -15,12 +15,10 @@ export default function RoommatesList() {
   const { session } = React.useContext(SessionContext);
   const updateSessionMutation = useUpdateSession();
 
-  const handleDeleteClick = async (user: User) => {
+  const handleDeleteClick = async (user: string) => {
     await updateSessionMutation.mutateAsync({
       ...session,
-      roommates: session.roommates?.filter(
-        (roommate) => roommate.userName !== user.userName
-      ),
+      roommates: session.roommates?.filter((roommate) => roommate !== user),
     });
   };
 
@@ -32,9 +30,9 @@ export default function RoommatesList() {
       {session.roommates.map((roommate) => (
         <ListGroupItem
           className={classNames("d-flex align-items-center", styles.listItem)}
-          key={roommate.userName}
+          key={roommate}
         >
-          <span className="flex-grow-1">{roommate.email}</span>
+          <span className="flex-grow-1">{roommate}</span>
           <Button
             className={styles.deleteButton}
             variant="light"

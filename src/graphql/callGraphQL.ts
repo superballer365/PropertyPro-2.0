@@ -14,9 +14,10 @@ async function callGraphQL<T>(
   query: any,
   options?: GraphQLOptions
 ): Promise<GraphQLResult<T>> {
-  return (await API.graphql(
-    graphqlOperation(query, options)
-  )) as GraphQLResult<T>;
+  return (await API.graphql({
+    ...graphqlOperation(query, options),
+    authMode: "AMAZON_COGNITO_USER_POOLS",
+  })) as GraphQLResult<T>;
 }
 
 export default callGraphQL;

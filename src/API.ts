@@ -4,12 +4,13 @@
 
 export type CreateSessionInput = {
   id?: string | null,
+  owner: string,
   name: string,
   searchCity: string,
   searchBounds: BoundingBoxInput,
   listings?: Array< ListingInput > | null,
   pointsOfInterest?: Array< PointOfInterestInput > | null,
-  roommates?: Array< UserInput > | null,
+  roommates?: Array< string > | null,
 };
 
 export type BoundingBoxInput = {
@@ -48,14 +49,11 @@ export enum PointOfInterestType {
 }
 
 
-export type UserInput = {
-  userName: string,
-  email: string,
-};
-
 export type ModelSessionConditionInput = {
+  owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
   searchCity?: ModelStringInput | null,
+  roommates?: ModelStringInput | null,
   and?: Array< ModelSessionConditionInput | null > | null,
   or?: Array< ModelSessionConditionInput | null > | null,
   not?: ModelSessionConditionInput | null,
@@ -104,12 +102,13 @@ export type ModelSizeInput = {
 export type Session = {
   __typename: "Session",
   id: string,
+  owner: string,
   name: string,
   searchCity: string,
   searchBounds: BoundingBox,
   listings?:  Array<Listing > | null,
   pointsOfInterest?:  Array<PointOfInterest > | null,
-  roommates?:  Array<User > | null,
+  roommates?: Array< string > | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -148,20 +147,15 @@ export type PointOfInterest = {
   location: Coordinate,
 };
 
-export type User = {
-  __typename: "User",
-  userName: string,
-  email: string,
-};
-
 export type UpdateSessionInput = {
   id: string,
+  owner?: string | null,
   name?: string | null,
   searchCity?: string | null,
   searchBounds?: BoundingBoxInput | null,
   listings?: Array< ListingInput > | null,
   pointsOfInterest?: Array< PointOfInterestInput > | null,
-  roommates?: Array< UserInput > | null,
+  roommates?: Array< string > | null,
 };
 
 export type DeleteSessionInput = {
@@ -179,8 +173,10 @@ export type GetListingInfoResponse = {
 
 export type ModelSessionFilterInput = {
   id?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
   searchCity?: ModelStringInput | null,
+  roommates?: ModelStringInput | null,
   and?: Array< ModelSessionFilterInput | null > | null,
   or?: Array< ModelSessionFilterInput | null > | null,
   not?: ModelSessionFilterInput | null,
@@ -217,6 +213,7 @@ export type CreateSessionMutation = {
   createSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -260,11 +257,7 @@ export type CreateSessionMutation = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -279,6 +272,7 @@ export type UpdateSessionMutation = {
   updateSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -322,11 +316,7 @@ export type UpdateSessionMutation = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -341,6 +331,7 @@ export type DeleteSessionMutation = {
   deleteSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -384,11 +375,7 @@ export type DeleteSessionMutation = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -425,6 +412,7 @@ export type GetSessionQuery = {
   getSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -468,11 +456,7 @@ export type GetSessionQuery = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -490,6 +474,7 @@ export type ListSessionsQuery = {
     items:  Array< {
       __typename: "Session",
       id: string,
+      owner: string,
       name: string,
       searchCity: string,
       searchBounds:  {
@@ -533,11 +518,7 @@ export type ListSessionsQuery = {
           lng: number,
         },
       } > | null,
-      roommates?:  Array< {
-        __typename: "User",
-        userName: string,
-        email: string,
-      } > | null,
+      roommates?: Array< string > | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -545,10 +526,15 @@ export type ListSessionsQuery = {
   } | null,
 };
 
+export type OnCreateSessionSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateSessionSubscription = {
   onCreateSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -592,20 +578,21 @@ export type OnCreateSessionSubscription = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateSessionSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateSessionSubscription = {
   onUpdateSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -649,20 +636,21 @@ export type OnUpdateSessionSubscription = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteSessionSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteSessionSubscription = {
   onDeleteSession?:  {
     __typename: "Session",
     id: string,
+    owner: string,
     name: string,
     searchCity: string,
     searchBounds:  {
@@ -706,11 +694,7 @@ export type OnDeleteSessionSubscription = {
         lng: number,
       },
     } > | null,
-    roommates?:  Array< {
-      __typename: "User",
-      userName: string,
-      email: string,
-    } > | null,
+    roommates?: Array< string > | null,
     createdAt: string,
     updatedAt: string,
   } | null,
