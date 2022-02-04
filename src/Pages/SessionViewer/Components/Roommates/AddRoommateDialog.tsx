@@ -15,18 +15,9 @@ export default function AddRoommateDialog({ onClose }: Props) {
   const updateSessionMutation = useUpdateSession();
 
   const handleAddClick = async () => {
-    const cred = await Auth.currentCredentials();
-    const user = await getUserByEmail(email, Auth.essentialCredentials(cred));
-
-    if (!user) {
-      // TODO: throw toast
-      console.log("No user found");
-      return;
-    }
-
     await updateSessionMutation.mutateAsync({
       ...session,
-      roommates: (session.roommates ?? []).concat(user.email),
+      roommates: (session.roommates ?? []).concat(email),
     });
   };
 
