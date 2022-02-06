@@ -1,10 +1,9 @@
 import React from "react";
+import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/esm/InputGroup";
-import { Auth } from "aws-amplify";
-import { getUserByEmail } from "../../../../API/AWS Cognito";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 
@@ -15,10 +14,15 @@ export default function AddRoommateDialog({ onClose }: Props) {
   const updateSessionMutation = useUpdateSession();
 
   const handleAddClick = async () => {
-    await updateSessionMutation.mutateAsync({
-      ...session,
-      roommates: (session.roommates ?? []).concat(email),
-    });
+    try {
+      await updateSessionMutation.mutateAsync({
+        ...session,
+        roommates: (session.roommates ?? []).concat(email),
+      });
+    } catch (e) {
+      console.error("Failed to add roommate", e);
+      toast.error("Failed to add roommate");
+    }
   };
 
   return (
