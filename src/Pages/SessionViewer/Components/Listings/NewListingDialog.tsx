@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
@@ -37,23 +38,29 @@ export default function NewListingDialog({ onClose }: IProps) {
 
     const errors = validateFormData(formData);
     setFormDataErrors(errors);
-    if (!hasErrors(errors)) {
-      const newListing: Listing = {
-        id: uuid(),
-        name: formData.name!,
-        address: formData.address!,
-        location: formData.location!,
-        price: formData.price!,
-        numberOfBedrooms: formData.numberOfBedrooms!,
-        numberOfBathrooms: formData.numberOfBathrooms!,
-        link: formData.link,
-        pictures: formData.pictures,
-      };
+    if (hasErrors(errors)) return;
+
+    const newListing: Listing = {
+      id: uuid(),
+      name: formData.name!,
+      address: formData.address!,
+      location: formData.location!,
+      price: formData.price!,
+      numberOfBedrooms: formData.numberOfBedrooms!,
+      numberOfBathrooms: formData.numberOfBathrooms!,
+      link: formData.link,
+      pictures: formData.pictures,
+    };
+
+    try {
       await updateSessionMutation.mutateAsync({
         ...session,
         listings: (session.listings ?? []).concat(newListing),
       });
       onClose();
+    } catch (e) {
+      console.error("Failed to create listing", e);
+      toast.error("Failed to create listing");
     }
   }
 
@@ -68,18 +75,26 @@ export default function NewListingDialog({ onClose }: IProps) {
     }
 
     try {
+      setFormData((prev) => ({
+        ...prev,
+        address,
+      }));
       const addressGeocodingInfo = await geocodeByAddress(address);
       // there is guaranteed to be one result
       const addressInfo = addressGeocodingInfo[0];
-      console.log(addressInfo);
       setFormData((prev) => ({
         ...prev,
-        address: address,
         location: addressInfo.location,
       }));
     } catch (err) {
       // TODO: show toast and maybe clear the search?
-      console.error("Failed to load location information.");
+      console.error("Failed to load location information", err);
+      toast.error("Failed to load location information");
+      setFormData((prev) => ({
+        ...prev,
+        address: undefined,
+        location: undefined,
+      }));
     }
   }
 

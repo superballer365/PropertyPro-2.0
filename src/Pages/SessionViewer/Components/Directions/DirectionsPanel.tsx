@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { getDirections } from "../../../../API/Google Routes";
 import { MapContext } from "../../../../Contexts/MapContext";
 import DirectionsForm from "./DirectionsForm";
@@ -44,7 +45,8 @@ export default function DirectionsPanel() {
       setDirections(directions);
     } catch (error) {
       setDirections(undefined);
-      console.error("Failed to load directions: " + error);
+      console.error("Failed to load directions", error);
+      toast.error("Failed to load directions");
     } finally {
       setLoading(false);
     }

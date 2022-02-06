@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -19,7 +20,9 @@ export default function EditSessionDialog({ session, onClose }: IProps) {
 
     const errors = validateFormData(editableSessionData);
     setFormDataErrors(errors);
-    if (!hasErrors(errors)) {
+    if (hasErrors(errors)) return;
+
+    try {
       await mutation.mutateAsync({
         id: editableSessionData!.id,
         name: editableSessionData.name!,
@@ -27,6 +30,9 @@ export default function EditSessionDialog({ session, onClose }: IProps) {
         searchBounds: editableSessionData.searchBounds!,
       });
       onClose();
+    } catch (e) {
+      console.error("Failed to update session");
+      toast.error("Failed to update session");
     }
   }
 
