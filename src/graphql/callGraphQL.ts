@@ -12,11 +12,14 @@ export interface GraphQLOptions {
 
 async function callGraphQL<T>(
   query: any,
+  variables?: object,
   options?: GraphQLOptions
 ): Promise<GraphQLResult<T>> {
   try {
     const resp = (await API.graphql({
-      ...graphqlOperation(query, options),
+      ...graphqlOperation(query),
+      ...options,
+      variables,
       authMode: "AMAZON_COGNITO_USER_POOLS",
     })) as GraphQLResult<T>;
 
