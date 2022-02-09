@@ -1,24 +1,13 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { GraphQLResult, GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
-
-// TODO: figure out a better way to pass arguments to a query.
-// We shouldn't have to keep adding properties to this interface.
-export interface GraphQLOptions {
-  input?: object;
-  variables?: object;
-  id?: string;
-  authMode?: GRAPHQL_AUTH_MODE;
-}
+import { GraphQLResult } from "@aws-amplify/api";
 
 async function callGraphQL<T>(
   query: any,
-  variables?: object,
-  options?: GraphQLOptions
+  variables?: object
 ): Promise<GraphQLResult<T>> {
   try {
     const resp = (await API.graphql({
       ...graphqlOperation(query),
-      ...options,
       variables,
       authMode: "AMAZON_COGNITO_USER_POOLS",
     })) as GraphQLResult<T>;
