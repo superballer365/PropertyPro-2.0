@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -40,26 +41,32 @@ export default function EditPointOfInterestDialog({
 
     const errors = validateFormData(formData);
     setFormDataErrors(errors);
-    if (!hasErrors(errors)) {
-      const updatedPointOfInterest: PointOfInterest = {
-        id: pointOfInterest.id,
-        name: formData.name!,
-        type: formData.type!,
-        address: formData.address!,
-        location: formData.location!,
-      };
-      const updatedPointsOfInterest = (session.pointsOfInterest ?? []).map(
-        (p) => {
-          if (p.id === pointOfInterest.id) return updatedPointOfInterest;
-          return p;
-        }
-      );
+    if (hasErrors(errors)) return;
+
+    const updatedPointOfInterest: PointOfInterest = {
+      id: pointOfInterest.id,
+      name: formData.name!,
+      type: formData.type!,
+      address: formData.address!,
+      location: formData.location!,
+    };
+    const updatedPointsOfInterest = (session.pointsOfInterest ?? []).map(
+      (p) => {
+        if (p.id === pointOfInterest.id) return updatedPointOfInterest;
+        return p;
+      }
+    );
+
+    try {
       await updateSessionMutation.mutateAsync({
         ...session,
         pointsOfInterest: updatedPointsOfInterest,
       });
       setSelectedPointOfInterest(updatedPointOfInterest);
       onClose();
+    } catch (e) {
+      console.error("Failed to update point of interest", e);
+      toast.error("Failed to update point of interest");
     }
   }
 
@@ -74,18 +81,26 @@ export default function EditPointOfInterestDialog({
     }
 
     try {
+      setFormData((prev) => ({
+        ...prev,
+        address,
+      }));
       const addressGeocodingInfo = await geocodeByAddress(address);
       // there is guaranteed to be one result
       const addressInfo = addressGeocodingInfo[0];
-      console.log(addressInfo);
       setFormData((prev) => ({
         ...prev,
-        address: address,
         location: addressInfo.location,
       }));
     } catch (err) {
       // TODO: show toast and maybe clear the search?
-      console.error("Failed to load location information.");
+      console.error("Failed to load location information", err);
+      toast.error("Failed to load location information");
+      setFormData((prev) => ({
+        ...prev,
+        address: undefined,
+        location: undefined,
+      }));
     }
   }
 

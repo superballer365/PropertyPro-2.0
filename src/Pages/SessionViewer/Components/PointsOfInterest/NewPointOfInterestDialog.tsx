@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -30,14 +31,17 @@ export default function NewPointOfInterestDialog({ onClose }: IProps) {
 
     const errors = validateFormData(formData);
     setFormDataErrors(errors);
-    if (!hasErrors(errors)) {
-      const newPointOfInterest: PointOfInterest = {
-        id: uuid(),
-        name: formData.name!,
-        type: formData.type!,
-        address: formData.address!,
-        location: formData.location!,
-      };
+    if (hasErrors(errors)) return;
+
+    const newPointOfInterest: PointOfInterest = {
+      id: uuid(),
+      name: formData.name!,
+      type: formData.type!,
+      address: formData.address!,
+      location: formData.location!,
+    };
+
+    try {
       await updateSessionMutation.mutateAsync({
         ...session,
         pointsOfInterest: (session.pointsOfInterest ?? []).concat(
@@ -45,6 +49,9 @@ export default function NewPointOfInterestDialog({ onClose }: IProps) {
         ),
       });
       onClose();
+    } catch (e) {
+      console.error("Failed to create point of interest", e);
+      toast.error("Failed to create point of interest");
     }
   }
 
@@ -59,18 +66,25 @@ export default function NewPointOfInterestDialog({ onClose }: IProps) {
     }
 
     try {
+      setFormData((prev) => ({
+        ...prev,
+        address,
+      }));
       const addressGeocodingInfo = await geocodeByAddress(address);
       // there is guaranteed to be one result
       const addressInfo = addressGeocodingInfo[0];
-      console.log(addressInfo);
       setFormData((prev) => ({
         ...prev,
-        address: address,
         location: addressInfo.location,
       }));
     } catch (err) {
-      // TODO: show toast and maybe clear the search?
-      console.error("Failed to load location information.");
+      console.error("Failed to load location information", err);
+      toast.error("Failed to load location information");
+      setFormData((prev) => ({
+        ...prev,
+        address: undefined,
+        location: undefined,
+      }));
     }
   }
 

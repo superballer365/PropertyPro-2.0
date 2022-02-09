@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastContainer } from "react-toastify";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "./index.css";
 import App from "./App";
@@ -8,6 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import Initialize from "./Initialize";
 import AuthorizationContextProvider from "./Contexts/AuthorizationContext";
+import "react-toastify/dist/ReactToastify.css";
 
 Initialize();
 
@@ -17,6 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
     <AuthorizationContextProvider>
       <QueryClientProvider client={queryClient}>
+        <ToastContainer position="top-center" pauseOnFocusLoss={false} />
         <div className="mainContainer">
           <App />
           <ReactQueryDevtools initialIsOpen={false} />

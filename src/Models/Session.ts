@@ -10,7 +10,7 @@ import { BoundingBox, Coordinate } from "../API/Google Places/Geocoding";
 
 interface SessionData {
   id?: string;
-  owner: string;
+  owner?: string | null;
   name: string;
   searchCity: string;
   searchBounds: BoundingBox;

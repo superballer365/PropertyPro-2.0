@@ -1,14 +1,13 @@
-import { API, graphqlOperation } from "aws-amplify";
 import { getListingInfo } from "../../graphql/queries";
-import { GetListingInfoResponse } from "../../API";
+import { GetListingInfoResponse, GetListingInfoQuery } from "../../API";
+import callGraphQL from "../../graphql/callGraphQL";
 
 export async function crawlLink(
   listingUrl: string
-): Promise<GetListingInfoResponse> {
-  // TODO: cleanup types and stuff
-  const response = (await API.graphql(
-    graphqlOperation(getListingInfo, { listingUrl })
-  )) as any;
-  const data = response.data?.getListingInfo as GetListingInfoResponse;
-  return data;
+): Promise<Omit<GetListingInfoResponse, "__typename">> {
+  const res = await callGraphQL<GetListingInfoQuery>(getListingInfo, {
+    listingUrl,
+  });
+
+  return res.data?.getListingInfo ?? {};
 }

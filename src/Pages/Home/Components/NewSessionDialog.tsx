@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
 import { AutoCompleteSuggestion, SearchType } from "../../../API/Google Places";
 import AddressSearchBar from "../../../Components/AddressSearchBar";
 import {
@@ -24,13 +25,18 @@ export default function NewSessionDialog({ onClose }: IProps) {
 
     const errors = validateFormData(formData);
     setFormDataErrors(errors);
-    if (!hasErrors(errors)) {
+    if (hasErrors(errors)) return;
+
+    try {
       await createSessionMutation.mutateAsync({
         name: formData.name!,
         searchCity: formData.searchCity!,
         searchBounds: formData.searchBounds!,
       });
       onClose();
+    } catch (e) {
+      console.error("Failed to create session", e);
+      toast.error("Failed to create session");
     }
   }
 
@@ -45,17 +51,24 @@ export default function NewSessionDialog({ onClose }: IProps) {
     }
 
     try {
-      const cityGeocodingInfo = await geocodeByAddress(city);
-      console.log(cityGeocodingInfo);
       setFormData((prev) => ({
         ...prev,
         searchCity: city,
+      }));
+      const cityGeocodingInfo = await geocodeByAddress(city);
+      setFormData((prev) => ({
+        ...prev,
         // there is guaranteed to be one result
         searchBounds: cityGeocodingInfo[0].boundingBox,
       }));
     } catch (err) {
-      // TODO: show toast and maybe clear the search?
-      console.error("Failed to load location information.");
+      console.error("Failed to load location information", err);
+      toast.error("Failed to load location information");
+      setFormData((prev) => ({
+        ...prev,
+        searchCity: undefined,
+        searchBounds: undefined,
+      }));
     }
   }
 
@@ -146,7 +159,6 @@ function validateFormData(formData: CreateSessionFormData): FormDataErrors {
     nameError = "Must provide name for session";
   }
   if (!formData.searchCity) {
-    console.log("search city error");
     searchCityError = "Must enter a search city";
   }
   if (!formData.searchBounds) {

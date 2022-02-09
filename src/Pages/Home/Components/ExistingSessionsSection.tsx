@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../Components/LoadingSpinner";
 import Card from "react-bootstrap/Card";
@@ -15,8 +16,9 @@ export default function ExistingSessionsSection() {
     data: existingSessions,
   } = useSessions();
 
-  const [sessionToEdit, setSessionToEdit] =
-    React.useState<SessionData | undefined>(undefined);
+  const [sessionToEdit, setSessionToEdit] = React.useState<
+    SessionData | undefined
+  >(undefined);
 
   function handleEditClick(session: SessionData) {
     setSessionToEdit(session);
@@ -72,9 +74,15 @@ function SessionEntry({ sessionData, onEditClick }: ISessionEntryProps) {
   async function handleDeleteClick() {
     if (deletingSession) return;
 
-    setDeletingSession(true);
-    await deleteSessionMutation.mutateAsync(sessionData.id!);
-    setDeletingSession(false);
+    try {
+      setDeletingSession(true);
+      await deleteSessionMutation.mutateAsync(sessionData.id!);
+    } catch (e) {
+      console.error("Failed to delete session", e);
+      toast.error("Failed to delete session");
+    } finally {
+      setDeletingSession(false);
+    }
   }
 
   function handleEditClick() {
