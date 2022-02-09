@@ -31,7 +31,7 @@ export default function EditSessionDialog({ session, onClose }: IProps) {
       });
       onClose();
     } catch (e) {
-      console.error("Failed to update session");
+      console.error("Failed to update session", e);
       toast.error("Failed to update session");
     }
   }
