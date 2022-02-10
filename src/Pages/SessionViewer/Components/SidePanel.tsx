@@ -20,6 +20,7 @@ import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
 import DirectionsPanel from "./Directions/DirectionsPanel";
 import styles from "./SidePanel.module.scss";
 import RoommatesPanel from "./Roommates/RoommatesPanel";
+import { NavItemWithTooltip } from "../../../Components/Tooltip";
 
 export default function SidePanel() {
   const navigate = useNavigate();
@@ -30,7 +31,11 @@ export default function SidePanel() {
       <Nav variant="tabs">
         {(["Listings", "POI", "Directions", "Roommates"] as TabOption[]).map(
           (option: TabOption) => (
-            <Nav.Item key={option}>
+            <NavItemWithTooltip
+              key={option}
+              tooltipText={getTabTooltip(option)}
+              elementId={option}
+            >
               <Nav.Link
                 className={classNames(
                   location.pathname.includes(option) && styles.activeNavLink
@@ -40,7 +45,7 @@ export default function SidePanel() {
               >
                 <FontAwesomeIcon icon={getTabIcon(option)} />
               </Nav.Link>
-            </Nav.Item>
+            </NavItemWithTooltip>
           )
         )}
       </Nav>
@@ -64,4 +69,11 @@ function getTabIcon(tab: TabOption) {
   if (tab === "POI") return faMapMarkerAlt;
   if (tab === "Roommates") return faUsers;
   return faRoute;
+}
+
+function getTabTooltip(tab: TabOption) {
+  if (tab === "Listings") return "Listings";
+  if (tab === "POI") return "Points of interest";
+  if (tab === "Roommates") return "Roommates";
+  return "Directions";
 }

@@ -13,11 +13,14 @@ import { useOnClickOutside, useUpdateSession } from "../../../../Utils/Hooks";
 import { useNavigate } from "react-router-dom";
 import Popover from "react-bootstrap/Popover";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
+import {
+  ButtonWithTooltip,
+  ButtonGroupWithTooltip,
+} from "../../../../Components/Tooltip";
 
 export default function PointOfInterestMarker({
   lat,
@@ -102,16 +105,20 @@ function PointOfInterestMarkerContextMenu({
         <Popover.Title as="h3">{pointOfInterest.name}</Popover.Title>
         <Popover.Content className="d-flex">
           <ButtonGroup>
-            <Button
+            <ButtonWithTooltip
               className={styles.button}
               variant="light"
+              elementId={`contextMenuEditPOI-${pointOfInterest.id}`}
+              tooltipText="Edit point of interest"
               onClick={handleEditClick}
             >
               <FontAwesomeIcon icon={faEdit} color="blue" />
-            </Button>
+            </ButtonWithTooltip>
             <DropdownButton
               className={styles.button}
-              as={ButtonGroup}
+              as={ButtonGroupWithTooltip}
+              elementId={`contextMenuPOIDirections-${pointOfInterest.id}`}
+              tooltipText="Get directions"
               variant="light"
               title={
                 <span className={styles.button}>
@@ -127,13 +134,15 @@ function PointOfInterestMarkerContextMenu({
                 Set Destination
               </Dropdown.Item>
             </DropdownButton>
-            <Button
+            <ButtonWithTooltip
               className={styles.button}
               variant="light"
+              elementId={`contextMenuDeletePOI-${pointOfInterest.id}`}
+              tooltipText="Delete point of interest"
               onClick={handleDeleteClick}
             >
               <FontAwesomeIcon icon={faTrash} color="red" />
-            </Button>
+            </ButtonWithTooltip>
           </ButtonGroup>
         </Popover.Content>
       </Popover>

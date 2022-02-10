@@ -1,14 +1,14 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import { PointOfInterest } from "../../../../Models/Session";
-import styles from "./PointsOfInterestList.module.scss";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ButtonWithTooltip } from "../../../../Components/Tooltip";
+import styles from "./PointsOfInterestList.module.scss";
 
 export default function PointsOfInterestList({
   onCreateNewPointOfInterestClick,
@@ -35,9 +35,14 @@ export default function PointsOfInterestList({
     <Card className={styles.card}>
       <Card.Header className={styles.header}>
         <span className={styles.title}>Points of Interest</span>
-        <Button size="sm" onClick={onCreateNewPointOfInterestClick}>
+        <ButtonWithTooltip
+          size="sm"
+          tooltipText="Create new point of interest"
+          elementId="createPointOfInterest"
+          onClick={onCreateNewPointOfInterestClick}
+        >
           <FontAwesomeIcon icon={faPlus} />
-        </Button>
+        </ButtonWithTooltip>
       </Card.Header>
       {getContent()}
     </Card>

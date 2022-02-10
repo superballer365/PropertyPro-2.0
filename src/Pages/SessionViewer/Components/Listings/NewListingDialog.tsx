@@ -20,6 +20,7 @@ import Spinner from "react-bootstrap/esm/Spinner";
 import InputGroup from "react-bootstrap/esm/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
+import { ButtonWithTooltip } from "../../../../Components/Tooltip";
 import styles from "./NewListingDialog.module.scss";
 
 export default function NewListingDialog({ onClose }: IProps) {
@@ -158,13 +159,17 @@ export default function NewListingDialog({ onClose }: IProps) {
                 }
               />
               <InputGroup.Append>
-                <Button onClick={handleLinkSyncClick} color="success">
+                <ButtonWithTooltip
+                  elementId="linkSyncButton"
+                  tooltipText="Synchronize data with link"
+                  onClick={handleLinkSyncClick}
+                >
                   {isParsing ? (
                     <Spinner animation="border" size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faSync} />
                   )}
-                </Button>
+                </ButtonWithTooltip>
               </InputGroup.Append>
             </InputGroup>
           </Form.Group>
