@@ -6,9 +6,8 @@ import Card from "react-bootstrap/Card";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import Button from "react-bootstrap/esm/Button";
-import { User } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
+import { ButtonWithTooltip } from "../../../../Components/Tooltip";
 import styles from "./RoommatesList.module.scss";
 
 export default function RoommatesList() {
@@ -33,13 +32,15 @@ export default function RoommatesList() {
           key={roommate}
         >
           <span className="flex-grow-1">{roommate}</span>
-          <Button
+          <ButtonWithTooltip
             className={styles.deleteButton}
             variant="light"
+            elementId={`removeRoommate-${roommate}`}
+            tooltipText="Remove roommate"
             onClick={() => handleDeleteClick(roommate)}
           >
             <FontAwesomeIcon icon={faTrash} color="red" />
-          </Button>
+          </ButtonWithTooltip>
         </ListGroupItem>
       ))}
     </ListGroup>

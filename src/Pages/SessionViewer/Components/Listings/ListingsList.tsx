@@ -1,9 +1,12 @@
 import React from "react";
+import ReactTooltip from "react-tooltip";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
-import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -16,8 +19,10 @@ import {
   ListingContext,
   ListingSortOption,
 } from "../../../../Contexts/ListingContext";
-import DropdownButton from "react-bootstrap/esm/DropdownButton";
-import Dropdown from "react-bootstrap/esm/Dropdown";
+import {
+  ButtonWithTooltip,
+  ButtonGroupWithTooltip,
+} from "../../../../Components/Tooltip";
 import styles from "./ListingsList.module.scss";
 
 export default function ListingsList({
@@ -44,13 +49,25 @@ export default function ListingsList({
           <div className={styles.header}>
             <span className={styles.title}>Listings</span>
             <ButtonGroup>
-              <Accordion.Toggle as={Button} eventKey="0" size="sm">
+              <Accordion.Toggle
+                elementId="listingFilter"
+                tooltipText="Filter listings"
+                as={ButtonWithTooltip}
+                eventKey="0"
+                size="sm"
+              >
                 <FontAwesomeIcon icon={faFilter} />
               </Accordion.Toggle>
+              <ReactTooltip />
               <ListingSortOptionsDropdown />
-              <Button onClick={onCreateNewListingClick} size="sm">
+              <ButtonWithTooltip
+                size="sm"
+                elementId="newListingButton"
+                tooltipText="Create new listing"
+                onClick={onCreateNewListingClick}
+              >
                 <FontAwesomeIcon icon={faPlus} />
-              </Button>
+              </ButtonWithTooltip>
             </ButtonGroup>
           </div>
           <Accordion.Collapse eventKey="0">
@@ -73,7 +90,9 @@ function ListingSortOptionsDropdown() {
   return (
     <DropdownButton
       title={<FontAwesomeIcon icon={faSortAmountDown} />}
-      as={ButtonGroup}
+      as={ButtonGroupWithTooltip}
+      elementId="sortListings"
+      tooltipText="Sort listings"
       menuAlign="right"
     >
       {[

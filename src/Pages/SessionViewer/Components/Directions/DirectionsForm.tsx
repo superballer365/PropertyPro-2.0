@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { SearchType } from "../../../../API/Google Places";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import TravelModeButton, { getIcon } from "./TravelModeButton";
+import { IconWithTooltip } from "../../../../Components/Tooltip";
 
 // copying for shorthand
 type TravelMode = google.maps.TravelMode;
@@ -46,11 +46,12 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
         controlId="directionsForm.Origin"
         className="d-flex w-100 align-items-center"
       >
-        <FontAwesomeIcon
+        <IconWithTooltip
           className="mr-2"
           icon={faMapMarkerAlt}
           color="red"
-          title="Origin"
+          elementId="origin"
+          tooltipText="Origin"
         />
         <AddressSearchBar
           onSelect={(address) => setOrigin(address ? address : undefined)}
@@ -63,11 +64,12 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
         controlId="directionsForm.Destination"
         className="d-flex w-100 align-items-center"
       >
-        <FontAwesomeIcon
+        <IconWithTooltip
           className="mr-2"
           icon={faMapMarkerAlt}
           color="red"
-          title="Destination"
+          elementId="destination"
+          tooltipText="Destination"
         />
         <AddressSearchBar
           onSelect={(address) => setDestination(address ? address : undefined)}

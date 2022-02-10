@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import Popover from "react-bootstrap/Popover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,6 +17,10 @@ import Dropdown from "react-bootstrap/esm/Dropdown";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { ListingContext } from "../../../../Contexts/ListingContext";
 import styles from "./ListingMarker.module.scss";
+import {
+  ButtonWithTooltip,
+  ButtonGroupWithTooltip,
+} from "../../../../Components/Tooltip";
 
 export default function ListingMarker({
   hovered,
@@ -95,16 +98,20 @@ function ListingMarkerContextMenu({
         <Popover.Title as="h3">{listing.name}</Popover.Title>
         <Popover.Content className="d-flex">
           <ButtonGroup>
-            <Button
+            <ButtonWithTooltip
               className={styles.button}
               variant="light"
+              elementId={`contextMenuEditListing-${listing.id}`}
+              tooltipText="Edit listing"
               onClick={handleEditClick}
             >
               <FontAwesomeIcon icon={faEdit} color="blue" />
-            </Button>
+            </ButtonWithTooltip>
             <DropdownButton
               className={styles.button}
-              as={ButtonGroup}
+              as={ButtonGroupWithTooltip}
+              elementId={`contextMenuListingDirection-${listing.id}`}
+              tooltipText="Get directions"
               variant="light"
               title={
                 <span className={styles.button}>
@@ -120,13 +127,15 @@ function ListingMarkerContextMenu({
                 Set Destination
               </Dropdown.Item>
             </DropdownButton>
-            <Button
+            <ButtonWithTooltip
               className={styles.button}
               variant="light"
+              elementId={`contextMenuDeleteListing-${listing.id}`}
+              tooltipText="Delete listing"
               onClick={handleDeleteClick}
             >
               <FontAwesomeIcon icon={faTrash} color="red" />
-            </Button>
+            </ButtonWithTooltip>
           </ButtonGroup>
         </Popover.Content>
       </Popover>
