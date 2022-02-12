@@ -1,4 +1,8 @@
 .listItem {
+  display: grid;
+  grid-template-columns: auto min-content;
+  align-items: center;
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -12,5 +16,18 @@
     display: grid;
     color: var(--secondary);
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .moreButton {
+    visibility: hidden;
+    pointer-events: none;
+    cursor: pointer;
+    margin-left: 0.75rem;
+    margin-right: -0.5rem;
+  }
+
+  &:hover .moreButton {
+    visibility: visible;
+    pointer-events: all;
   }
 }
