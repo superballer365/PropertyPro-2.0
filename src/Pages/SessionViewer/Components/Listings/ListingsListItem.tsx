@@ -5,6 +5,7 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import { Listing } from "../../../../Models/Session";
 import { ListingContext } from "../../../../Contexts/ListingContext";
+import ListingDropdown from "./ListingDropdown";
 import styles from "./ListingsListItem.module.scss";
 
 export default function ListingsListItem({ listing }: IListingsListItemProps) {
@@ -63,7 +64,7 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
         </div>
       </div>
       <div className={styles.moreButton}>
-        <FontAwesomeIcon icon={faEllipsisV} size="lg" />
+        <ListingDropdown listing={listing} />
       </div>
     </ListGroupItem>
   );
