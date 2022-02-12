@@ -1,33 +1,59 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/esm/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import { useUpdateSession } from "../../../../Utils/Hooks";
+import { useUpdateSession, useOnClickOutside } from "../../../../Utils/Hooks";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { Listing } from "../../../../Models/Session";
+import { ListingContext } from "../../../../Contexts/ListingContext";
 
 export default function ListingDropdown({ listing }: Props) {
   const { session } = React.useContext(SessionContext);
+  const { setSelectedListing } = React.useContext(ListingContext);
+
+  const dropdownRef = React.useRef(null);
 
   const [open, setOpen] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
+  const navigate = useNavigate();
+  useOnClickOutside(dropdownRef, () => setOpen(false));
 
   const handleToggleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.stopPropagation();
     setOpen((prev) => !prev);
   };
 
-  async function handleDeleteClick(
+  const handleEditClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    handleItemClick(e);
+    setSelectedListing(listing, { edit: true });
+  };
+
+  const handleDeleteClick = async (
     e: React.MouseEvent<HTMLElement, MouseEvent>
-  ) {
+  ) => {
     handleItemClick(e);
 
     await updateSessionMutation.mutateAsync({
       ...session,
       listings: session.listings!.filter((l) => l.id !== listing.id),
     });
-  }
+  };
+
+  const handleSetDestinationClick = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    handleItemClick(e);
+    navigate("./../Directions", { state: { destination: listing.address } });
+  };
+
+  const handleSetOriginClick = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    handleItemClick(e);
+    navigate("./../Directions", { state: { origin: listing.address } });
+  };
 
   const handleItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.stopPropagation();
@@ -35,17 +61,22 @@ export default function ListingDropdown({ listing }: Props) {
   };
 
   return (
-    <Dropdown show={open}>
+    <Dropdown show={open} ref={dropdownRef}>
       <Dropdown.Toggle
         as={CustomToggle}
         id="dropdown-custom-components"
         onClick={handleToggleClick}
       />
       <Dropdown.Menu>
-        <Dropdown.Item eventKey="1">Red</Dropdown.Item>
-        <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
+        <Dropdown.Item onClick={handleEditClick}>Edit</Dropdown.Item>
         <Dropdown.Item className="text-danger" onClick={handleDeleteClick}>
           Delete
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Header>Directions</Dropdown.Header>
+        <Dropdown.Item onClick={handleSetOriginClick}>Set Origin</Dropdown.Item>
+        <Dropdown.Item onClick={handleSetDestinationClick}>
+          Set Destination
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
