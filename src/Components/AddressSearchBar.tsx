@@ -5,6 +5,7 @@ import { googlePlacesAutoComplete, SearchType } from "../API/Google Places";
 interface IProps {
   onSelect: (selectedAddress: string | undefined) => void;
   defaultInputValue?: string;
+  placeholder?: string;
   isInvalid: boolean;
   searchType: SearchType;
   selected: string | undefined;
@@ -13,6 +14,7 @@ interface IProps {
 export default function AutoCompleteSearchBar({
   onSelect,
   defaultInputValue,
+  placeholder,
   isInvalid,
   searchType,
   selected,
@@ -45,6 +47,7 @@ export default function AutoCompleteSearchBar({
       minLength={4}
       isLoading={isLoading}
       defaultInputValue={defaultInputValue}
+      placeholder={placeholder}
       onSearch={handleSearch}
       options={suggestions}
       onChange={handleSelect}

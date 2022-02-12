@@ -2,11 +2,16 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMapMarkerAlt,
+  faExchangeAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SearchType } from "../../../../API/Google Places";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import TravelModeButton, { getIcon } from "./TravelModeButton";
 import { IconWithTooltip } from "../../../../Components/Tooltip";
+import styles from "./DirectionsForm.module.scss";
 
 // copying for shorthand
 type TravelMode = google.maps.TravelMode;
@@ -40,44 +45,64 @@ export default function DirectionsForm({ onSearchClick }: IProps) {
     onSearchClick(origin, destination, travelMode);
   };
 
+  const handleSwapLocationsClick = () => {
+    const oldOrigin = origin;
+    const oldDestination = destination;
+    setDestination(oldOrigin);
+    setOrigin(oldDestination);
+  };
+
   return (
     <Form>
-      <Form.Group
-        controlId="directionsForm.Origin"
-        className="d-flex w-100 align-items-center"
-      >
-        <IconWithTooltip
-          className="mr-2"
-          icon={faMapMarkerAlt}
-          color="red"
-          elementId="origin"
-          tooltipText="Origin"
+      <div className="d-flex align-items-center">
+        <div className="flex-grow-1">
+          <Form.Group
+            controlId="directionsForm.Origin"
+            className="d-flex w-100 align-items-center"
+          >
+            <IconWithTooltip
+              className="mr-2"
+              icon={faMapMarkerAlt}
+              color="red"
+              elementId="origin"
+              tooltipText="Origin"
+            />
+            <AddressSearchBar
+              placeholder="Origin of trip"
+              isInvalid={false}
+              searchType={SearchType.Address}
+              selected={origin}
+              onSelect={(address) => setOrigin(address ? address : undefined)}
+            />
+          </Form.Group>
+          <Form.Group
+            controlId="directionsForm.Destination"
+            className="d-flex w-100 align-items-center"
+          >
+            <IconWithTooltip
+              className="mr-2"
+              icon={faMapMarkerAlt}
+              color="red"
+              elementId="destination"
+              tooltipText="Destination"
+            />
+            <AddressSearchBar
+              placeholder="Destination of trip"
+              isInvalid={false}
+              searchType={SearchType.Address}
+              selected={destination}
+              onSelect={(address) =>
+                setDestination(address ? address : undefined)
+              }
+            />
+          </Form.Group>
+        </div>
+        <FontAwesomeIcon
+          className={styles.switchButton}
+          icon={faExchangeAlt}
+          onClick={handleSwapLocationsClick}
         />
-        <AddressSearchBar
-          onSelect={(address) => setOrigin(address ? address : undefined)}
-          isInvalid={false}
-          searchType={SearchType.Address}
-          selected={origin}
-        />
-      </Form.Group>
-      <Form.Group
-        controlId="directionsForm.Destination"
-        className="d-flex w-100 align-items-center"
-      >
-        <IconWithTooltip
-          className="mr-2"
-          icon={faMapMarkerAlt}
-          color="red"
-          elementId="destination"
-          tooltipText="Destination"
-        />
-        <AddressSearchBar
-          onSelect={(address) => setDestination(address ? address : undefined)}
-          isInvalid={false}
-          searchType={SearchType.Address}
-          selected={destination}
-        />
-      </Form.Group>
+      </div>
       <div className="d-flex w-100 align-items-center">
         <div className="d-flex align-items-center flex-grow-1">
           {[
