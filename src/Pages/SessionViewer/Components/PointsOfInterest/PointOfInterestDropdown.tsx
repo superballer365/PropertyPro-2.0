@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { useUpdateSession, useOnClickOutside } from "../../../../Utils/Hooks";
 import { SessionContext } from "../../../../Contexts/SessionContext";
-import { Listing } from "../../../../Models/Session";
-import { ListingContext } from "../../../../Contexts/ListingContext";
+import { PointOfInterest } from "../../../../Models/Session";
+import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
 
-export default function ListingDropdown({ listing }: Props) {
+export default function PointOfInterestDropdown({ pointOfInterest }: Props) {
   const { session } = React.useContext(SessionContext);
-  const { setSelectedListing } = React.useContext(ListingContext);
+  const { setSelectedPointOfInterest } = React.useContext(
+    PointOfInterestContext
+  );
 
   const dropdownRef = React.useRef(null);
 
@@ -27,7 +29,7 @@ export default function ListingDropdown({ listing }: Props) {
 
   const handleEditClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     handleItemClick(e);
-    setSelectedListing(listing, { edit: true });
+    setSelectedPointOfInterest(pointOfInterest, { edit: true });
   };
 
   const handleDeleteClick = async (
@@ -37,7 +39,9 @@ export default function ListingDropdown({ listing }: Props) {
 
     await updateSessionMutation.mutateAsync({
       ...session,
-      listings: session.listings!.filter((l) => l.id !== listing.id),
+      pointsOfInterest: session.pointsOfInterest!.filter(
+        (p) => p.id !== pointOfInterest.id
+      ),
     });
   };
 
@@ -45,14 +49,16 @@ export default function ListingDropdown({ listing }: Props) {
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     handleItemClick(e);
-    navigate("./../Directions", { state: { destination: listing.address } });
+    navigate("./../Directions", {
+      state: { destination: pointOfInterest.address },
+    });
   };
 
   const handleSetOriginClick = (
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     handleItemClick(e);
-    navigate("./../Directions", { state: { origin: listing.address } });
+    navigate("./../Directions", { state: { origin: pointOfInterest.address } });
   };
 
   const handleItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -84,7 +90,7 @@ export default function ListingDropdown({ listing }: Props) {
 }
 
 interface Props {
-  listing: Listing;
+  pointOfInterest: PointOfInterest;
 }
 
 const CustomToggle = React.forwardRef<
