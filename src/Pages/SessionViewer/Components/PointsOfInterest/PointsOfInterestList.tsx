@@ -8,6 +8,7 @@ import { SessionContext } from "../../../../Contexts/SessionContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ButtonWithTooltip } from "../../../../Components/Tooltip";
+import PointOfInterestDropdown from "./PointOfInterestDropdown";
 import styles from "./PointsOfInterestList.module.scss";
 
 export default function PointsOfInterestList({
@@ -87,7 +88,12 @@ function PointsOfInterestListItem({
       onMouseEnter={handlePointOfInterestHover}
       onMouseLeave={handlePointOfInterestUnhover}
     >
-      {pointOfInterest.name}
+      <div className="d-flex justify-content-between">
+        {pointOfInterest.name}
+        <div className={styles.moreButton}>
+          <PointOfInterestDropdown pointOfInterest={pointOfInterest} />
+        </div>
+      </div>
     </ListGroupItem>
   );
 }

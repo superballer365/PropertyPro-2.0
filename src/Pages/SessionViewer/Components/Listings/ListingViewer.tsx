@@ -72,51 +72,54 @@ export default function ListingViewer({ listing }: IProps) {
           <span>{listing.name}</span>
         </Card.Header>
         <Card.Body>
-          <Row>
-            <Col className="col-sm-5">Price:</Col>
-            <Col>{"$" + listing.price}</Col>
-          </Row>
-          <Row>
-            <Col className="col-sm-5">Bedrooms:</Col>
-            <Col>{listing.numberOfBedrooms}</Col>
-          </Row>
-          <Row>
-            <Col className="col-sm-5">Bathrooms:</Col>
-            <Col>{listing.numberOfBathrooms}</Col>
-          </Row>
-          <Row>
-            <Col className="col-sm-5">Street:</Col>
-            <Col>{getAddressComponents(listing.address).street}</Col>
-          </Row>
-          <Row>
-            <Col className="col-sm-5">State:</Col>
-            <Col>{getAddressComponents(listing.address).state}</Col>
-          </Row>
-          <Row>
-            <Col className="col-sm-5">
-              {listing.link && (
-                <a href={listing.link} target="_blank">
-                  Link
-                </a>
-              )}
-            </Col>
-          </Row>
           {listing.pictures && listing.pictures.length > 0 && (
-            <>
-              <div className="mt-4">Pictures:</div>
-              <Carousel className={styles.carousel}>
-                {listing.pictures?.map((picture) => (
-                  <Carousel.Item key={picture} style={{ height: 300 }}>
-                    <FittedImage
-                      className={styles.image}
-                      src={picture}
-                      onClick={() => setModalState("Picutres")}
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
-            </>
+            <Carousel className={styles.carousel}>
+              {listing.pictures?.map((picture) => (
+                <Carousel.Item key={picture} style={{ height: 300 }}>
+                  <FittedImage
+                    className={styles.image}
+                    src={picture}
+                    onClick={() => setModalState("Picutres")}
+                  />
+                </Carousel.Item>
+              ))}
+            </Carousel>
           )}
+          <div className="mt-3">
+            <Row>
+              <Col className="col-sm-5">Price:</Col>
+              <Col>{"$" + listing.price}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">Bedrooms:</Col>
+              <Col>{listing.numberOfBedrooms}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">Bathrooms:</Col>
+              <Col>{listing.numberOfBathrooms}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">Street:</Col>
+              <Col>{getAddressComponents(listing.address).street}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">City:</Col>
+              <Col>{getAddressComponents(listing.address).city}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">State:</Col>
+              <Col>{getAddressComponents(listing.address).state}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">
+                {listing.link && (
+                  <a href={listing.link} target="_blank">
+                    Link
+                  </a>
+                )}
+              </Col>
+            </Row>
+          </div>
         </Card.Body>
         <Card.Footer className="d-flex justify-content-end">
           <Button className="mr-1" variant="primary" onClick={handleEditClick}>
