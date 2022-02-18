@@ -526,6 +526,64 @@ export type ListSessionsQuery = {
   } | null,
 };
 
+export type OnUpdateSessionByIdSubscriptionVariables = {
+  id: string,
+};
+
+export type OnUpdateSessionByIdSubscription = {
+  onUpdateSessionById?:  {
+    __typename: "Session",
+    id: string,
+    owner?: string | null,
+    name: string,
+    searchCity: string,
+    searchBounds:  {
+      __typename: "BoundingBox",
+      bottomLeft:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      topRight:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    },
+    listings?:  Array< {
+      __typename: "Listing",
+      id: string,
+      name: string,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+      price: number,
+      numberOfBedrooms: number,
+      numberOfBathrooms: number,
+      link?: string | null,
+      pictures?: Array< string > | null,
+    } > | null,
+    pointsOfInterest?:  Array< {
+      __typename: "PointOfInterest",
+      id: string,
+      name: string,
+      type: PointOfInterestType,
+      address: string,
+      location:  {
+        __typename: "Coordinate",
+        lat: number,
+        lng: number,
+      },
+    } > | null,
+    roommates?: Array< string > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateSessionSubscriptionVariables = {
   owner?: string | null,
 };

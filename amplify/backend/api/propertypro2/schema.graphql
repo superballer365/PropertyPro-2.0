@@ -70,3 +70,8 @@ type Query {
   getListingInfo(listingUrl: String!): GetListingInfoResponse!
     @function(name: "listingLinkParser-${env}")
 }
+
+type Subscription {
+  onUpdateSessionById(id: String!): Session
+    @aws_subscribe(mutations: ["updateSession"])
+}
