@@ -1,4 +1,5 @@
 import React from "react";
+import Observable, { ZenObservable } from "zen-observable-ts";
 import { API, graphqlOperation } from "aws-amplify";
 import { SessionContextProvider } from "../../../Contexts/SessionContext";
 import { ListingContextProvider } from "../../../Contexts/ListingContext";
@@ -19,20 +20,27 @@ export default function SessionViewerDashboard({ session }: IProps) {
   const queryClient = useQueryClient();
 
   React.useEffect(() => {
-    (
-      API.graphql({
+    let subscription: ZenObservable.Subscription | undefined;
+
+    async function setup() {
+      const observable = await API.graphql({
         query: onUpdateSessionById,
         variables: {
           id: session.id,
         },
-      }) as any
-    ) // TODO: cleanup type
-      .subscribe({
-        // TODO: maybe only invalidate the current session
+      });
+      if (!(observable instanceof Observable)) return;
+
+      subscription = observable.subscribe({
         next: (evt: any) => queryClient.invalidateQueries("sessions"),
       });
+    }
 
-    return;
+    setup();
+
+    return () => {
+      subscription && subscription.unsubscribe();
+    };
   }, [session]);
 
   return (
