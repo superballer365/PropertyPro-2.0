@@ -61,7 +61,7 @@ export default function TravelTimeResult({
         style={{
           borderLeftWidth: 5,
           borderLeftColor: color,
-          padding: "0.5rem",
+          padding: "0.7rem",
         }}
       >
         <FontAwesomeIcon
