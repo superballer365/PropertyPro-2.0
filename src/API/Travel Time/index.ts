@@ -11,11 +11,14 @@ const client = axios.create({
   },
 });
 
-export async function getTravelTimePolygon(
-  address: string,
-  travelMode: google.maps.TravelMode,
-  travelTimeInMinutes: number
-) {
+export interface TravelTimeConfig {
+  address: string;
+  travelMode: google.maps.TravelMode;
+  travelTimeInMinutes: number;
+}
+
+export async function getTravelTimePolygon(config: TravelTimeConfig) {
+  const { address, travelMode, travelTimeInMinutes } = config;
   const geocodeResults = await geocodeByAddress(address);
   if (geocodeResults.length === 0)
     throw new Error("Could not find location of address");

@@ -11,6 +11,7 @@ import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import TravelModeButton, { getIcon } from "../Directions/TravelModeButton";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { TravelTimeConfig } from "../../../../API/Travel Time";
 
 // copying for shorthand
 type TravelMode = google.maps.TravelMode;
@@ -18,22 +19,23 @@ const TravelMode = { ...google.maps.TravelMode };
 
 export default function TravelTimeForm({ onAddClick }: Props) {
   const [origin, setOrigin] = React.useState<string>();
-  const [travelTimeInMin, setTravelTimeInMin] = React.useState<number>();
+  const [travelTimeInMinutes, setTravelTimeInMinutes] =
+    React.useState<number>();
   const [travelMode, setTravelMode] = React.useState<TravelMode>(
     TravelMode.DRIVING
   );
 
   const handleAddClick = () => {
-    if (!origin || !travelTimeInMin) return;
+    if (!origin || !travelTimeInMinutes) return;
 
-    onAddClick(origin, travelMode, travelTimeInMin);
+    onAddClick({ address: origin, travelMode, travelTimeInMinutes });
     resetOptions();
   };
 
   const resetOptions = () => {
     setOrigin(undefined);
     setTravelMode(TravelMode.DRIVING);
-    setTravelTimeInMin(undefined);
+    setTravelTimeInMinutes(undefined);
   };
 
   return (
@@ -64,8 +66,8 @@ export default function TravelTimeForm({ onAddClick }: Props) {
             <Form.Control
               type="number"
               placeholder={"maximum travel time in minutes"}
-              value={travelTimeInMin ?? ""}
-              onChange={(e: any) => setTravelTimeInMin(e.target.value)}
+              value={travelTimeInMinutes ?? ""}
+              onChange={(e: any) => setTravelTimeInMinutes(e.target.value)}
             />
           </Form.Group>
         </div>
@@ -93,9 +95,5 @@ export default function TravelTimeForm({ onAddClick }: Props) {
 }
 
 interface Props {
-  onAddClick: (
-    address: string,
-    travelMode: TravelMode,
-    travelTime: number
-  ) => void;
+  onAddClick: (config: TravelTimeConfig) => void;
 }
