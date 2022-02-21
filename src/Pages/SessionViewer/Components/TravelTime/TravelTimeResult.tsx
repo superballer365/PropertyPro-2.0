@@ -12,7 +12,6 @@ import Polygon from "../../../../Components/Polygon";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import Button from "react-bootstrap/esm/Button";
 import { getIcon } from "../Directions/TravelModeButton";
 import { formatAMPM } from "../../../../Utils/time";
 

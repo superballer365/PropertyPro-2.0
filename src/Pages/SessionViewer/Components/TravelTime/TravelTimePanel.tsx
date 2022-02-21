@@ -23,7 +23,7 @@ export default function TravelTimePanel() {
   };
 
   const handleCloseClick = (index: number) => {
-    setTravelTimeConfigs((prev) => [...prev.splice(index, 1)]);
+    setTravelTimeConfigs((prev) => [...prev.filter((_c, i) => i !== index)]);
   };
 
   return (
