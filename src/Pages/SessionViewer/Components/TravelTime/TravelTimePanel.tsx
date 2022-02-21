@@ -33,13 +33,12 @@ export default function TravelTimePanel() {
       </div>
       <ListGroup>
         {travelTimeConfigs.map((configuration, index) => (
-          <ListGroupItem key={index}>
-            <TravelTimeResult
-              configuration={configuration}
-              color={getColor(index)}
-              onCloseClick={() => handleCloseClick(index)}
-            />
-          </ListGroupItem>
+          <TravelTimeResult
+            key={index}
+            configuration={configuration}
+            color={getColor(index)}
+            onCloseClick={() => handleCloseClick(index)}
+          />
         ))}
       </ListGroup>
     </div>

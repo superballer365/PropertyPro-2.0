@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
 import {
   TravelTimeConfig,
   getTravelTimePolygon,
@@ -8,6 +9,12 @@ import {
 } from "../../../../API/Travel Time";
 import { getAddressComponents } from "../../../../Utils/address";
 import Polygon from "../../../../Components/Polygon";
+import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Button from "react-bootstrap/esm/Button";
+import { getIcon } from "../Directions/TravelModeButton";
+import { formatAMPM } from "../../../../Utils/time";
 
 export default function TravelTimeResult({
   configuration,
@@ -50,20 +57,39 @@ export default function TravelTimeResult({
 
   return (
     <>
-      <div className="d-flex">
-        <div
-          style={{
-            width: 20,
-            height: 20,
-            borderRadius: 10,
-            backgroundColor: color,
-          }}
+      <ListGroupItem
+        className="d-flex align-items-center"
+        style={{
+          borderLeftWidth: 5,
+          borderLeftColor: color,
+          padding: "0.5rem",
+        }}
+      >
+        <FontAwesomeIcon
+          className="mr-3"
+          icon={getIcon(configuration.travelMode)}
         />
-        {isLoading
-          ? "...loading"
-          : getAddressComponents(configuration.address).street}
-        <span onClick={onCloseClick}>X</span>
-      </div>
+        <div className="flex-grow-1">
+          <div className="font-weight-bold">
+            {getAddressComponents(configuration.address).street}
+          </div>
+          <div className="d-flex justify-content-between">
+            <div>{configuration.travelTimeInMinutes} minutes</div>
+            <div>{formatAMPM(configuration.departureTime)}</div>
+          </div>
+        </div>
+        <div className="ml-3">
+          {isLoading ? (
+            <Spinner animation="border" size="sm" />
+          ) : (
+            <FontAwesomeIcon
+              style={{ cursor: "pointer" }}
+              icon={faTimes}
+              onClick={onCloseClick}
+            />
+          )}
+        </div>
+      </ListGroupItem>
       {travelTimePolygon && (
         <Polygon
           options={{
