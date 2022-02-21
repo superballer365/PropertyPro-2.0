@@ -1,6 +1,9 @@
 import React from "react";
 import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
+import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
   TravelTimeConfig,
   getTravelTimePolygon,
@@ -9,9 +12,6 @@ import {
 } from "../../../../API/Travel Time";
 import { getAddressComponents } from "../../../../Utils/address";
 import Polygon from "../../../../Components/Polygon";
-import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getIcon } from "../Directions/TravelModeButton";
 import { formatAMPM } from "../../../../Utils/time";
 

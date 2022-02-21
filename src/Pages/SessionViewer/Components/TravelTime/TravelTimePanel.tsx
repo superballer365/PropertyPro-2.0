@@ -1,8 +1,7 @@
 import React from "react";
+import ListGroup from "react-bootstrap/ListGroup";
 import { MapContext } from "../../../../Contexts/MapContext";
 import TravelTimeForm from "./TravelTimeForm";
-import ListGroup from "react-bootstrap/esm/ListGroup";
-import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 import TravelTimeResult from "./TravelTimeResult";
 import { TravelTimeConfig } from "../../../../API/Travel Time";
 import styles from "./TravelTimePanel.module.scss";

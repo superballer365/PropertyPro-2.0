@@ -1,9 +1,9 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { SearchType } from "../../../../API/Google Places";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import TravelModeButton, { getIcon } from "../Directions/TravelModeButton";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { TravelTimeConfig } from "../../../../API/Travel Time";
 
 // copying for shorthand
