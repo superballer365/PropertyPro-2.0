@@ -1,12 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { IconWithTooltip } from "../../../../Components/Tooltip";
-import {
-  faMapMarkerAlt,
-  faExchangeAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import { SearchType } from "../../../../API/Google Places";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import TravelModeButton, { getIcon } from "../Directions/TravelModeButton";
 import Button from "react-bootstrap/Button";
@@ -29,7 +22,17 @@ export default function TravelTimeForm({ onAddClick }: Props) {
   const handleAddClick = () => {
     if (!origin || !travelTimeInMinutes) return;
 
-    onAddClick({ address: origin, travelMode, travelTimeInMinutes });
+    const departureTimeDate = new Date();
+    const [hours, minutes] = departureTime
+      .split(":")
+      .map((val) => Number.parseFloat(val));
+    departureTimeDate.setHours(hours, minutes, 0, 0);
+    onAddClick({
+      address: origin,
+      travelMode,
+      travelTimeInMinutes,
+      departureTime: departureTimeDate,
+    });
     resetOptions();
   };
 

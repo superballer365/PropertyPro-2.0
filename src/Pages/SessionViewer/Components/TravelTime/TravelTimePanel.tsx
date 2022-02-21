@@ -4,6 +4,7 @@ import TravelTimeForm from "./TravelTimeForm";
 import ListGroup from "react-bootstrap/esm/ListGroup";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 import TravelTimeResult from "./TravelTimeResult";
+import { TravelTimeConfig } from "../../../../API/Travel Time";
 import styles from "./TravelTimePanel.module.scss";
 
 export default function TravelTimePanel() {
@@ -43,12 +44,6 @@ export default function TravelTimePanel() {
       </ListGroup>
     </div>
   );
-}
-
-interface TravelTimeConfig {
-  address: string;
-  travelMode: google.maps.TravelMode;
-  travelTimeInMinutes: number;
 }
 
 const colors = ["#0000ff", "#ff0000", "#008000", "#F5A623"];

@@ -15,6 +15,7 @@ export interface TravelTimeConfig {
   address: string;
   travelMode: google.maps.TravelMode;
   travelTimeInMinutes: number;
+  departureTime: Date;
 }
 
 export interface TravelTimeAPIPolygon {
@@ -25,7 +26,7 @@ export interface TravelTimeAPIPolygon {
 export async function getTravelTimePolygon(
   config: TravelTimeConfig
 ): Promise<TravelTimeAPIPolygon> {
-  const { address, travelMode, travelTimeInMinutes } = config;
+  const { address, travelMode, travelTimeInMinutes, departureTime } = config;
   const geocodeResults = await geocodeByAddress(address);
   if (geocodeResults.length === 0)
     throw new Error("Could not find location of address");
@@ -40,7 +41,7 @@ export async function getTravelTimePolygon(
         transportation: {
           type: travelModeFromGoogleMaps(travelMode),
         },
-        departure_time: "2022-02-20T14:00:00.000Z",
+        departure_time: departureTime.toISOString(),
       },
     ],
   });
