@@ -58,7 +58,7 @@ export default function TravelTimeResult({
             borderRadius: 10,
             backgroundColor: color,
           }}
-        ></div>
+        />
         {isLoading
           ? "...loading"
           : getAddressComponents(configuration.address).street}

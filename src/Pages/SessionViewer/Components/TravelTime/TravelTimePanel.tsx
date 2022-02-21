@@ -4,6 +4,7 @@ import TravelTimeForm from "./TravelTimeForm";
 import ListGroup from "react-bootstrap/esm/ListGroup";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 import TravelTimeResult from "./TravelTimeResult";
+import styles from "./TravelTimePanel.module.scss";
 
 export default function TravelTimePanel() {
   const { clearPolygons } = React.useContext(MapContext);
@@ -26,7 +27,9 @@ export default function TravelTimePanel() {
 
   return (
     <div>
-      <TravelTimeForm onAddClick={handleAddClick} />
+      <div className={styles.form}>
+        <TravelTimeForm onAddClick={handleAddClick} />
+      </div>
       <ListGroup>
         {travelTimeConfigs.map((configuration, index) => (
           <ListGroupItem key={index}>

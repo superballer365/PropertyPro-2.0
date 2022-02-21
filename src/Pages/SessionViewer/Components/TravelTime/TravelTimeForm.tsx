@@ -24,6 +24,7 @@ export default function TravelTimeForm({ onAddClick }: Props) {
   const [travelMode, setTravelMode] = React.useState<TravelMode>(
     TravelMode.DRIVING
   );
+  const [departureTime, setDepartureTime] = React.useState("08:30");
 
   const handleAddClick = () => {
     if (!origin || !travelTimeInMinutes) return;
@@ -42,17 +43,8 @@ export default function TravelTimeForm({ onAddClick }: Props) {
     <Form>
       <div className="d-flex align-items-center">
         <div className="flex-grow-1">
-          <Form.Group
-            controlId="directionsForm.Origin"
-            className="d-flex w-100 align-items-center"
-          >
-            <IconWithTooltip
-              className="mr-2"
-              icon={faMapMarkerAlt}
-              color="red"
-              elementId="origin"
-              tooltipText="Origin"
-            />
+          <Form.Group controlId="directionsForm.Origin">
+            <Form.Label>Origin</Form.Label>
             <AddressSearchBar
               placeholder="Origin of trip"
               isInvalid={false}
@@ -61,15 +53,26 @@ export default function TravelTimeForm({ onAddClick }: Props) {
               onSelect={(address) => setOrigin(address ? address : undefined)}
             />
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Travel Time</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder={"maximum travel time in minutes"}
-              value={travelTimeInMinutes ?? ""}
-              onChange={(e: any) => setTravelTimeInMinutes(e.target.value)}
-            />
-          </Form.Group>
+          <div className="d-flex w-100">
+            <Form.Group className="flex-grow-1 mr-1">
+              <Form.Label>Max Travel Time</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="travel time (minutes)"
+                value={travelTimeInMinutes ?? ""}
+                onChange={(e: any) => setTravelTimeInMinutes(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Departure Time</Form.Label>
+              <Form.Control
+                type="time"
+                placeholder="departure time"
+                value={departureTime}
+                onChange={(e) => setDepartureTime(e.target.value)}
+              />
+            </Form.Group>
+          </div>
         </div>
       </div>
       <div className="d-flex w-100 align-items-center">
