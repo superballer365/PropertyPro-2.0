@@ -1,21 +1,14 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import { MapContext } from "../../../../Contexts/MapContext";
 import TravelTimeForm from "./TravelTimeForm";
 import TravelTimeResult from "./TravelTimeResult";
 import { TravelTimeConfig } from "../../../../API/Travel Time";
 import styles from "./TravelTimePanel.module.scss";
 
 export default function TravelTimePanel() {
-  const { clearPolygons } = React.useContext(MapContext);
-
   const [travelTimeConfigs, setTravelTimeConfigs] = React.useState<
     TravelTimeConfig[]
   >([]);
-
-  React.useEffect(() => {
-    return () => clearPolygons();
-  }, [clearPolygons]);
 
   const handleAddClick = (config: TravelTimeConfig) => {
     setTravelTimeConfigs((prev) => [...prev, config]);
