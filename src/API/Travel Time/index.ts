@@ -17,7 +17,14 @@ export interface TravelTimeConfig {
   travelTimeInMinutes: number;
 }
 
-export async function getTravelTimePolygon(config: TravelTimeConfig) {
+export interface TravelTimeAPIPolygon {
+  shapes: Coordinates[];
+  holes: Coordinates[];
+}
+
+export async function getTravelTimePolygon(
+  config: TravelTimeConfig
+): Promise<TravelTimeAPIPolygon> {
   const { address, travelMode, travelTimeInMinutes } = config;
   const geocodeResults = await geocodeByAddress(address);
   if (geocodeResults.length === 0)
@@ -38,7 +45,7 @@ export async function getTravelTimePolygon(config: TravelTimeConfig) {
     ],
   });
 
-  return toGoogleMapsPolygon(res.data.results);
+  return res.data.results[0];
 }
 
 function travelModeFromGoogleMaps(travelMode: google.maps.TravelMode): string {
@@ -54,10 +61,12 @@ function travelModeFromGoogleMaps(travelMode: google.maps.TravelMode): string {
   }
 }
 
-function toGoogleMapsPolygon(travelTimeResults: any) {
+export function toGoogleMapsPolygonPath(
+  travelTimePolygon: TravelTimeAPIPolygon
+) {
   const color = "#0000ff";
 
-  const paths = travelTimeResults[0].shapes
+  const paths = travelTimePolygon.shapes
     .map(function (polygon: any) {
       var shell = polygon.shell;
       var holes = polygon.holes;
@@ -65,12 +74,5 @@ function toGoogleMapsPolygon(travelTimeResults: any) {
     })
     .map((x: any) => x[0]);
 
-  return new google.maps.Polygon({
-    paths,
-    strokeColor: color,
-    strokeOpacity: 1,
-    strokeWeight: 2,
-    fillColor: color,
-    fillOpacity: 0.25,
-  });
+  return paths;
 }
