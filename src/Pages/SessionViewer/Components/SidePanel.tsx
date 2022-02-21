@@ -14,7 +14,7 @@ import {
   faMapMarkerAlt,
   faRoute,
   faUsers,
-  faDrawPolygon,
+  faStopwatch,
 } from "@fortawesome/free-solid-svg-icons";
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
@@ -77,7 +77,7 @@ function getTabIcon(tab: TabOption) {
   if (tab === "Listings") return faHome;
   if (tab === "POI") return faMapMarkerAlt;
   if (tab === "Roommates") return faUsers;
-  if (tab === "TravelTime") return faDrawPolygon;
+  if (tab === "TravelTime") return faStopwatch;
   return faRoute;
 }
 

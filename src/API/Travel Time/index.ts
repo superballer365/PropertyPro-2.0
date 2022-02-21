@@ -1,4 +1,5 @@
 import axios from "axios";
+import { geocodeByAddress } from "../Google Places/Geocoding";
 
 const baseUrl = "https://api.traveltimeapp.com/v4/time-map";
 
@@ -10,18 +11,24 @@ const client = axios.create({
   },
 });
 
-export async function getTravelTimePolygon() {
+export async function getTravelTimePolygon(
+  address: string,
+  travelMode: google.maps.TravelMode,
+  travelTimeInMinutes: number
+) {
+  const geocodeResults = await geocodeByAddress(address);
+  if (geocodeResults.length === 0)
+    throw new Error("Could not find location of address");
+  const addressInfo = geocodeResults[0];
+
   const res = await client.post("", {
     departure_searches: [
       {
         id: "isochrone-0",
-        coords: {
-          lat: 42.3330372,
-          lng: -71.0398933,
-        },
-        travel_time: 1800,
+        coords: addressInfo.location,
+        travel_time: travelTimeInMinutes * 60,
         transportation: {
-          type: "cycling",
+          type: travelModeFromGoogleMaps(travelMode),
         },
         departure_time: "2022-02-20T14:00:00.000Z",
       },
@@ -29,6 +36,19 @@ export async function getTravelTimePolygon() {
   });
 
   return toGoogleMapsPolygon(res.data.results);
+}
+
+function travelModeFromGoogleMaps(travelMode: google.maps.TravelMode): string {
+  switch (travelMode) {
+    case google.maps.TravelMode.BICYCLING:
+      return "cycling";
+    case google.maps.TravelMode.WALKING:
+      return "walking";
+    case google.maps.TravelMode.TRANSIT:
+      return "public_transport";
+    default:
+      return "driving";
+  }
 }
 
 function toGoogleMapsPolygon(travelTimeResults: any) {

@@ -2,27 +2,46 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { getTravelTimePolygon } from "../../../../API/Travel Time";
 import { MapContext } from "../../../../Contexts/MapContext";
+import TravelTimeForm from "./TravelTimeForm";
 
 export default function TravelTimePanel() {
   const { showPolygon, removePolygon, clearPolygons } =
     React.useContext(MapContext);
 
-  const [polygon, setPolygon] = React.useState<google.maps.Polygon>();
+  const [travelTimeConfig, setTravelTimeConfig] =
+    React.useState<TravelTimeConfig>();
 
   React.useEffect(() => {
     return () => clearPolygons();
   }, [clearPolygons]);
 
-  const handleClick = async () => {
-    const polygon = await getTravelTimePolygon();
-    setPolygon(polygon);
-    showPolygon(polygon);
+  React.useEffect(() => {
+    if (!travelTimeConfig) return;
+
+    getTravelTimePolygon(
+      travelTimeConfig.address,
+      travelTimeConfig.travelMode,
+      travelTimeConfig.travelTimeInMinutes
+    ).then((polygon) => showPolygon(polygon));
+  }, [travelTimeConfig]);
+
+  const handleAddClick = (
+    address: string,
+    travelMode: google.maps.TravelMode,
+    travelTimeInMinutes: number
+  ) => {
+    setTravelTimeConfig({ address, travelMode, travelTimeInMinutes });
   };
 
   return (
     <div>
-      Travel Time<Button onClick={handleClick}>Show</Button>
-      <Button onClick={() => polygon && removePolygon(polygon)}>Clear</Button>
+      <TravelTimeForm onAddClick={handleAddClick} />
     </div>
   );
+}
+
+interface TravelTimeConfig {
+  address: string;
+  travelMode: google.maps.TravelMode;
+  travelTimeInMinutes: number;
 }
