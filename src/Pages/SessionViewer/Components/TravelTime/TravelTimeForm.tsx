@@ -5,6 +5,7 @@ import { SearchType } from "../../../../API/Google Places";
 import AddressSearchBar from "../../../../Components/AddressSearchBar";
 import TravelModeButton, { getIcon } from "../Directions/TravelModeButton";
 import { TravelTimeConfig } from "../../../../API/Travel Time";
+import { useLocation } from "react-router-dom";
 
 // copying for shorthand
 type TravelMode = google.maps.TravelMode;
@@ -18,6 +19,17 @@ export default function TravelTimeForm({ onAddClick }: Props) {
     TravelMode.DRIVING
   );
   const [departureTime, setDepartureTime] = React.useState("08:30");
+
+  const state = useLocation().state as
+    | {
+        origin?: string;
+      }
+    | undefined;
+
+  // update origin when state is provided via navigation
+  React.useEffect(() => {
+    state && state.origin && setOrigin(state.origin);
+  }, [state]);
 
   const handleAddClick = () => {
     if (!origin || !travelTimeInMinutes) return;
