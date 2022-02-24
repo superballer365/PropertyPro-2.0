@@ -7,15 +7,20 @@ import styles from "./TravelTimePanel.module.scss";
 
 export default function TravelTimePanel() {
   const [travelTimeConfigs, setTravelTimeConfigs] = React.useState<
-    TravelTimeConfig[]
+    TravelTimeConfigWithId[]
   >([]);
 
+  const configCount = React.useRef(0);
+
   const handleAddClick = (config: TravelTimeConfig) => {
-    setTravelTimeConfigs((prev) => [...prev, config]);
+    setTravelTimeConfigs((prev) => [
+      ...prev,
+      { ...config, id: configCount.current++ },
+    ]);
   };
 
-  const handleCloseClick = (index: number) => {
-    setTravelTimeConfigs((prev) => [...prev.filter((_c, i) => i !== index)]);
+  const handleCloseClick = (config: TravelTimeConfigWithId) => {
+    setTravelTimeConfigs((prev) => [...prev.filter((c) => c.id !== config.id)]);
   };
 
   return (
@@ -24,12 +29,12 @@ export default function TravelTimePanel() {
         <TravelTimeForm onAddClick={handleAddClick} />
       </div>
       <ListGroup>
-        {travelTimeConfigs.map((configuration, index) => (
+        {travelTimeConfigs.map((configuration) => (
           <TravelTimeResult
-            key={index}
+            key={configuration.id}
             configuration={configuration}
-            color={getColor(index)}
-            onCloseClick={() => handleCloseClick(index)}
+            color={getColor(configuration)}
+            onCloseClick={() => handleCloseClick(configuration)}
           />
         ))}
       </ListGroup>
@@ -37,8 +42,11 @@ export default function TravelTimePanel() {
   );
 }
 
+// add a local ID property to the configurations so we can track them consistently
+type TravelTimeConfigWithId = TravelTimeConfig & { id: number };
+
 const colors = ["#0000ff", "#ff0000", "#008000", "#F5A623"];
 
-function getColor(index: number) {
-  return colors[index % colors.length];
+function getColor(configuration: TravelTimeConfigWithId) {
+  return colors[configuration.id % colors.length];
 }
