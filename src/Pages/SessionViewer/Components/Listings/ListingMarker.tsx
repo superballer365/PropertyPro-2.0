@@ -8,6 +8,7 @@ import {
   faRoute,
   faEdit,
   faTrash,
+  faStopwatch,
 } from "@fortawesome/free-solid-svg-icons";
 import { Listing } from "../../../../Models/Session";
 import { useOnClickOutside, useUpdateSession } from "../../../../Utils/Hooks";
@@ -78,6 +79,11 @@ function ListingMarkerContextMenu({
     navigate("./Directions", { state: { origin: listing.address } });
   };
 
+  const handleTravelTimeClick = () => {
+    onClose();
+    navigate("./TravelTime", { state: { origin: listing.address } });
+  };
+
   const handleEditClick = () => {
     onClose();
     setSelectedListing(listing, { edit: true });
@@ -127,6 +133,15 @@ function ListingMarkerContextMenu({
                 Set Destination
               </Dropdown.Item>
             </DropdownButton>
+            <ButtonWithTooltip
+              className={styles.button}
+              variant="light"
+              elementId={`contextMenuListingTravelTime-${listing.id}`}
+              tooltipText="Get travel time"
+              onClick={handleTravelTimeClick}
+            >
+              <FontAwesomeIcon icon={faStopwatch} color="blue" />
+            </ButtonWithTooltip>
             <ButtonWithTooltip
               className={styles.button}
               variant="light"

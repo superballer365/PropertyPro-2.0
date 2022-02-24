@@ -77,9 +77,12 @@ export default function TravelTimeResult({
             <div>{formatAMPM(configuration.departureTime)}</div>
           </div>
         </div>
-        <div className="ml-3">
+        <div
+          className="d-flex justify-content-center ml-3"
+          style={{ width: 20 }}
+        >
           {isLoading ? (
-            <Spinner animation="border" size="sm" />
+            <Spinner animation="border" size="sm" variant="primary" />
           ) : (
             <FontAwesomeIcon
               style={{ cursor: "pointer" }}

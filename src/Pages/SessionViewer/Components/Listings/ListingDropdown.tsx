@@ -41,18 +41,25 @@ export default function ListingDropdown({ listing }: Props) {
     });
   };
 
-  const handleSetDestinationClick = (
+  const handleSetDirectionsDestinationClick = (
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     handleItemClick(e);
     navigate("./../Directions", { state: { destination: listing.address } });
   };
 
-  const handleSetOriginClick = (
+  const handleSetDirectionsOriginClick = (
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     handleItemClick(e);
     navigate("./../Directions", { state: { origin: listing.address } });
+  };
+
+  const handleSetTravelTimeOriginClick = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    handleItemClick(e);
+    navigate("./../TravelTime", { state: { origin: listing.address } });
   };
 
   const handleItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -74,9 +81,16 @@ export default function ListingDropdown({ listing }: Props) {
         </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Header>Directions</Dropdown.Header>
-        <Dropdown.Item onClick={handleSetOriginClick}>Set Origin</Dropdown.Item>
-        <Dropdown.Item onClick={handleSetDestinationClick}>
+        <Dropdown.Item onClick={handleSetDirectionsOriginClick}>
+          Set Origin
+        </Dropdown.Item>
+        <Dropdown.Item onClick={handleSetDirectionsDestinationClick}>
           Set Destination
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Header>Travel Time</Dropdown.Header>
+        <Dropdown.Item onClick={handleSetTravelTimeOriginClick}>
+          Set Origin
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

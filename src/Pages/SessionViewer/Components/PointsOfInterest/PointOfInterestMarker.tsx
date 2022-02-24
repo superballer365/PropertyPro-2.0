@@ -6,6 +6,7 @@ import {
   faEdit,
   faRoute,
   faTrash,
+  faStopwatch,
 } from "@fortawesome/free-solid-svg-icons";
 import { PointOfInterest } from "../../../../Models/Session";
 import styles from "./PointOfInterestMarker.module.scss";
@@ -83,6 +84,11 @@ function PointOfInterestMarkerContextMenu({
     navigate("./Directions", { state: { origin: pointOfInterest.address } });
   };
 
+  const handleTravelTimeClick = () => {
+    onClose();
+    navigate("./TravelTime", { state: { origin: pointOfInterest.address } });
+  };
+
   const handleEditClick = () => {
     onClose();
     setSelectedPointOfInterest(pointOfInterest, { edit: true });
@@ -134,6 +140,15 @@ function PointOfInterestMarkerContextMenu({
                 Set Destination
               </Dropdown.Item>
             </DropdownButton>
+            <ButtonWithTooltip
+              className={styles.button}
+              variant="light"
+              elementId={`contextMenuPOITravelTime-${pointOfInterest.id}`}
+              tooltipText="Get travel time"
+              onClick={handleTravelTimeClick}
+            >
+              <FontAwesomeIcon icon={faStopwatch} color="blue" />
+            </ButtonWithTooltip>
             <ButtonWithTooltip
               className={styles.button}
               variant="light"
