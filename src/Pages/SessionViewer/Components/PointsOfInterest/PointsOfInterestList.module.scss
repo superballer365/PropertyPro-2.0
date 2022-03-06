@@ -1,5 +1,7 @@
 .card {
   height: 100%;
+  display: grid;
+  grid-template-rows: min-content auto;
 
   .header {
     display: flex;
@@ -8,6 +10,10 @@
     .title {
       flex-grow: 1;
     }
+  }
+
+  .list {
+    overflow-y: auto;
   }
 }
 
