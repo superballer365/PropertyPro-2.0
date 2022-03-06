@@ -13,28 +13,25 @@ import styles from "./App.module.scss";
 function App() {
   const { user, loadingUser } = React.useContext(AuthorizationContext);
 
+  if (loadingUser) return <LoadingPage text="signing in..." />;
+  if (!user) return <LandingPage />;
+
   return (
     <BrowserRouter>
-      {loadingUser ? (
-        <LoadingPage text="signing in..." />
-      ) : user ? (
-        <div className={styles.container}>
-          <Header />
-          <div className={styles.content}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/Settings" element={<SettingsPage />} />
-              <Route path="/About" element={<AboutPage />} />
-              <Route
-                path="/Session/:sessionId/*"
-                element={<SessionViewerPage />}
-              />
-            </Routes>
-          </div>
+      <div className={styles.container}>
+        <Header />
+        <div className={styles.content}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/Settings" element={<SettingsPage />} />
+            <Route path="/About" element={<AboutPage />} />
+            <Route
+              path="/Session/:sessionId/*"
+              element={<SessionViewerPage />}
+            />
+          </Routes>
         </div>
-      ) : (
-        <LandingPage />
-      )}
+      </div>
     </BrowserRouter>
   );
 }
