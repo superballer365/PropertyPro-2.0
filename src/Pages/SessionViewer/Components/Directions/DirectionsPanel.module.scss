@@ -1,4 +1,5 @@
 .container {
+  height: 100%;
   display: grid;
   grid-template-rows: min-content auto;
 
@@ -9,5 +10,6 @@
 
   .results {
     background-color: white;
+    overflow-y: auto;
   }
 }
