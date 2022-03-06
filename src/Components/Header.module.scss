@@ -3,4 +3,9 @@
   width: 100%;
   display: grid;
   grid-template-rows: min-content auto;
+
+  .content {
+    height: 100%;
+    overflow-y: auto;
+  }
 }

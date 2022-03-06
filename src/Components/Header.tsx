@@ -21,7 +21,9 @@ export function withHeader<T extends object>(
   return (props) => (
     <div className={styles.container}>
       <Header />
-      <Component {...(props as T)} />
+      <div className={styles.content}>
+        <Component {...(props as T)} />
+      </div>
     </div>
   );
 }
