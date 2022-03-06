@@ -34,7 +34,7 @@ export default function ListingsList({
     if (filteredListings.length < 1) return <Card.Body>No listings</Card.Body>;
 
     return (
-      <ListGroup>
+      <ListGroup className={styles.list}>
         {filteredListings.map((listing) => (
           <ListingsListItem key={listing.id} listing={listing} />
         ))}

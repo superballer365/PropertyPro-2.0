@@ -5,6 +5,8 @@
   height: 100%;
 
   .content {
+    overflow-y: auto;
+
     :global(.card) {
       border-top-color: rgb(247, 247, 247);
       border-radius: 0px;
