@@ -1,48 +1,40 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { AuthorizationContext } from "./Contexts/AuthorizationContext";
-import "./App.css";
 import LoadingPage from "./Pages/Loading/LoadingPage";
 import LandingPage from "./Pages/Landing/LandingPage";
 import HomePage from "./Pages/Home/HomePage";
-import { withHeader } from "./Components/Header";
+import Header from "./Components/Header";
 import SettingsPage from "./Pages/Settings/SettingsPage";
 import AboutPage from "./Pages/About/AboutPage";
 import SessionViewerPage from "./Pages/SessionViewer/SessionViewerPage";
-
-const HomePageWithHeader = withHeader(HomePage);
-const SettingsPageWithHeader = withHeader(SettingsPage);
-const AboutPageWithHeader = withHeader(AboutPage);
-const SessionViewerPageWithHeader = withHeader(SessionViewerPage);
+import styles from "./App.module.scss";
 
 function App() {
   const { user, loadingUser } = React.useContext(AuthorizationContext);
 
-  console.log("user");
-  console.log(user);
-
-  function getRoutes() {
-    if (loadingUser)
-      return <Route path="/" element={<LoadingPage text="signing in..." />} />;
-
-    if (!user) return <Route path="/" element={<LandingPage />} />;
-
-    return (
-      <>
-        <Route path="/" element={<HomePageWithHeader />} />
-        <Route path="/Settings" element={<SettingsPageWithHeader />} />
-        <Route path="/About" element={<AboutPageWithHeader />} />
-        <Route
-          path="/Session/:sessionId/*"
-          element={<SessionViewerPageWithHeader />}
-        />
-      </>
-    );
-  }
-
   return (
     <BrowserRouter>
-      <Routes>{getRoutes()}</Routes>
+      {loadingUser ? (
+        <LoadingPage text="signing in..." />
+      ) : user ? (
+        <div className={styles.container}>
+          <Header />
+          <div className={styles.content}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/Settings" element={<SettingsPage />} />
+              <Route path="/About" element={<AboutPage />} />
+              <Route
+                path="/Session/:sessionId/*"
+                element={<SessionViewerPage />}
+              />
+            </Routes>
+          </div>
+        </div>
+      ) : (
+        <LandingPage />
+      )}
     </BrowserRouter>
   );
 }
