@@ -1,5 +1,6 @@
 .card {
   height: 100%;
+  grid-template-rows: min-content auto;
 
   .header {
     display: flex;

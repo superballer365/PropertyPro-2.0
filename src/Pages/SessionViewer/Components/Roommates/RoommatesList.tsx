@@ -25,7 +25,7 @@ export default function RoommatesList() {
     return <Card.Body>No roommates</Card.Body>;
 
   return (
-    <ListGroup>
+    <ListGroup className="overflow-auto">
       {session.roommates.map((roommate) => (
         <ListGroupItem
           className={classNames("d-flex align-items-center", styles.listItem)}
