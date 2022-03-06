@@ -24,11 +24,11 @@ export default function TravelTimePanel() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.form}>
         <TravelTimeForm onAddClick={handleAddClick} />
       </div>
-      <ListGroup>
+      <ListGroup className="overflow-auto">
         {travelTimeConfigs.map((configuration) => (
           <TravelTimeResult
             key={configuration.id}

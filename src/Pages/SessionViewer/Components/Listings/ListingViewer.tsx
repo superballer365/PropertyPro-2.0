@@ -13,9 +13,9 @@ import { getAddressComponents } from "../../../../Utils/address";
 import { useLocation } from "react-router-dom";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { ListingContext } from "../../../../Contexts/ListingContext";
-import styles from "./ListingViewer.module.scss";
 import FittedImage from "../../../../Components/FittedImage";
 import ListingPicturesDialog from "./ListingPicturesDialog";
+import styles from "./ListingViewer.module.scss";
 
 export default function ListingViewer({ listing }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -71,7 +71,7 @@ export default function ListingViewer({ listing }: IProps) {
           </Button>
           <span>{listing.name}</span>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="overflow-auto">
           {listing.pictures && listing.pictures.length > 0 && (
             <Carousel className={styles.carousel}>
               {listing.pictures?.map((picture) => (

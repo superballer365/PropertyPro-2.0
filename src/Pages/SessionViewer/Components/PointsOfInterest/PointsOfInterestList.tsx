@@ -21,7 +21,7 @@ export default function PointsOfInterestList({
       return <Card.Body>No points of interest</Card.Body>;
 
     return (
-      <ListGroup>
+      <ListGroup className={styles.list}>
         {session.pointsOfInterest.map((pointOfInterest) => (
           <PointsOfInterestListItem
             key={pointOfInterest.id}

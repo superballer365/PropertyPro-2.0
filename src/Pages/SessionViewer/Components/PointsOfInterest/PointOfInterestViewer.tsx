@@ -68,7 +68,7 @@ export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
           </Button>
           <span>{pointOfInterest.name}</span>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="overflow-auto">
           <Row>
             <Col className="col-sm-5">Type:</Col>
             <Col>
