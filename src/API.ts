@@ -33,7 +33,19 @@ export type ListingInput = {
   numberOfBathrooms: number,
   link?: string | null,
   pictures?: Array< string > | null,
+  status?: ListingStatusType | null,
 };
+
+export enum ListingStatusType {
+  NEW = "NEW",
+  AWAITING_REPLY = "AWAITING_REPLY",
+  IN_CONTACT = "IN_CONTACT",
+  TOURED = "TOURED",
+  APPLIED = "APPLIED",
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
+}
+
 
 export type PointOfInterestInput = {
   id?: string | null,
@@ -136,6 +148,7 @@ export type Listing = {
   numberOfBathrooms: number,
   link?: string | null,
   pictures?: Array< string > | null,
+  status?: ListingStatusType | null,
 };
 
 export type PointOfInterest = {
@@ -244,6 +257,7 @@ export type CreateSessionMutation = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -303,6 +317,7 @@ export type UpdateSessionMutation = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -362,6 +377,7 @@ export type DeleteSessionMutation = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -443,6 +459,7 @@ export type GetSessionQuery = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -505,6 +522,7 @@ export type ListSessionsQuery = {
         numberOfBathrooms: number,
         link?: string | null,
         pictures?: Array< string > | null,
+        status?: ListingStatusType | null,
       } > | null,
       pointsOfInterest?:  Array< {
         __typename: "PointOfInterest",
@@ -565,6 +583,7 @@ export type OnUpdateSessionByIdSubscription = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -623,6 +642,7 @@ export type OnCreateSessionSubscription = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -681,6 +701,7 @@ export type OnUpdateSessionSubscription = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",
@@ -739,6 +760,7 @@ export type OnDeleteSessionSubscription = {
       numberOfBathrooms: number,
       link?: string | null,
       pictures?: Array< string > | null,
+      status?: ListingStatusType | null,
     } > | null,
     pointsOfInterest?:  Array< {
       __typename: "PointOfInterest",

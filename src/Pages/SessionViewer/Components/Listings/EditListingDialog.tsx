@@ -13,6 +13,8 @@ import {
 } from "../../../../API/Google Places/Geocoding";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import SessionData, { Listing } from "../../../../Models/Session";
+import { Typeahead } from "react-bootstrap-typeahead";
+import { ListingStatusType } from "../../../../API";
 
 export default function EditListingDialog({
   onClose,
@@ -46,6 +48,7 @@ export default function EditListingDialog({
       numberOfBedrooms: formData.numberOfBedrooms!,
       numberOfBathrooms: formData.numberOfBathrooms!,
       link: formData.link,
+      status: formData.status,
     };
     const updatedListings = (session.listings ?? []).map((l) => {
       if (l.id === listing.id) return updatedListing;
@@ -202,6 +205,30 @@ export default function EditListingDialog({
               }
             />
           </Form.Group>
+          <Form.Group controlId="listingForm.Status">
+            <Form.Label>Status</Form.Label>
+            <Typeahead
+              options={[
+                ListingStatusType.NEW,
+                ListingStatusType.AWAITING_REPLY,
+                ListingStatusType.IN_CONTACT,
+                ListingStatusType.TOURED,
+                ListingStatusType.APPLIED,
+                ListingStatusType.ACCEPTED,
+                ListingStatusType.REJECTED,
+              ]}
+              selected={formData.status ? [formData.status] : []}
+              filterBy={() => true}
+              onChange={(selected) => {
+                const status =
+                  selected.length > 0 ? selected[0] : ListingStatusType.NEW; // Default to new
+                setFormData((prev) => ({
+                  ...prev,
+                  status,
+                }));
+              }}
+            />
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -230,17 +257,8 @@ interface EditListingFormData {
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string | null;
+  status?: ListingStatusType | null;
 }
-
-const DEFAULT_FORM_DATA: EditListingFormData = {
-  name: undefined,
-  address: undefined,
-  location: undefined,
-  price: undefined,
-  numberOfBedrooms: undefined,
-  numberOfBathrooms: undefined,
-  link: undefined,
-};
 
 interface FormDataErrors {
   nameError?: string;

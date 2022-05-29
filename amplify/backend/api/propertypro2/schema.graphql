@@ -31,6 +31,17 @@ type Listing {
   numberOfBathrooms: Float!
   link: String
   pictures: [String!]
+  status: ListingStatusType
+}
+
+enum ListingStatusType {
+  NEW
+  AWAITING_REPLY
+  IN_CONTACT
+  TOURED
+  APPLIED
+  ACCEPTED
+  REJECTED
 }
 
 type PointOfInterest {
