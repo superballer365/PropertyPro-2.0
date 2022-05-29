@@ -2,10 +2,9 @@ import React from "react";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/esm/Button";
-import {
-  ListingContext,
-  ListingFilterSettings,
-} from "../../../../Contexts/ListingContext";
+import { ListingContext } from "../../../../Contexts/ListingContext";
+import { Typeahead } from "react-bootstrap-typeahead";
+import { ListingStatusType } from "../../../../API";
 
 export default function ListingFilters() {
   const { filterSettings, setFilterSettings } =
@@ -20,12 +19,14 @@ export default function ListingFilters() {
       baths: undefined,
       minPrice: undefined,
       maxPrice: undefined,
+      statuses: [],
     });
     setFilterSettings({
       beds: undefined,
       baths: undefined,
       minPrice: undefined,
       maxPrice: undefined,
+      statuses: [],
     });
   };
 
@@ -111,6 +112,29 @@ export default function ListingFilters() {
                 : localFilterSettings.maxPrice
             }
             onChange={handleChange}
+          />
+        </InputGroup>
+      </div>
+      <div>
+        <InputGroup>
+          <InputGroup.Prepend>
+            <InputGroup.Text>Status</InputGroup.Text>
+          </InputGroup.Prepend>
+          <Typeahead
+            options={[
+              ListingStatusType.NEW,
+              ListingStatusType.AWAITING_REPLY,
+              ListingStatusType.IN_CONTACT,
+              ListingStatusType.TOURED,
+              ListingStatusType.APPLIED,
+              ListingStatusType.ACCEPTED,
+              ListingStatusType.REJECTED,
+            ]}
+            selected={localFilterSettings.statuses}
+            onChange={(statuses) =>
+              setLocalFilterSettings((prev) => ({ ...prev, statuses }))
+            }
+            multiple={true}
           />
         </InputGroup>
       </div>
