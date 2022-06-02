@@ -1,12 +1,11 @@
 import React from "react";
 import classNames from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import { Listing } from "../../../../Models/Session";
 import { ListingContext } from "../../../../Contexts/ListingContext";
 import ListingDropdown from "./ListingDropdown";
 import styles from "./ListingsListItem.module.scss";
+import ListingStatusBadge from "./ListingStatusBadge";
 
 export default function ListingsListItem({ listing }: IListingsListItemProps) {
   const { setSelectedListing, addHoveredListingId, removeHoveredListingId } =
@@ -45,8 +44,8 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
           <span>${listing.price}</span>
         </div>
         <div className={styles.details}>
-          <div>{`Beds: ${listing.numberOfBedrooms}`}</div>
-          <div className="text-center">{`Baths: ${listing.numberOfBathrooms}`}</div>
+          <ListingStatusBadge status={listing.status} />
+          <div className="text-center">{`${listing.numberOfBedrooms} bd | ${listing.numberOfBathrooms} ba`}</div>
           <div className="text-right">
             {listing.link ? (
               <a
