@@ -13,8 +13,8 @@ import {
 } from "../../../../API/Google Places/Geocoding";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import SessionData, { Listing } from "../../../../Models/Session";
-import { Typeahead } from "react-bootstrap-typeahead";
 import { ListingStatusType } from "../../../../API";
+import ListingStatusDropdown from "./ListingStatusDropdown";
 
 export default function EditListingDialog({
   onClose,
@@ -207,21 +207,11 @@ export default function EditListingDialog({
           </Form.Group>
           <Form.Group controlId="listingForm.Status">
             <Form.Label>Status</Form.Label>
-            <Typeahead
-              options={[
-                ListingStatusType.NEW,
-                ListingStatusType.AWAITING_REPLY,
-                ListingStatusType.IN_CONTACT,
-                ListingStatusType.TOURED,
-                ListingStatusType.APPLIED,
-                ListingStatusType.ACCEPTED,
-                ListingStatusType.REJECTED,
-              ]}
+            <ListingStatusDropdown
               selected={formData.status ? [formData.status] : []}
-              filterBy={() => true}
               onChange={(selected) => {
                 const status =
-                  selected.length > 0 ? selected[0] : ListingStatusType.NEW; // Default to new
+                  selected.length > 0 ? selected[0] : ListingStatusType.NEW;
                 setFormData((prev) => ({
                   ...prev,
                   status,

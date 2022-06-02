@@ -23,7 +23,7 @@ import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { ButtonWithTooltip } from "../../../../Components/Tooltip";
 import styles from "./NewListingDialog.module.scss";
 import { ListingStatusType } from "../../../../API";
-import { Typeahead } from "react-bootstrap-typeahead";
+import ListingStatusDropdown from "./ListingStatusDropdown";
 
 export default function NewListingDialog({ onClose }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -243,21 +243,11 @@ export default function NewListingDialog({ onClose }: IProps) {
           </Form.Row>
           <Form.Group controlId="listingForm.Status">
             <Form.Label>Status</Form.Label>
-            <Typeahead
-              options={[
-                ListingStatusType.NEW,
-                ListingStatusType.AWAITING_REPLY,
-                ListingStatusType.IN_CONTACT,
-                ListingStatusType.TOURED,
-                ListingStatusType.APPLIED,
-                ListingStatusType.ACCEPTED,
-                ListingStatusType.REJECTED,
-              ]}
-              selected={[formData.status]}
-              filterBy={() => true}
+            <ListingStatusDropdown
+              selected={formData.status ? [formData.status] : []}
               onChange={(selected) => {
                 const status =
-                  selected.length > 0 ? selected[0] : ListingStatusType.NEW; // Default to new
+                  selected.length > 0 ? selected[0] : ListingStatusType.NEW;
                 setFormData((prev) => ({
                   ...prev,
                   status,

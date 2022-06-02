@@ -3,8 +3,7 @@ import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/esm/Button";
 import { ListingContext } from "../../../../Contexts/ListingContext";
-import { Typeahead } from "react-bootstrap-typeahead";
-import { ListingStatusType } from "../../../../API";
+import ListingStatusDropdown from "./ListingStatusDropdown";
 
 export default function ListingFilters() {
   const { filterSettings, setFilterSettings } =
@@ -115,26 +114,20 @@ export default function ListingFilters() {
           />
         </InputGroup>
       </div>
-      <div>
+      <div className="mt-2">
         <InputGroup>
           <InputGroup.Prepend>
             <InputGroup.Text>Status</InputGroup.Text>
           </InputGroup.Prepend>
-          <Typeahead
-            options={[
-              ListingStatusType.NEW,
-              ListingStatusType.AWAITING_REPLY,
-              ListingStatusType.IN_CONTACT,
-              ListingStatusType.TOURED,
-              ListingStatusType.APPLIED,
-              ListingStatusType.ACCEPTED,
-              ListingStatusType.REJECTED,
-            ]}
+          <ListingStatusDropdown
             selected={localFilterSettings.statuses}
-            onChange={(statuses) =>
-              setLocalFilterSettings((prev) => ({ ...prev, statuses }))
-            }
             multiple={true}
+            onChange={(selected) =>
+              setLocalFilterSettings((prev) => ({
+                ...prev,
+                statuses: selected,
+              }))
+            }
           />
         </InputGroup>
       </div>
