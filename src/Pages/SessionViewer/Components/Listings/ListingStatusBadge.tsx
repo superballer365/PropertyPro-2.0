@@ -44,6 +44,6 @@ function getColor(status: ListingStatusType | null | undefined) {
       return "#ffb480";
     case null:
     case undefined:
-      return "gray";
+      return "#D3D3D3";
   }
 }
