@@ -11,6 +11,8 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
   const { setSelectedListing, addHoveredListingId, removeHoveredListingId } =
     React.useContext(ListingContext);
 
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
   React.useEffect(() => {
     return () => {
       removeHoveredListingId(listing.id);
@@ -35,6 +37,10 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
       onClick={handleClick}
       onMouseEnter={handleListingHover}
       onMouseLeave={handleListingUnhover}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        setMenuOpen(true);
+      }}
     >
       <div>
         <div className="d-flex w-100 mb-1">
@@ -63,7 +69,11 @@ export default function ListingsListItem({ listing }: IListingsListItemProps) {
         </div>
       </div>
       <div className={styles.moreButton}>
-        <ListingDropdown listing={listing} />
+        <ListingDropdown
+          listing={listing}
+          open={menuOpen}
+          toggleOpen={setMenuOpen}
+        />
       </div>
     </ListGroupItem>
   );

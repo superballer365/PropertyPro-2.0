@@ -8,21 +8,19 @@ import { SessionContext } from "../../../../Contexts/SessionContext";
 import { Listing } from "../../../../Models/Session";
 import { ListingContext } from "../../../../Contexts/ListingContext";
 
-export default function ListingDropdown({ listing }: Props) {
+export default function ListingDropdown({ listing, open, toggleOpen }: Props) {
   const { session } = React.useContext(SessionContext);
   const { setSelectedListing } = React.useContext(ListingContext);
 
   const dropdownRef = React.useRef(null);
 
-  const [open, setOpen] = React.useState(false);
-
   const updateSessionMutation = useUpdateSession();
   const navigate = useNavigate();
-  useOnClickOutside(dropdownRef, () => setOpen(false));
+  useOnClickOutside(dropdownRef, () => toggleOpen(false));
 
   const handleToggleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.stopPropagation();
-    setOpen((prev) => !prev);
+    toggleOpen(!open);
   };
 
   const handleEditClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -64,7 +62,7 @@ export default function ListingDropdown({ listing }: Props) {
 
   const handleItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.stopPropagation();
-    setOpen((prev) => !prev);
+    toggleOpen(false);
   };
 
   return (
@@ -99,6 +97,8 @@ export default function ListingDropdown({ listing }: Props) {
 
 interface Props {
   listing: Listing;
+  open: boolean;
+  toggleOpen: (open: boolean) => void;
 }
 
 const CustomToggle = React.forwardRef<
