@@ -72,18 +72,6 @@ export default function Map() {
     setCenter(defaultCenterRef.current);
   }, [selectedListing, selectedPointOfInterest]);
 
-  function handleMarkerClick(key: string, markerProps: MapMarkerProps) {
-    markerProps.onClick();
-  }
-
-  function handleMarkerHover(key: string, markerProps: MapMarkerProps) {
-    markerProps.onMouseEnter();
-  }
-
-  function handleMarkerUnhover(key: string, markerProps: MapMarkerProps) {
-    markerProps.onMouseLeave();
-  }
-
   return (
     <div ref={mapContainerRef} style={{ height: "100%" }}>
       {center && zoom && (
@@ -91,9 +79,6 @@ export default function Map() {
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY! }}
           center={center}
           zoom={zoom}
-          onChildClick={handleMarkerClick}
-          onChildMouseEnter={handleMarkerHover}
-          onChildMouseLeave={handleMarkerUnhover}
           onGoogleApiLoaded={({ map }) => setMap(map)}
           onChange={({ center, zoom }) => {
             setCenter(center);
