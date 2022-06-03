@@ -49,6 +49,7 @@ export default function EditListingDialog({
       numberOfBathrooms: formData.numberOfBathrooms!,
       link: formData.link,
       status: formData.status,
+      pictures: listing.pictures,
     };
     const updatedListings = (session.listings ?? []).map((l) => {
       if (l.id === listing.id) return updatedListing;
