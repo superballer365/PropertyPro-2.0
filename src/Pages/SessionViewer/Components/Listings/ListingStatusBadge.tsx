@@ -29,15 +29,21 @@ interface Props {
 function getColor(status: ListingStatusType | null | undefined) {
   switch (status) {
     case ListingStatusType.NEW:
-      return "blue";
+      return "#08cad1";
     case ListingStatusType.ACCEPTED:
-      return "green";
+      return "#42d6a4";
     case ListingStatusType.REJECTED:
-      return "red";
+      return "#ff6961";
+    case ListingStatusType.APPLIED:
+      return "#c780e8";
+    case ListingStatusType.AWAITING_REPLY:
+      return "#9d94ff";
+    case ListingStatusType.IN_CONTACT:
+      return "#59adf6";
+    case ListingStatusType.TOURED:
+      return "#ffb480";
     case null:
     case undefined:
       return "gray";
-    default:
-      return "purple";
   }
 }
