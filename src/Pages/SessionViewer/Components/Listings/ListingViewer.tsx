@@ -112,17 +112,18 @@ export default function ListingViewer({ listing }: IProps) {
               <Col>{getAddressComponents(listing.address).state}</Col>
             </Row>
             <Row>
+              <Col className="col-sm-5">Status:</Col>
+              <Col>
+                <ListingStatusBadge status={listing.status} />
+              </Col>
+            </Row>
+            <Row>
               <Col className="col-sm-5">
                 {listing.link && (
                   <a href={listing.link} target="_blank">
                     Link
                   </a>
                 )}
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <ListingStatusBadge status={listing.status} />
               </Col>
             </Row>
           </div>
