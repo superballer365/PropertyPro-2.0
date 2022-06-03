@@ -13,6 +13,8 @@ import {
 } from "../../../../API/Google Places/Geocoding";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import SessionData, { Listing } from "../../../../Models/Session";
+import { ListingStatusType } from "../../../../API";
+import ListingStatusDropdown from "./ListingStatusDropdown";
 
 export default function EditListingDialog({
   onClose,
@@ -46,6 +48,8 @@ export default function EditListingDialog({
       numberOfBedrooms: formData.numberOfBedrooms!,
       numberOfBathrooms: formData.numberOfBathrooms!,
       link: formData.link,
+      status: formData.status,
+      pictures: listing.pictures,
     };
     const updatedListings = (session.listings ?? []).map((l) => {
       if (l.id === listing.id) return updatedListing;
@@ -202,6 +206,20 @@ export default function EditListingDialog({
               }
             />
           </Form.Group>
+          <Form.Group controlId="listingForm.Status">
+            <Form.Label>Status</Form.Label>
+            <ListingStatusDropdown
+              selected={formData.status ? [formData.status] : []}
+              onChange={(selected) => {
+                const status =
+                  selected.length > 0 ? selected[0] : ListingStatusType.NEW;
+                setFormData((prev) => ({
+                  ...prev,
+                  status,
+                }));
+              }}
+            />
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -230,17 +248,8 @@ interface EditListingFormData {
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string | null;
+  status?: ListingStatusType | null;
 }
-
-const DEFAULT_FORM_DATA: EditListingFormData = {
-  name: undefined,
-  address: undefined,
-  location: undefined,
-  price: undefined,
-  numberOfBedrooms: undefined,
-  numberOfBathrooms: undefined,
-  link: undefined,
-};
 
 interface FormDataErrors {
   nameError?: string;

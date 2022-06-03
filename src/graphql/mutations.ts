@@ -35,6 +35,7 @@ export const createSession = /* GraphQL */ `
         numberOfBathrooms
         link
         pictures
+        status
       }
       pointsOfInterest {
         id
@@ -85,6 +86,7 @@ export const updateSession = /* GraphQL */ `
         numberOfBathrooms
         link
         pictures
+        status
       }
       pointsOfInterest {
         id
@@ -135,6 +137,7 @@ export const deleteSession = /* GraphQL */ `
         numberOfBathrooms
         link
         pictures
+        status
       }
       pointsOfInterest {
         id

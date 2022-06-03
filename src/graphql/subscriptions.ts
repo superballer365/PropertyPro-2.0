@@ -32,6 +32,7 @@ export const onUpdateSessionById = /* GraphQL */ `
         numberOfBathrooms
         link
         pictures
+        status
       }
       pointsOfInterest {
         id
@@ -79,6 +80,7 @@ export const onCreateSession = /* GraphQL */ `
         numberOfBathrooms
         link
         pictures
+        status
       }
       pointsOfInterest {
         id
@@ -126,6 +128,7 @@ export const onUpdateSession = /* GraphQL */ `
         numberOfBathrooms
         link
         pictures
+        status
       }
       pointsOfInterest {
         id
@@ -173,6 +176,7 @@ export const onDeleteSession = /* GraphQL */ `
         numberOfBathrooms
         link
         pictures
+        status
       }
       pointsOfInterest {
         id

@@ -16,6 +16,7 @@ import { ListingContext } from "../../../../Contexts/ListingContext";
 import FittedImage from "../../../../Components/FittedImage";
 import ListingPicturesDialog from "./ListingPicturesDialog";
 import styles from "./ListingViewer.module.scss";
+import ListingStatusBadge from "./ListingStatusBadge";
 
 export default function ListingViewer({ listing }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -109,6 +110,12 @@ export default function ListingViewer({ listing }: IProps) {
             <Row>
               <Col className="col-sm-5">State:</Col>
               <Col>{getAddressComponents(listing.address).state}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">Status:</Col>
+              <Col>
+                <ListingStatusBadge status={listing.status} />
+              </Col>
             </Row>
             <Row>
               <Col className="col-sm-5">

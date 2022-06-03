@@ -22,6 +22,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { ButtonWithTooltip } from "../../../../Components/Tooltip";
 import styles from "./NewListingDialog.module.scss";
+import { ListingStatusType } from "../../../../API";
+import ListingStatusDropdown from "./ListingStatusDropdown";
 
 export default function NewListingDialog({ onClose }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -51,6 +53,7 @@ export default function NewListingDialog({ onClose }: IProps) {
       numberOfBathrooms: formData.numberOfBathrooms!,
       link: formData.link,
       pictures: formData.pictures,
+      status: formData.status,
     };
 
     try {
@@ -238,6 +241,20 @@ export default function NewListingDialog({ onClose }: IProps) {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
+          <Form.Group controlId="listingForm.Status">
+            <Form.Label>Status</Form.Label>
+            <ListingStatusDropdown
+              selected={formData.status ? [formData.status] : []}
+              onChange={(selected) => {
+                const status =
+                  selected.length > 0 ? selected[0] : ListingStatusType.NEW;
+                setFormData((prev) => ({
+                  ...prev,
+                  status,
+                }));
+              }}
+            />
+          </Form.Group>
           {formData.pictures.length > 0 && (
             <Badge className="p-3" variant="light">
               <span className="mr-3">{`${formData.pictures.length} pictures`}</span>
@@ -278,6 +295,7 @@ interface CreateListingFormData {
   numberOfBathrooms?: number;
   link?: string;
   pictures: string[];
+  status: ListingStatusType;
 }
 
 const DEFAULT_FORM_DATA: CreateListingFormData = {
@@ -289,6 +307,7 @@ const DEFAULT_FORM_DATA: CreateListingFormData = {
   numberOfBathrooms: undefined,
   link: undefined,
   pictures: [],
+  status: ListingStatusType.NEW,
 };
 
 interface FormDataErrors {

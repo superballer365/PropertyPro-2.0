@@ -2,10 +2,8 @@ import React from "react";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/esm/Button";
-import {
-  ListingContext,
-  ListingFilterSettings,
-} from "../../../../Contexts/ListingContext";
+import { ListingContext } from "../../../../Contexts/ListingContext";
+import ListingStatusDropdown from "./ListingStatusDropdown";
 
 export default function ListingFilters() {
   const { filterSettings, setFilterSettings } =
@@ -20,12 +18,14 @@ export default function ListingFilters() {
       baths: undefined,
       minPrice: undefined,
       maxPrice: undefined,
+      statuses: [],
     });
     setFilterSettings({
       beds: undefined,
       baths: undefined,
       minPrice: undefined,
       maxPrice: undefined,
+      statuses: [],
     });
   };
 
@@ -111,6 +111,23 @@ export default function ListingFilters() {
                 : localFilterSettings.maxPrice
             }
             onChange={handleChange}
+          />
+        </InputGroup>
+      </div>
+      <div className="mt-2">
+        <InputGroup>
+          <InputGroup.Prepend>
+            <InputGroup.Text>Status</InputGroup.Text>
+          </InputGroup.Prepend>
+          <ListingStatusDropdown
+            selected={localFilterSettings.statuses}
+            multiple={true}
+            onChange={(selected) =>
+              setLocalFilterSettings((prev) => ({
+                ...prev,
+                statuses: selected,
+              }))
+            }
           />
         </InputGroup>
       </div>

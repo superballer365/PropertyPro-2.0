@@ -28,6 +28,9 @@ export default function PointOfInterestMarker({
   lng,
   hovered,
   pointOfInterest,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
 }: PointOfInterestMarkerProps) {
   const [showContextMenu, setShowContextMenu] = React.useState(false);
   return (
@@ -37,6 +40,12 @@ export default function PointOfInterestMarker({
         icon={faMapMarkerAlt}
         color="red"
         onContextMenu={() => setShowContextMenu(true)}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
       />
       {showContextMenu && (
         <PointOfInterestMarkerContextMenu
@@ -53,6 +62,9 @@ export interface PointOfInterestMarkerProps {
   hovered?: boolean;
   lat: number;
   lng: number;
+  onClick: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }
 
 function PointOfInterestMarkerContextMenu({
@@ -106,7 +118,7 @@ function PointOfInterestMarkerContextMenu({
   };
 
   return (
-    <div className={styles.contextMenu}>
+    <div className={styles.contextMenu} onClick={(e) => e.stopPropagation()}>
       <Popover id="popover-basic" ref={popoverRef}>
         <Popover.Title as="h3">{pointOfInterest.name}</Popover.Title>
         <Popover.Content className="d-flex">

@@ -26,6 +26,9 @@ import {
 export default function ListingMarker({
   hovered,
   listing,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
 }: ListingMarkerProps) {
   const [showContextMenu, setShowContextMenu] = React.useState(false);
 
@@ -36,6 +39,12 @@ export default function ListingMarker({
         color="green"
         icon={faHome}
         onContextMenu={() => setShowContextMenu((prev) => !prev)}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
       />
       {showContextMenu && (
         <ListingMarkerContextMenu
@@ -52,6 +61,9 @@ export interface ListingMarkerProps {
   hovered?: boolean;
   lat: number;
   lng: number;
+  onClick: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }
 
 function ListingMarkerContextMenu({
@@ -99,7 +111,7 @@ function ListingMarkerContextMenu({
   }
 
   return (
-    <div className={styles.contextMenu}>
+    <div className={styles.contextMenu} onClick={(e) => e.stopPropagation()}>
       <Popover id="popover-basic" ref={popoverRef}>
         <Popover.Title as="h3">{listing.name}</Popover.Title>
         <Popover.Content className="d-flex">

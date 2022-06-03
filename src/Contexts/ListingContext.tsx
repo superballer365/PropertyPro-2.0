@@ -2,12 +2,14 @@ import React from "react";
 import { Listing } from "../Models/Session";
 import { SessionContext } from "./SessionContext";
 import useSelectedListing from "../Utils/Hooks/useSelectedListing";
+import { ListingStatusType } from "../API";
 
 export interface ListingFilterSettings {
   beds: number | undefined;
   baths: number | undefined;
   minPrice: number | undefined;
   maxPrice: number | undefined;
+  statuses: ListingStatusType[];
 }
 
 const DEFAULT_LISTING_FILTER_SETTINGS: ListingFilterSettings = {
@@ -15,6 +17,7 @@ const DEFAULT_LISTING_FILTER_SETTINGS: ListingFilterSettings = {
   baths: undefined,
   minPrice: undefined,
   maxPrice: undefined,
+  statuses: [],
 };
 
 export type ListingSortOption =
@@ -84,7 +87,7 @@ export function ListingContextProvider({
   }, []);
 
   const filteredListings = React.useMemo(() => {
-    const { beds, baths, minPrice, maxPrice } = filterSettings;
+    const { beds, baths, minPrice, maxPrice, statuses } = filterSettings;
     return (session.listings ?? [])
       .filter((listing) => {
         const bedsMatch =
@@ -95,8 +98,18 @@ export function ListingContextProvider({
           minPrice === undefined ? true : listing.price >= minPrice;
         const maxPriceMatch =
           maxPrice === undefined ? true : listing.price <= maxPrice;
+        const statusMatch =
+          statuses.length > 0
+            ? listing.status && statuses.includes(listing.status)
+            : true;
 
-        return bedsMatch && bathsMatch && minPriceMatch && maxPriceMatch;
+        return (
+          bedsMatch &&
+          bathsMatch &&
+          minPriceMatch &&
+          maxPriceMatch &&
+          statusMatch
+        );
       })
       .sort((listingA, listingB) => {
         if (sortOption === "None") return 1;

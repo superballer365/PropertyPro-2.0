@@ -4,6 +4,7 @@ import {
   ListSessionsQuery,
   UpdateSessionMutation,
   PointOfInterestType,
+  ListingStatusType,
 } from "../API";
 import { GraphQLResult } from "@aws-amplify/api";
 import { BoundingBox, Coordinate } from "../API/Google Places/Geocoding";
@@ -29,6 +30,7 @@ export interface Listing {
   numberOfBathrooms: number;
   link?: string | null;
   pictures?: string[] | null;
+  status?: ListingStatusType | null;
 }
 
 export interface PointOfInterest {

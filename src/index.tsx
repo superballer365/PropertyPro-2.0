@@ -10,6 +10,7 @@ import reportWebVitals from "./reportWebVitals";
 import Initialize from "./Initialize";
 import AuthorizationContextProvider from "./Contexts/AuthorizationContext";
 import "react-toastify/dist/ReactToastify.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 
 Initialize();
 
