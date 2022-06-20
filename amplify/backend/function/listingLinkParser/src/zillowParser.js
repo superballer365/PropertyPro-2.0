@@ -25,9 +25,8 @@ function parseZillowHtmlString(htmlString) {
 
 function parsePrice(root) {
   try {
-    const summaryRowElement = root.querySelector(".ds-summary-row");
-    const priceElement = summaryRowElement.firstChild.firstChild.firstChild;
-    let priceString = priceElement.text;
+    let priceString = root.querySelector('[data-testid="price"]').firstChild
+      .textContent;
     // remove first character, which should be '$'
     priceString = priceString.replace(",", "").substring(1);
     return isNumeric(priceString) ? parseFloat(priceString) : undefined;
@@ -40,11 +39,10 @@ function parsePrice(root) {
 
 function parseBeds(root) {
   try {
-    const livingAreaContainer = root.querySelector(
-      ".ds-bed-bath-living-area-container"
-    );
-    const bedsElement = livingAreaContainer.firstChild.firstChild;
-    let bedsString = bedsElement.text;
+    const bedsElement = root.querySelectorAll(
+      '[data-testid="bed-bath-item"]'
+    )[0].firstChild;
+    let bedsString = bedsElement.textContent;
     return isNumeric(bedsString) ? parseFloat(bedsString) : undefined;
   } catch (e) {
     console.log("Failed to parse beds");
@@ -55,11 +53,10 @@ function parseBeds(root) {
 
 function parseBaths(root) {
   try {
-    const livingAreaContainer = root.querySelector(
-      ".ds-bed-bath-living-area-container"
-    );
-    const bathsElement = livingAreaContainer.childNodes[2].firstChild;
-    let bathsString = bathsElement.text;
+    const bathsElement = root.querySelectorAll(
+      '[data-testid="bed-bath-item"]'
+    )[1].firstChild;
+    let bathsString = bathsElement.textContent;
     return isNumeric(bathsString) ? parseFloat(bathsString) : undefined;
   } catch (e) {
     console.log("Failed to parse baths");
