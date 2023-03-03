@@ -7,6 +7,7 @@ export const googlePlacesBaseURL = `https://maps.googleapis.com/maps/api/place/`
 export enum SearchType {
   Any,
   City,
+  Region,
   Address,
 }
 

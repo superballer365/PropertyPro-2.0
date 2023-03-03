@@ -62,6 +62,8 @@ function getGooglePlacesSearchTypeFromSearchType(
   switch (searchType) {
     case SearchType.City:
       return "(cities)";
+    case SearchType.Region:
+      return "(regions)";
     case SearchType.Address:
       return "address";
     default:
