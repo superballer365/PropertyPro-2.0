@@ -101,7 +101,7 @@ export default function NewSessionDialog({ onClose }: IProps) {
             <AddressSearchBar
               onSelect={handleCitySelect}
               isInvalid={!!formDataErrors.searchCityError}
-              searchType={SearchType.City}
+              searchType={SearchType.Region}
               selected={formData.searchCity}
             />
             <Form.Control.Feedback type="invalid">
