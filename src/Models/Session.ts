@@ -29,6 +29,7 @@ export interface Listing {
   numberOfBedrooms: number;
   numberOfBathrooms: number;
   link?: string | null;
+  notes?: string | null;
   pictures?: string[] | null;
   status?: ListingStatusType | null;
 }

@@ -47,6 +47,7 @@ export const getSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
         link
+        notes
         pictures
         status
       }
@@ -100,6 +101,7 @@ export const listSessions = /* GraphQL */ `
           numberOfBedrooms
           numberOfBathrooms
           link
+          notes
           pictures
           status
         }
