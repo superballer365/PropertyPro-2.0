@@ -47,6 +47,7 @@ export default function EditListingDialog({
       price: formData.price!,
       numberOfBedrooms: formData.numberOfBedrooms!,
       numberOfBathrooms: formData.numberOfBathrooms!,
+      notes: formData.notes,
       link: formData.link,
       status: formData.status,
       pictures: listing.pictures,
@@ -220,6 +221,20 @@ export default function EditListingDialog({
               }}
             />
           </Form.Group>
+          <Form.Group>
+            <Form.Label>Notes</Form.Label>
+            <Form.Control
+              value={formData.notes ?? ""}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  notes: e.target.value,
+                }))
+              }
+              as="textarea"
+              rows={4}
+            />
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -248,6 +263,7 @@ interface EditListingFormData {
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string | null;
+  notes?: string | null;
   status?: ListingStatusType | null;
 }
 

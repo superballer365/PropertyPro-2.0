@@ -52,6 +52,7 @@ export default function NewListingDialog({ onClose }: IProps) {
       numberOfBedrooms: formData.numberOfBedrooms!,
       numberOfBathrooms: formData.numberOfBathrooms!,
       link: formData.link,
+      notes: formData.notes,
       pictures: formData.pictures,
       status: formData.status,
     };
@@ -255,6 +256,20 @@ export default function NewListingDialog({ onClose }: IProps) {
               }}
             />
           </Form.Group>
+          <Form.Group>
+            <Form.Label>Notes</Form.Label>
+            <Form.Control
+              value={formData.notes ?? ""}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  notes: e.target.value,
+                }))
+              }
+              as="textarea"
+              rows={4}
+            />
+          </Form.Group>
           {formData.pictures.length > 0 && (
             <Badge className="p-3" variant="light">
               <span className="mr-3">{`${formData.pictures.length} pictures`}</span>
@@ -294,6 +309,7 @@ interface CreateListingFormData {
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string;
+  notes?: string;
   pictures: string[];
   status: ListingStatusType;
 }
@@ -306,6 +322,7 @@ const DEFAULT_FORM_DATA: CreateListingFormData = {
   numberOfBedrooms: undefined,
   numberOfBathrooms: undefined,
   link: undefined,
+  notes: undefined,
   pictures: [],
   status: ListingStatusType.NEW,
 };

@@ -34,6 +34,7 @@ export const createSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
         link
+        notes
         pictures
         status
       }
@@ -85,6 +86,7 @@ export const updateSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
         link
+        notes
         pictures
         status
       }
@@ -136,6 +138,7 @@ export const deleteSession = /* GraphQL */ `
         numberOfBedrooms
         numberOfBathrooms
         link
+        notes
         pictures
         status
       }

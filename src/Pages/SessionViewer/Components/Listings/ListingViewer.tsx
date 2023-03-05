@@ -4,8 +4,12 @@ import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faExternalLinkAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "../Listings/EditListingDialog";
@@ -61,7 +65,7 @@ export default function ListingViewer({ listing }: IProps) {
         />
       )}
       <Card className="h-100">
-        <Card.Header>
+        <Card.Header className="d-flex align-items-center">
           <Button
             className="mr-2"
             size="sm"
@@ -70,7 +74,14 @@ export default function ListingViewer({ listing }: IProps) {
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
-          <span>{listing.name}</span>
+          <span className="flex-grow-1">{listing.name}</span>
+          {listing.link && (
+            <a href={listing.link} target="_blank">
+              <Button className="mr-2" size="sm" variant="light">
+                <FontAwesomeIcon icon={faExternalLinkAlt} />
+              </Button>
+            </a>
+          )}
         </Card.Header>
         <Card.Body className="overflow-auto">
           {listing.pictures && listing.pictures.length > 0 && (
@@ -117,15 +128,17 @@ export default function ListingViewer({ listing }: IProps) {
                 <ListingStatusBadge status={listing.status} />
               </Col>
             </Row>
-            <Row>
-              <Col className="col-sm-5">
-                {listing.link && (
-                  <a href={listing.link} target="_blank">
-                    Link
-                  </a>
-                )}
-              </Col>
-            </Row>
+            {listing.notes && (
+              <Form.Group>
+                <Form.Label>Notes:</Form.Label>
+                <Form.Control
+                  value={listing.notes}
+                  as="textarea"
+                  rows={4}
+                  disabled
+                />
+              </Form.Group>
+            )}
           </div>
         </Card.Body>
         <Card.Footer className="d-flex justify-content-end">
