@@ -189,23 +189,38 @@ export default function NewListingDialog({ onClose }: IProps) {
               {formDataErrors.nameError}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group controlId="listingForm.Price">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              type="number"
-              value={formData.price ?? ""}
-              onChange={(event: any) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  price: event.target.value,
-                }))
-              }
-              isInvalid={!!formDataErrors.priceError}
-            />
-            <Form.Control.Feedback type="invalid">
-              {formDataErrors.priceError}
-            </Form.Control.Feedback>
-          </Form.Group>
+          <Form.Row>
+            <Form.Group as={Col} controlId="listingForm.Price">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={formData.price ?? ""}
+                onChange={(event: any) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    price: event.target.value,
+                  }))
+                }
+                isInvalid={!!formDataErrors.priceError}
+              />
+              <Form.Control.Feedback type="invalid">
+                {formDataErrors.priceError}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} controlId="listingForm.squareFootage">
+              <Form.Label>Square Feet</Form.Label>
+              <Form.Control
+                type="number"
+                value={formData.squareFootage ?? ""}
+                onChange={(event: any) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    squareFootage: event.target.value,
+                  }))
+                }
+              />
+            </Form.Group>
+          </Form.Row>
           <Form.Row>
             <Form.Group as={Col} controlId="listingForm.bedrooms">
               <Form.Label>Bedrooms</Form.Label>
@@ -306,6 +321,7 @@ interface CreateListingFormData {
   address?: string;
   location?: Coordinate;
   price?: number;
+  squareFootage?: number;
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string;
@@ -319,6 +335,7 @@ const DEFAULT_FORM_DATA: CreateListingFormData = {
   address: undefined,
   location: undefined,
   price: undefined,
+  squareFootage: undefined,
   numberOfBedrooms: undefined,
   numberOfBathrooms: undefined,
   link: undefined,

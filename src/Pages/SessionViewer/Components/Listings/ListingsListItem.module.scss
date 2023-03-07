@@ -13,9 +13,9 @@
   }
 
   .details {
-    display: grid;
+    display: flex;
     color: var(--secondary);
-    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
   }
 
   .moreButton {

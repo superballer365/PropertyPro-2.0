@@ -101,6 +101,7 @@ function ListingSortOptionsDropdown() {
         "Price (high to low)",
         "Beds",
         "Baths",
+        "Size",
       ].map((option) => (
         <Dropdown.Item
           className={styles.dropdownItem}

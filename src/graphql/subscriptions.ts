@@ -28,6 +28,7 @@ export const onUpdateSessionById = /* GraphQL */ `
           lng
         }
         price
+        squareFootage
         numberOfBedrooms
         numberOfBathrooms
         link
@@ -77,6 +78,7 @@ export const onCreateSession = /* GraphQL */ `
           lng
         }
         price
+        squareFootage
         numberOfBedrooms
         numberOfBathrooms
         link
@@ -126,6 +128,7 @@ export const onUpdateSession = /* GraphQL */ `
           lng
         }
         price
+        squareFootage
         numberOfBedrooms
         numberOfBathrooms
         link
@@ -175,6 +178,7 @@ export const onDeleteSession = /* GraphQL */ `
           lng
         }
         price
+        squareFootage
         numberOfBedrooms
         numberOfBathrooms
         link

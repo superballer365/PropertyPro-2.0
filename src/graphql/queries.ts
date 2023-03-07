@@ -44,6 +44,7 @@ export const getSession = /* GraphQL */ `
           lng
         }
         price
+        squareFootage
         numberOfBedrooms
         numberOfBathrooms
         link
@@ -98,6 +99,7 @@ export const listSessions = /* GraphQL */ `
             lng
           }
           price
+          squareFootage
           numberOfBedrooms
           numberOfBathrooms
           link
