@@ -78,7 +78,7 @@ export default function ListingViewer({ listing }: IProps) {
           {listing.link && (
             <a href={listing.link} target="_blank">
               <Button className="mr-2" size="sm" variant="light">
-                <FontAwesomeIcon icon={faExternalLinkAlt} />
+                <FontAwesomeIcon color="blue" icon={faExternalLinkAlt} />
               </Button>
             </a>
           )}
@@ -109,6 +109,10 @@ export default function ListingViewer({ listing }: IProps) {
             <Row>
               <Col className="col-sm-5">Bathrooms:</Col>
               <Col>{listing.numberOfBathrooms}</Col>
+            </Row>
+            <Row>
+              <Col className="col-sm-5">Square Feet:</Col>
+              <Col>{listing.squareFootage}</Col>
             </Row>
             <Row>
               <Col className="col-sm-5">Street:</Col>

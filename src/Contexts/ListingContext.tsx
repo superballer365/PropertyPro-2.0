@@ -25,7 +25,8 @@ export type ListingSortOption =
   | "Price (low to high)"
   | "Price (high to low)"
   | "Beds"
-  | "Baths";
+  | "Baths"
+  | "Size";
 
 interface ListingContextState {
   selectedListing: Listing | undefined;
@@ -119,6 +120,8 @@ export function ListingContextProvider({
           return listingA.price - listingB.price;
         else if (sortOption === "Beds")
           return listingB.numberOfBedrooms - listingA.numberOfBedrooms;
+        else if (sortOption === "Size")
+          return (listingB.squareFootage ?? 0) - (listingA.squareFootage ?? 0);
         else return listingB.numberOfBathrooms - listingA.numberOfBathrooms;
       });
   }, [session, filterSettings, sortOption]);

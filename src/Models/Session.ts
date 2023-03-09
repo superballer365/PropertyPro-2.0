@@ -26,6 +26,7 @@ export interface Listing {
   address: string;
   location: Coordinate;
   price: number;
+  squareFootage?: number | null;
   numberOfBedrooms: number;
   numberOfBathrooms: number;
   link?: string | null;

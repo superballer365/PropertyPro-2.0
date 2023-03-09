@@ -27,6 +27,7 @@ type Listing {
   address: String!
   location: Coordinate!
   price: Float!
+  squareFootage: Float
   numberOfBedrooms: Int!
   numberOfBathrooms: Float!
   link: String

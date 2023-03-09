@@ -45,6 +45,7 @@ export default function EditListingDialog({
       address: formData.address!,
       location: formData.location!,
       price: formData.price!,
+      squareFootage: formData.squareFootage,
       numberOfBedrooms: formData.numberOfBedrooms!,
       numberOfBathrooms: formData.numberOfBathrooms!,
       notes: formData.notes,
@@ -141,23 +142,38 @@ export default function EditListingDialog({
               {formDataErrors.nameError}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group controlId="listingForm.Price">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              type="number"
-              value={formData.price ?? ""}
-              onChange={(event: any) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  price: event.target.value,
-                }))
-              }
-              isInvalid={!!formDataErrors.priceError}
-            />
-            <Form.Control.Feedback type="invalid">
-              {formDataErrors.priceError}
-            </Form.Control.Feedback>
-          </Form.Group>
+          <Form.Row>
+            <Form.Group as={Col} controlId="listingForm.Price">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={formData.price ?? ""}
+                onChange={(event: any) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    price: event.target.value,
+                  }))
+                }
+                isInvalid={!!formDataErrors.priceError}
+              />
+              <Form.Control.Feedback type="invalid">
+                {formDataErrors.priceError}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} controlId="listingForm.squareFootage">
+              <Form.Label>Square Feet</Form.Label>
+              <Form.Control
+                type="number"
+                value={formData.squareFootage ?? ""}
+                onChange={(event: any) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    squareFootage: event.target.value,
+                  }))
+                }
+              />
+            </Form.Group>
+          </Form.Row>
           <Form.Row>
             <Form.Group as={Col} controlId="listingForm.bedrooms">
               <Form.Label>Bedrooms</Form.Label>
@@ -260,6 +276,7 @@ interface EditListingFormData {
   address?: string;
   location?: Coordinate;
   price?: number;
+  squareFootage?: number | null;
   numberOfBedrooms?: number;
   numberOfBathrooms?: number;
   link?: string | null;
