@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/esm/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +8,7 @@ import { useUpdateSession, useOnClickOutside } from "../../../../Utils/Hooks";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { Listing } from "../../../../Models/Session";
 import { ListingContext } from "../../../../Contexts/ListingContext";
+import styles from "./ListingDropdown.module.scss";
 
 export default function ListingDropdown({ listing, open, toggleOpen }: Props) {
   const { session } = React.useContext(SessionContext);
@@ -109,6 +111,7 @@ const CustomToggle = React.forwardRef<
   }
 >(({ children, onClick }, ref) => (
   <div
+    className={classNames("p-1", styles.dropdownToggle)}
     ref={ref}
     onClick={(e) => {
       e.preventDefault();

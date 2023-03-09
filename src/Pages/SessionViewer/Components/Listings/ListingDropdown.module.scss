@@ -1,0 +1,5 @@
+.dropdownToggle {
+  &:hover > svg {
+    -webkit-filter: brightness(60%);
+  }
+}
