@@ -11,6 +11,7 @@ import Map from "./Map";
 import styles from "./SessionViewerDashboard.module.scss";
 import { onUpdateSessionById } from "../../../graphql/subscriptions";
 import { useQueryClient } from "react-query";
+import MapLayerControls from "./MapLayerControls";
 
 interface IProps {
   session: SessionData;
@@ -52,6 +53,7 @@ export default function SessionViewerDashboard({ session }: IProps) {
               <SidePanel />
               <div className={styles.mapContainer}>
                 <Map />
+                <MapLayerControls />
               </div>
             </div>
           </PointOfInterestContextProvider>
