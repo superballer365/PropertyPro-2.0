@@ -15,6 +15,8 @@ import {
   faRoute,
   faUsers,
   faStopwatch,
+  faChevronLeft,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
@@ -23,13 +25,25 @@ import styles from "./SidePanel.module.scss";
 import RoommatesPanel from "./Roommates/RoommatesPanel";
 import { NavItemWithTooltip } from "../../../Components/Tooltip";
 import TravelTimePanel from "./TravelTime/TravelTimePanel";
+import Button from "react-bootstrap/esm/Button";
 
-export default function SidePanel() {
+interface Props {
+  collapsible?: boolean;
+}
+
+export default function SidePanel({ collapsible }: Props) {
+  const [open, setOpen] = React.useState(true);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames(
+        styles.container,
+        !open && collapsible && styles.closed
+      )}
+    >
       <Nav variant="tabs">
         {(
           [
@@ -67,6 +81,15 @@ export default function SidePanel() {
           <Route path="*" element={<Navigate to="Listings" />} />
         </Routes>
       </div>
+      {collapsible && (
+        <Button
+          className={styles.collapseToggle}
+          variant="light"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          <FontAwesomeIcon icon={open ? faChevronLeft : faChevronRight} />
+        </Button>
+      )}
     </div>
   );
 }

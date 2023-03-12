@@ -12,12 +12,14 @@ import styles from "./SessionViewerDashboard.module.scss";
 import { onUpdateSessionById } from "../../../graphql/subscriptions";
 import { useQueryClient } from "react-query";
 import MapLayerControls from "./MapLayerControls";
+import { LayoutContext } from "../../../Contexts/LayoutContext";
 
 interface IProps {
   session: SessionData;
 }
 
 export default function SessionViewerDashboard({ session }: IProps) {
+  const { screenLayout } = React.useContext(LayoutContext);
   const queryClient = useQueryClient();
 
   React.useEffect(() => {
@@ -50,7 +52,7 @@ export default function SessionViewerDashboard({ session }: IProps) {
         <ListingContextProvider>
           <PointOfInterestContextProvider>
             <div className={styles.container}>
-              <SidePanel />
+              <SidePanel collapsible={screenLayout === "tablet"} />
               <div className={styles.mapContainer}>
                 <Map />
                 <MapLayerControls />

@@ -1,8 +1,12 @@
+$K_PANEL_WIDTH: 350px;
+
 .container {
+  position: relative;
   display: grid;
   grid-template-rows: min-content auto;
-  width: 350px;
   height: 100%;
+  width: $K_PANEL_WIDTH;
+  transition: all 0.25s;
 
   .content {
     overflow-y: auto;
@@ -23,6 +27,24 @@
       border-radius: 0 !important;
     }
   }
+
+  .collapseToggle {
+    position: absolute;
+    z-index: 20;
+    top: 50%;
+    right: 0;
+    transform: translate(95%, -50%);
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+
+    svg {
+      width: 0.5rem;
+    }
+  }
+}
+
+.closed {
+  margin-left: -$K_PANEL_WIDTH;
 }
 
 .activeNavLink {

@@ -9,6 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import Initialize from "./Initialize";
 import AuthorizationContextProvider from "./Contexts/AuthorizationContext";
+import LayoutContextProvider from "./Contexts/LayoutContext";
 import "react-toastify/dist/ReactToastify.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
@@ -19,13 +20,15 @@ const queryClient = new QueryClient();
 ReactDOM.render(
   <React.StrictMode>
     <AuthorizationContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <ToastContainer position="top-center" pauseOnFocusLoss={false} />
-        <div className="mainContainer">
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </div>
-      </QueryClientProvider>
+      <LayoutContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <ToastContainer position="top-center" pauseOnFocusLoss={false} />
+          <div className="mainContainer">
+            <App />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </div>
+        </QueryClientProvider>
+      </LayoutContextProvider>
     </AuthorizationContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
