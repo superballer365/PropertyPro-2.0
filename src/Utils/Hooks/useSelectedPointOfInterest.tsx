@@ -2,6 +2,7 @@ import React from "react";
 import { PointOfInterest } from "../../Models/Session";
 import { useMatch, useNavigate } from "react-router-dom";
 import { SessionContext } from "../../Contexts/SessionContext";
+import { useNavigateWithFocus } from "./useLayoutElementFocus";
 
 export default function useSelectedPointOfInterest() {
   const { session } = React.useContext(SessionContext);
@@ -10,7 +11,7 @@ export default function useSelectedPointOfInterest() {
     { sessionId: string; pointOfInterestId: string },
     string
   >("/Session/:sessionId/POI/:pointOfInterestId");
-  const navigate = useNavigate();
+  const navigate = useNavigateWithFocus();
 
   const selectedPointOfInterest = React.useMemo(() => {
     if (!match) return undefined;
@@ -28,7 +29,7 @@ export default function useSelectedPointOfInterest() {
     ) => {
       let url = `/Session/${session.id}/POI`;
       url = pointOfInterest ? url + `/${pointOfInterest?.id}` : url;
-      navigate(url, { state: options });
+      navigate(url, "sidebar", { state: options });
     },
     [session]
   );

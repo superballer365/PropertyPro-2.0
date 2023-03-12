@@ -2,6 +2,7 @@ import React from "react";
 import SessionData, { Listing } from "../../Models/Session";
 import { useMatch, useNavigate } from "react-router-dom";
 import { SessionContext } from "../../Contexts/SessionContext";
+import { useNavigateWithFocus } from "./useLayoutElementFocus";
 
 export default function useSelectedListing() {
   const { session } = React.useContext(SessionContext);
@@ -9,7 +10,7 @@ export default function useSelectedListing() {
   const match = useMatch<{ sessionId: string; listingId: string }, string>(
     "/Session/:sessionId/Listings/:listingId"
   );
-  const navigate = useNavigate();
+  const navigate = useNavigateWithFocus();
 
   const selectedListing = React.useMemo(() => {
     if (!match) return undefined;
@@ -24,7 +25,7 @@ export default function useSelectedListing() {
     (listing: Listing | undefined, options?: { edit?: boolean }) => {
       let url = `/Session/${session.id}/Listings`;
       url = listing ? url + `/${listing?.id}` : url;
-      navigate(url, { state: options });
+      navigate(url, "sidebar", { state: options });
     },
     [session]
   );

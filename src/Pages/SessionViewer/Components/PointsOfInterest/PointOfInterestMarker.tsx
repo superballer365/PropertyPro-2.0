@@ -22,6 +22,7 @@ import {
   ButtonWithTooltip,
   ButtonGroupWithTooltip,
 } from "../../../../Components/Tooltip";
+import { useNavigateWithFocus } from "../../../../Utils/Hooks/useLayoutElementFocus";
 
 export default function PointOfInterestMarker({
   lat,
@@ -80,25 +81,29 @@ function PointOfInterestMarkerContextMenu({
   );
 
   const updateSessionMutation = useUpdateSession();
-  const navigate = useNavigate();
+  const navigate = useNavigateWithFocus();
   const popoverRef = React.useRef(null);
   useOnClickOutside(popoverRef, onClose);
 
   const handleSetDestinationClick = () => {
     onClose();
-    navigate("./Directions", {
+    navigate("./Directions", "sidebar", {
       state: { destination: pointOfInterest.address },
     });
   };
 
   const handleSetOriginClick = () => {
     onClose();
-    navigate("./Directions", { state: { origin: pointOfInterest.address } });
+    navigate("./Directions", "sidebar", {
+      state: { origin: pointOfInterest.address },
+    });
   };
 
   const handleTravelTimeClick = () => {
     onClose();
-    navigate("./TravelTime", { state: { origin: pointOfInterest.address } });
+    navigate("./TravelTime", "sidebar", {
+      state: { origin: pointOfInterest.address },
+    });
   };
 
   const handleEditClick = () => {

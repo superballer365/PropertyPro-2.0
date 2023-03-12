@@ -26,6 +26,7 @@ import RoommatesPanel from "./Roommates/RoommatesPanel";
 import { NavItemWithTooltip } from "../../../Components/Tooltip";
 import TravelTimePanel from "./TravelTime/TravelTimePanel";
 import Button from "react-bootstrap/esm/Button";
+import { useLayoutElementFocus } from "../../../Utils/Hooks/useLayoutElementFocus";
 
 interface Props {
   collapsible?: boolean;
@@ -36,6 +37,10 @@ export default function SidePanel({ collapsible }: Props) {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useLayoutElementFocus((focusElement) => {
+    if (focusElement === "sidebar") setOpen(true);
+  });
 
   return (
     <div

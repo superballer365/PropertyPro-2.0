@@ -22,6 +22,7 @@ import {
   ButtonWithTooltip,
   ButtonGroupWithTooltip,
 } from "../../../../Components/Tooltip";
+import { useNavigateWithFocus } from "../../../../Utils/Hooks/useLayoutElementFocus";
 
 export default function ListingMarker({
   hovered,
@@ -77,23 +78,25 @@ function ListingMarkerContextMenu({
   const { setSelectedListing } = React.useContext(ListingContext);
 
   const updateSessionMutation = useUpdateSession();
-  const navigate = useNavigate();
+  const navigate = useNavigateWithFocus();
   const popoverRef = React.useRef(null);
   useOnClickOutside(popoverRef, onClose);
 
   const handleSetDestinationClick = () => {
     onClose();
-    navigate("./Directions", { state: { destination: listing.address } });
+    navigate("./Directions", "sidebar", {
+      state: { destination: listing.address },
+    });
   };
 
   const handleSetOriginClick = () => {
     onClose();
-    navigate("./Directions", { state: { origin: listing.address } });
+    navigate("./Directions", "sidebar", { state: { origin: listing.address } });
   };
 
   const handleTravelTimeClick = () => {
     onClose();
-    navigate("./TravelTime", { state: { origin: listing.address } });
+    navigate("./TravelTime", "sidebar", { state: { origin: listing.address } });
   };
 
   const handleEditClick = () => {
