@@ -5,7 +5,11 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { PointOfInterest } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import { getAddressComponents } from "../../../../Utils/address";
@@ -13,6 +17,7 @@ import EditPointOfInterestDialog from "./EditPointOfInterestDialog";
 import { PointOfInterestType } from "../../../../API";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
+import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
 
 export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -57,7 +62,7 @@ export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
         />
       )}
       <Card className="h-100">
-        <Card.Header>
+        <Card.Header className="d-flex align-items-center">
           <Button
             className="mr-2"
             size="sm"
@@ -66,7 +71,15 @@ export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
-          <span>{pointOfInterest.name}</span>
+          <span className="flex-grow-1">{pointOfInterest.name}</span>
+          <ButtonGroup>
+            <Button size="sm" onClick={handleEditClick}>
+              <FontAwesomeIcon icon={faEdit} />
+            </Button>
+            <Button size="sm" variant="danger" onClick={handleDeleteClick}>
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+          </ButtonGroup>
         </Card.Header>
         <Card.Body className="overflow-auto">
           <Row>
@@ -86,14 +99,6 @@ export default function PointOfInterestViewer({ pointOfInterest }: IProps) {
             <Col>{getAddressComponents(pointOfInterest.address).state}</Col>
           </Row>
         </Card.Body>
-        <Card.Footer className="d-flex justify-content-end">
-          <Button className="mr-1" variant="primary" onClick={handleEditClick}>
-            Edit
-          </Button>
-          <Button variant="danger" onClick={handleDeleteClick}>
-            Delete
-          </Button>
-        </Card.Footer>
       </Card>
     </>
   );
