@@ -1,12 +1,11 @@
-$K_PANEL_WIDTH: 350px;
+$K_PANEL_Z_INDEX: 20;
 
 .container {
   position: relative;
   display: grid;
   grid-template-rows: min-content auto;
   height: 100%;
-  width: $K_PANEL_WIDTH;
-  transition: all 0.25s;
+  z-index: $K_PANEL_Z_INDEX;
 
   .content {
     overflow-y: auto;
@@ -25,15 +24,17 @@ $K_PANEL_WIDTH: 350px;
 
     :global(.list-group-item) {
       border-radius: 0 !important;
+      border-right: none;
+      border-left: none;
     }
   }
 
   .collapseToggle {
     position: absolute;
-    z-index: 20;
+    z-index: $K_PANEL_Z_INDEX + 1;
     top: 50%;
     right: 0;
-    transform: translate(95%, -50%);
+    transform: translate(100%, -50%);
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-left: none;
     border-top-left-radius: 0 !important;
@@ -43,10 +44,13 @@ $K_PANEL_WIDTH: 350px;
       width: 0.5rem;
     }
   }
-}
 
-.closed {
-  margin-left: -$K_PANEL_WIDTH;
+  .viewMapButton {
+    position: absolute;
+    bottom: 10px;
+    right: 50%;
+    transform: translateX(50%);
+  }
 }
 
 .activeNavLink {

@@ -26,29 +26,23 @@ import RoommatesPanel from "./Roommates/RoommatesPanel";
 import { NavItemWithTooltip } from "../../../Components/Tooltip";
 import TravelTimePanel from "./TravelTime/TravelTimePanel";
 import Button from "react-bootstrap/esm/Button";
-import { useLayoutElementFocus } from "../../../Utils/Hooks/useLayoutElementFocus";
+import { LayoutContext } from "../../../Contexts/LayoutContext";
+import { SessionViewerLayoutContext } from "./SessionViewerDashboard";
 
 interface Props {
-  collapsible?: boolean;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function SidePanel({ collapsible }: Props) {
-  const [open, setOpen] = React.useState(true);
+export default function SidePanel({ open, setOpen }: Props) {
+  const { screenLayout } = React.useContext(LayoutContext);
+  const { setFocusedElement } = React.useContext(SessionViewerLayoutContext);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  useLayoutElementFocus((focusElement) => {
-    if (focusElement === "sidebar") setOpen(true);
-  });
-
   return (
-    <div
-      className={classNames(
-        styles.container,
-        !open && collapsible && styles.closed
-      )}
-    >
+    <div className={styles.container}>
       <Nav variant="tabs">
         {(
           [
@@ -86,11 +80,26 @@ export default function SidePanel({ collapsible }: Props) {
           <Route path="*" element={<Navigate to="Listings" />} />
         </Routes>
       </div>
-      {collapsible && (
+      {screenLayout === "mobile" && (
+        <Button
+          className={classNames(styles.viewMapButton, "shadow")}
+          onClick={() => {
+            setFocusedElement("map");
+            setOpen(false);
+          }}
+        >
+          Map
+        </Button>
+      )}
+      {true && (
         <Button
           className={styles.collapseToggle}
           variant="light"
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={() => {
+            const newState = !open;
+            setOpen(newState);
+            setFocusedElement(newState === true ? "sidebar" : "map");
+          }}
         >
           <FontAwesomeIcon icon={open ? faChevronLeft : faChevronRight} />
         </Button>
