@@ -35,6 +35,8 @@ $K_PANEL_Z_INDEX: 20;
     top: 50%;
     right: 0;
     transform: translate(100%, -50%);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-left: none;
     border-top-left-radius: 0 !important;
@@ -50,6 +52,22 @@ $K_PANEL_Z_INDEX: 20;
     bottom: 10px;
     right: 50%;
     transform: translateX(50%);
+    outline: none !important;
+
+    :global(.active) {
+      color: black;
+    }
+
+    :focus,
+    :active:focus,
+    active:focus {
+      outline: none !important;
+      outline-style: none;
+    }
+    :focus {
+      box-shadow: none !important;
+      outline: none !important;
+    }
   }
 }
 

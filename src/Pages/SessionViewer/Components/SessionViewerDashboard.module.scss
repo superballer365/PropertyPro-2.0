@@ -3,6 +3,8 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  overflow-x: hidden;
+
   .mapContainer {
     position: relative;
     flex-grow: 1;
@@ -26,6 +28,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  overflow-x: hidden;
 
   .mapContainer {
     height: 100%;

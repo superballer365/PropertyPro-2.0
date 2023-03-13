@@ -17,6 +17,7 @@ import {
   faStopwatch,
   faChevronLeft,
   faChevronRight,
+  faMapMarkedAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
@@ -82,12 +83,13 @@ export default function SidePanel({ open, setOpen }: Props) {
       </div>
       {screenLayout === "mobile" && (
         <Button
-          className={classNames(styles.viewMapButton, "shadow")}
+          className={classNames(styles.viewMapButton, "shadow-lg")}
           onClick={() => {
             setFocusedElement("map");
             setOpen(false);
           }}
         >
+          <FontAwesomeIcon className="pr-2" icon={faMapMarkedAlt} />
           Map
         </Button>
       )}
