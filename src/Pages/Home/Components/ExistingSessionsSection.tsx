@@ -17,6 +17,8 @@ import {
 import { ButtonWithTooltip } from "../../../Components/Tooltip";
 import styles from "./ExistingSessionSection.module.scss";
 import classNames from "classnames";
+import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
+import Button from "react-bootstrap/esm/Button";
 
 export default function ExistingSessionsSection() {
   const {
@@ -34,11 +36,16 @@ export default function ExistingSessionsSection() {
   }
 
   function getContent() {
-    if (loadingSessions) return <LoadingSpinner text="Loading sessions..." />;
+    if (loadingSessions)
+      return (
+        <Card.Body>
+          <LoadingSpinner text="Loading sessions..." />
+        </Card.Body>
+      );
 
     if (existingSessions && existingSessions.length > 0)
       return (
-        <div>
+        <div className={styles.sessionListContainer}>
           {existingSessions?.map((session) => (
             <SessionEntry
               key={session.id}
@@ -49,7 +56,7 @@ export default function ExistingSessionsSection() {
         </div>
       );
 
-    return <div>No existing sessions</div>;
+    return <Card.Body>No existing sessions</Card.Body>;
   }
 
   return (
@@ -62,7 +69,7 @@ export default function ExistingSessionsSection() {
       )}
       <Card>
         <Card.Header>My Sessions</Card.Header>
-        <Card.Body>{getContent()}</Card.Body>
+        {getContent()}
       </Card>
     </>
   );
@@ -116,7 +123,7 @@ function SessionEntry({ sessionData, onEditClick }: ISessionEntryProps) {
       onClick={handleOpenClick}
     >
       <div>{sessionData.name}</div>
-      <div>
+      <ButtonGroup>
         <ButtonWithTooltip
           tooltipText="View Map"
           elementId="viewMap"
@@ -124,7 +131,7 @@ function SessionEntry({ sessionData, onEditClick }: ISessionEntryProps) {
           onClick={handleOpenClick}
         >
           <FontAwesomeIcon icon={faMapMarkedAlt} />
-        </ButtonWithTooltip>{" "}
+        </ButtonWithTooltip>
         <ButtonWithTooltip
           tooltipText="Edit Session"
           elementId="editSession"
@@ -132,20 +139,15 @@ function SessionEntry({ sessionData, onEditClick }: ISessionEntryProps) {
           onClick={handleEditClick}
         >
           <FontAwesomeIcon icon={faEdit} />
-        </ButtonWithTooltip>{" "}
-        <ButtonWithTooltip
-          tooltipText="Delete Session"
-          elementId="deleteSession"
-          variant="danger"
-          onClick={handleDeleteClick}
-        >
+        </ButtonWithTooltip>
+        <Button variant="danger" onClick={handleDeleteClick}>
           {deletingSession ? (
             <Spinner animation="border" variant="primary" size="sm" />
           ) : (
             <FontAwesomeIcon icon={faTrash} />
           )}
-        </ButtonWithTooltip>
-      </div>
+        </Button>
+      </ButtonGroup>
     </ListGroupItem>
   );
 }
