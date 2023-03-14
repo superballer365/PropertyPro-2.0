@@ -91,6 +91,7 @@ function ListingSortOptionsDropdown() {
     <DropdownButton
       title={<FontAwesomeIcon icon={faSortAmountDown} />}
       as={ButtonGroupWithTooltip}
+      size="sm"
       elementId="sortListings"
       tooltipText="Sort listings"
       menuAlign="right"

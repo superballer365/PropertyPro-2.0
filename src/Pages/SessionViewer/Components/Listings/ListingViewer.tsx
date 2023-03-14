@@ -77,7 +77,6 @@ export default function ListingViewer({ listing }: IProps) {
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
-
           <span className="flex-grow-1">{listing.name}</span>
           <ButtonGroup>
             {listing.link && (
