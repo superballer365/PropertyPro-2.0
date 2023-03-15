@@ -81,19 +81,7 @@ export default function SidePanel({ open, setOpen }: Props) {
           <Route path="*" element={<Navigate to="Listings" />} />
         </Routes>
       </div>
-      {screenLayout === "mobile" && (
-        <Button
-          className={classNames(styles.viewMapButton, "shadow-lg")}
-          onClick={() => {
-            setFocusedElement("map");
-            setOpen(false);
-          }}
-        >
-          <FontAwesomeIcon className="pr-2" icon={faMapMarkedAlt} />
-          Map
-        </Button>
-      )}
-      {true && (
+      {screenLayout !== "mobile" && (
         <Button
           className={styles.collapseToggle}
           variant="light"

@@ -15,6 +15,9 @@ import MapLayerControls from "./MapLayerControls";
 import { useLocation } from "react-router-dom";
 import { LayoutContext } from "../../../Contexts/LayoutContext";
 import classNames from "classnames";
+import Button from "react-bootstrap/esm/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkedAlt, faColumns } from "@fortawesome/free-solid-svg-icons";
 
 interface IProps {
   session: SessionData;
@@ -53,7 +56,10 @@ export default function SessionViewerDashboard({ session }: IProps) {
 
   React.useEffect(() => {
     if (focusedElement === "sidebar") setSidebarOpen(true);
-  }, [focusedElement]);
+
+    if (screenLayout === "mobile" && focusedElement === "map")
+      setSidebarOpen(false);
+  }, [focusedElement, screenLayout]);
 
   const queryClient = useQueryClient();
 
@@ -103,10 +109,40 @@ export default function SessionViewerDashboard({ session }: IProps) {
                   )}
                 >
                   <SidePanel open={sidebarOpen} setOpen={setSidebarOpen} />
+                  {screenLayout === "mobile" && (
+                    <Button
+                      className={classNames(
+                        styles.toggleViewButton,
+                        "shadow-lg"
+                      )}
+                      onClick={() => {
+                        setFocusedElement("map");
+                        setSidebarOpen(false);
+                      }}
+                    >
+                      <FontAwesomeIcon className="pr-2" icon={faMapMarkedAlt} />
+                      Map
+                    </Button>
+                  )}
                 </div>
                 <div className={styles.mapContainer}>
                   <Map />
                   <MapLayerControls />
+                  {screenLayout === "mobile" && (
+                    <Button
+                      className={classNames(
+                        styles.toggleViewButton,
+                        "shadow-lg"
+                      )}
+                      onClick={() => {
+                        setFocusedElement("sidebar");
+                        setSidebarOpen(false);
+                      }}
+                    >
+                      <FontAwesomeIcon className="pr-2" icon={faColumns} />
+                      Panel
+                    </Button>
+                  )}
                 </div>
               </div>
             </PointOfInterestContextProvider>
