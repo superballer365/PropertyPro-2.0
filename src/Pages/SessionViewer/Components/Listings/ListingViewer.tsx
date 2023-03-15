@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faExternalLinkAlt,
+  faEdit,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
@@ -21,6 +23,7 @@ import FittedImage from "../../../../Components/FittedImage";
 import ListingPicturesDialog from "./ListingPicturesDialog";
 import styles from "./ListingViewer.module.scss";
 import ListingStatusBadge from "./ListingStatusBadge";
+import ButtonGroup from "react-bootstrap/esm/ButtonGroup";
 
 export default function ListingViewer({ listing }: IProps) {
   const { session } = React.useContext(SessionContext);
@@ -75,13 +78,19 @@ export default function ListingViewer({ listing }: IProps) {
             <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
           <span className="flex-grow-1">{listing.name}</span>
-          {listing.link && (
-            <a href={listing.link} target="_blank">
-              <Button className="mr-2" size="sm" variant="light">
-                <FontAwesomeIcon color="blue" icon={faExternalLinkAlt} />
+          <ButtonGroup>
+            {listing.link && (
+              <Button size="sm" href={listing.link} target="_blank">
+                <FontAwesomeIcon icon={faExternalLinkAlt} />
               </Button>
-            </a>
-          )}
+            )}
+            <Button size="sm" onClick={handleEditClick}>
+              <FontAwesomeIcon icon={faEdit} />
+            </Button>
+            <Button size="sm" variant="danger" onClick={handleDeleteClick}>
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+          </ButtonGroup>
         </Card.Header>
         <Card.Body className="overflow-auto">
           {listing.pictures && listing.pictures.length > 0 && (
@@ -145,14 +154,6 @@ export default function ListingViewer({ listing }: IProps) {
             )}
           </div>
         </Card.Body>
-        <Card.Footer className="d-flex justify-content-end">
-          <Button className="mr-1" variant="primary" onClick={handleEditClick}>
-            Edit
-          </Button>
-          <Button variant="danger" onClick={handleDeleteClick}>
-            Delete
-          </Button>
-        </Card.Footer>
       </Card>
     </>
   );

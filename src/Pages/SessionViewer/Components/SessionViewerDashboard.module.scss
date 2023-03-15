@@ -1,18 +1,97 @@
-.container {
+.desktopContainer {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
+  overflow-x: hidden;
+
+  .mapContainer {
+    position: relative;
+    flex-grow: 1;
+    height: 100%;
+  }
+
+  .sidebarContainer {
+    position: relative;
+    background-color: white;
+    width: 350px;
+    transition: all 0.25s;
+  }
+
+  .closed {
+    margin-left: -350px;
+  }
 }
 
-.listingsPanel {
-  width: 300px;
-  height: 100%;
-  border: 1px solid red;
-}
-
-.mapContainer {
+.mobileContainer {
   position: relative;
-  flex-grow: 1;
   height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+
+  .mapContainer {
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .sidebarContainer {
+    position: relative;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 15;
+    transition: all 0.25s;
+  }
+
+  .closed {
+    margin-left: -100%;
+  }
+}
+
+.toggleViewButton {
+  position: absolute;
+  bottom: 10px;
+  right: 50%;
+  transform: translateX(50%);
+  outline: none !important;
+  z-index: 20;
+
+  :global(.active) {
+    color: black;
+  }
+
+  :focus,
+  :active:focus,
+  active:focus {
+    outline: none !important;
+    outline-style: none;
+  }
+  :focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.collapseToggle {
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  right: 0;
+  transform: translate(100%, -50%);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-left: none;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+
+  svg {
+    width: 0.5rem;
+  }
 }

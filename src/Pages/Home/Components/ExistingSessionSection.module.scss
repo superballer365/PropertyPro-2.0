@@ -4,3 +4,24 @@
     cursor: pointer;
   }
 }
+
+.sessionListContainer {
+  :first-child {
+    border-top: none;
+  }
+
+  :last-child {
+    border-bottom: none;
+  }
+
+  :global(.card) {
+    border-top-color: rgb(247, 247, 247);
+    border-radius: 0px;
+  }
+
+  :global(.list-group-item) {
+    border-radius: 0 !important;
+    border-right: none;
+    border-left: none;
+  }
+}

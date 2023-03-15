@@ -7,6 +7,7 @@ import { useUpdateSession, useOnClickOutside } from "../../../../Utils/Hooks";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { PointOfInterest } from "../../../../Models/Session";
 import { PointOfInterestContext } from "../../../../Contexts/PointOfInterestContext";
+import { useNavigateWithFocus } from "../../../../Utils/Hooks/useLayoutElementFocus";
 
 export default function PointOfInterestDropdown({ pointOfInterest }: Props) {
   const { session } = React.useContext(SessionContext);
@@ -19,7 +20,7 @@ export default function PointOfInterestDropdown({ pointOfInterest }: Props) {
   const [open, setOpen] = React.useState(false);
 
   const updateSessionMutation = useUpdateSession();
-  const navigate = useNavigate();
+  const navigate = useNavigateWithFocus();
   useOnClickOutside(dropdownRef, () => setOpen(false));
 
   const handleToggleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -49,7 +50,7 @@ export default function PointOfInterestDropdown({ pointOfInterest }: Props) {
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     handleItemClick(e);
-    navigate("./../Directions", {
+    navigate("./../Directions", "sidebar", {
       state: { destination: pointOfInterest.address },
     });
   };
@@ -58,14 +59,18 @@ export default function PointOfInterestDropdown({ pointOfInterest }: Props) {
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     handleItemClick(e);
-    navigate("./../Directions", { state: { origin: pointOfInterest.address } });
+    navigate("./../Directions", "sidebar", {
+      state: { origin: pointOfInterest.address },
+    });
   };
 
   const handleSetTravelTimeOriginClick = (
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     handleItemClick(e);
-    navigate("./../TravelTime", { state: { origin: pointOfInterest.address } });
+    navigate("./../TravelTime", "sidebar", {
+      state: { origin: pointOfInterest.address },
+    });
   };
 
   const handleItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
