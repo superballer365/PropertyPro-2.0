@@ -30,17 +30,6 @@ interface IProps {
 
 type FocusableElement = "sidebar" | "map";
 
-interface SessionViewerLayoutContextState {
-  focusedElement: FocusableElement;
-  setFocusedElement: (element: FocusableElement) => void;
-}
-
-export const SessionViewerLayoutContext =
-  React.createContext<SessionViewerLayoutContextState>({
-    focusedElement: "sidebar",
-    setFocusedElement: () => {},
-  });
-
 export default function SessionViewerDashboard({ session }: IProps) {
   const { screenLayout } = React.useContext(LayoutContext);
   // We have a focused element (sidebar or map) which is related to, but not necessarily
@@ -110,47 +99,43 @@ export default function SessionViewerDashboard({ session }: IProps) {
 
   return (
     <SessionContextProvider session={session}>
-      <SessionViewerLayoutContext.Provider
-        value={{ focusedElement, setFocusedElement }}
-      >
-        <MapContextProvider>
-          <ListingContextProvider>
-            <PointOfInterestContextProvider>
+      <MapContextProvider>
+        <ListingContextProvider>
+          <PointOfInterestContextProvider>
+            <div
+              className={
+                screenLayout === "mobile"
+                  ? styles.mobileContainer
+                  : styles.desktopContainer
+              }
+            >
               <div
-                className={
-                  screenLayout === "mobile"
-                    ? styles.mobileContainer
-                    : styles.desktopContainer
-                }
+                className={classNames(
+                  styles.sidebarContainer,
+                  !sidebarOpen && styles.closed
+                )}
               >
-                <div
-                  className={classNames(
-                    styles.sidebarContainer,
-                    !sidebarOpen && styles.closed
-                  )}
-                >
-                  <SidePanel />
-                  {screenLayout === "mobile" ? (
-                    <OpenMapButton onClick={() => setSidebarOpen(false)} />
-                  ) : (
-                    <ToggleSidebarButton
-                      sidebarOpen={sidebarOpen}
-                      onClick={() => setSidebarOpen((prev) => !prev)}
-                    />
-                  )}
-                </div>
-                <div className={styles.mapContainer}>
-                  <Map />
-                  <MapLayerControls />
-                  {screenLayout === "mobile" && (
-                    <OpenSidebarButton onClick={() => setSidebarOpen(true)} />
-                  )}
-                </div>
+                <SidePanel />
+                {screenLayout === "mobile" ? (
+                  <OpenMapButton onClick={() => setSidebarOpen(false)} />
+                ) : (
+                  <ToggleSidebarButton
+                    sidebarOpen={sidebarOpen}
+                    onClick={() => setSidebarOpen((prev) => !prev)}
+                  />
+                )}
               </div>
-            </PointOfInterestContextProvider>
-          </ListingContextProvider>
-        </MapContextProvider>
-      </SessionViewerLayoutContext.Provider>
+              <div className={styles.mapContainer}>
+                <Map />
+                <MapLayerControls />
+                {screenLayout === "mobile" && (
+                  <OpenSidebarButton onClick={() => setSidebarOpen(true)} />
+                )}
+              </div>
+            </div>
+          </PointOfInterestContextProvider>
+        </ListingContextProvider>
+      </MapContextProvider>
     </SessionContextProvider>
   );
 }
