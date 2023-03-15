@@ -28,16 +28,14 @@ import { NavItemWithTooltip } from "../../../Components/Tooltip";
 import TravelTimePanel from "./TravelTime/TravelTimePanel";
 import Button from "react-bootstrap/esm/Button";
 import { LayoutContext } from "../../../Contexts/LayoutContext";
-import { SessionViewerLayoutContext } from "./SessionViewerDashboard";
 
 interface Props {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onCollapseToggleClick: () => void;
 }
 
-export default function SidePanel({ open, setOpen }: Props) {
+export default function SidePanel({ open, onCollapseToggleClick }: Props) {
   const { screenLayout } = React.useContext(LayoutContext);
-  const { setFocusedElement } = React.useContext(SessionViewerLayoutContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -85,11 +83,7 @@ export default function SidePanel({ open, setOpen }: Props) {
         <Button
           className={styles.collapseToggle}
           variant="light"
-          onClick={() => {
-            const newState = !open;
-            setOpen(newState);
-            setFocusedElement(newState === true ? "sidebar" : "map");
-          }}
+          onClick={onCollapseToggleClick}
         >
           <FontAwesomeIcon icon={open ? faChevronLeft : faChevronRight} />
         </Button>
