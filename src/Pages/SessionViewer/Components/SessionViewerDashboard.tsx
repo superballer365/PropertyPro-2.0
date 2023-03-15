@@ -17,7 +17,12 @@ import { LayoutContext } from "../../../Contexts/LayoutContext";
 import classNames from "classnames";
 import Button from "react-bootstrap/esm/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkedAlt, faColumns } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMapMarkedAlt,
+  faColumns,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface IProps {
   session: SessionData;
@@ -115,7 +120,7 @@ export default function SessionViewerDashboard({ session }: IProps) {
                 className={
                   screenLayout === "mobile"
                     ? styles.mobileContainer
-                    : styles.container
+                    : styles.desktopContainer
                 }
               >
                 <div
@@ -124,14 +129,14 @@ export default function SessionViewerDashboard({ session }: IProps) {
                     !sidebarOpen && styles.closed
                   )}
                 >
-                  <SidePanel
-                    open={sidebarOpen}
-                    onCollapseToggleClick={() =>
-                      setSidebarOpen((prev) => !prev)
-                    }
-                  />
-                  {screenLayout === "mobile" && (
+                  <SidePanel />
+                  {screenLayout === "mobile" ? (
                     <OpenMapButton onClick={() => setSidebarOpen(false)} />
+                  ) : (
+                    <ToggleSidebarButton
+                      sidebarOpen={sidebarOpen}
+                      onClick={() => setSidebarOpen((prev) => !prev)}
+                    />
                   )}
                 </div>
                 <div className={styles.mapContainer}>
@@ -170,6 +175,20 @@ function OpenMapButton({ onClick }: { onClick: () => void }) {
     >
       <FontAwesomeIcon className="pr-2" icon={faMapMarkedAlt} />
       Map
+    </Button>
+  );
+}
+
+function ToggleSidebarButton({
+  sidebarOpen,
+  onClick,
+}: {
+  sidebarOpen: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Button className={styles.collapseToggle} variant="light" onClick={onClick}>
+      <FontAwesomeIcon icon={sidebarOpen ? faChevronLeft : faChevronRight} />
     </Button>
   );
 }

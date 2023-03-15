@@ -15,9 +15,6 @@ import {
   faRoute,
   faUsers,
   faStopwatch,
-  faChevronLeft,
-  faChevronRight,
-  faMapMarkedAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import ListingsPanel from "./Listings/ListingsPanel";
 import PointsOfInterestPanel from "./PointsOfInterest/PointsOfInterestPanel";
@@ -26,17 +23,8 @@ import styles from "./SidePanel.module.scss";
 import RoommatesPanel from "./Roommates/RoommatesPanel";
 import { NavItemWithTooltip } from "../../../Components/Tooltip";
 import TravelTimePanel from "./TravelTime/TravelTimePanel";
-import Button from "react-bootstrap/esm/Button";
-import { LayoutContext } from "../../../Contexts/LayoutContext";
 
-interface Props {
-  open: boolean;
-  onCollapseToggleClick: () => void;
-}
-
-export default function SidePanel({ open, onCollapseToggleClick }: Props) {
-  const { screenLayout } = React.useContext(LayoutContext);
-
+export default function SidePanel() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -79,15 +67,6 @@ export default function SidePanel({ open, onCollapseToggleClick }: Props) {
           <Route path="*" element={<Navigate to="Listings" />} />
         </Routes>
       </div>
-      {screenLayout !== "mobile" && (
-        <Button
-          className={styles.collapseToggle}
-          variant="light"
-          onClick={onCollapseToggleClick}
-        >
-          <FontAwesomeIcon icon={open ? faChevronLeft : faChevronRight} />
-        </Button>
-      )}
     </div>
   );
 }
