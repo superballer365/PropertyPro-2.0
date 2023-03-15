@@ -13,5 +13,6 @@ code {
 }
 
 .mainContainer {
-  height: 100vh;
+  height: 100dvh;
+  max-height: -webkit-fill-available;
 }
