@@ -51,6 +51,7 @@ export default function NewListingDialog({ onClose }: IProps) {
       price: formData.price!,
       numberOfBedrooms: formData.numberOfBedrooms!,
       numberOfBathrooms: formData.numberOfBathrooms!,
+      squareFootage: formData.squareFootage!,
       link: formData.link,
       notes: formData.notes,
       pictures: formData.pictures,
