@@ -15,7 +15,10 @@ import {
 import { Listing } from "../../../../Models/Session";
 import { useUpdateSession } from "../../../../Utils/Hooks";
 import EditListingDialog from "../Listings/EditListingDialog";
-import { getAddressComponents } from "../../../../Utils/address";
+import {
+  getAddressComponents,
+  getStreetViewUrlFromAddress,
+} from "../../../../Utils/address";
 import { useLocation } from "react-router-dom";
 import { SessionContext } from "../../../../Contexts/SessionContext";
 import { ListingContext } from "../../../../Contexts/ListingContext";
@@ -93,19 +96,28 @@ export default function ListingViewer({ listing }: IProps) {
           </ButtonGroup>
         </Card.Header>
         <Card.Body className="overflow-auto">
-          {listing.pictures && listing.pictures.length > 0 && (
-            <Carousel className={styles.carousel}>
-              {listing.pictures?.map((picture) => (
-                <Carousel.Item key={picture} style={{ height: 300 }}>
-                  <FittedImage
-                    className={styles.image}
-                    src={picture}
-                    onClick={() => setModalState("Picutres")}
-                  />
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          )}
+          <Carousel
+            className={styles.carousel}
+            key={listing.id}
+            indicators={(listing.pictures?.length ?? 0) > 0}
+            controls={(listing.pictures?.length ?? 0) > 0}
+          >
+            <Carousel.Item key="streetView" style={{ height: 300 }}>
+              <FittedImage
+                className={styles.image}
+                src={getStreetViewUrlFromAddress(listing.address)}
+              />
+            </Carousel.Item>
+            {listing.pictures?.map((picture) => (
+              <Carousel.Item key={picture} style={{ height: 300 }}>
+                <FittedImage
+                  className={styles.image}
+                  src={picture}
+                  onClick={() => setModalState("Picutres")}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
           <div className="mt-3">
             <Row>
               <Col className="col-sm-5">Price:</Col>
